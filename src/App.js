@@ -13,10 +13,13 @@ const App = () => {
 export default App */
 
 import './index.css'
+import "../node_modules/bulma/css/bulma.css"
 import { useState, useEffect } from 'react'
 import { supabase } from './components/supabaseClient'
 import Auth from './components/Auth'
 import Account from './components/Account'
+import Header from './components/Header'
+import Footer from './components/Footer'
 
 export default () => {
   const [session, setSession] = useState(null)
@@ -30,8 +33,10 @@ export default () => {
   }, [])
 
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
+    <div/*  className="container" style={{ padding: '50px 0 100px 0' }} */>
+      <Header />
       {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+      <Footer />
     </div>
   )
 }
