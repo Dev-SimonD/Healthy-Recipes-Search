@@ -10,4 +10,20 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.signupFormCentered{
+  width: auto;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.signupBtn{
+  width: 100%;
+}
+.underlineBtn{
+  border: none !important;
+  text-decoration: underline;
+  font-size: 0.8rem !important;
+}
 

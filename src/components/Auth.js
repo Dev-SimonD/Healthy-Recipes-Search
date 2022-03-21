@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from './supabaseClient'
-import Swal from 'sweetalert2/dist/sweetalert2.js'
+import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 
 
 
@@ -9,8 +9,11 @@ export default function Auth() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [style, setStyle] = useState(false)
 
-  const handleLogin = async (e) => {
+ 
+
+  const handleSignup = async (e) => {
     e.preventDefault()
     if(password!==passwordConfirm){
         
@@ -38,14 +41,33 @@ export default function Auth() {
     }
   }}
 
-  return (
+  const handleLogin = async (e) => {
+    e.preventDefault()
+   
+    
+    try {
+      setLoading(true)
+      
+        const { error } = await supabase.auth.signIn({ email, password })
+    
+      if (error) throw error
+      //alert('Login in...')
+    } catch (error) {
+      alert(error.error_description || error.message)
+    } finally {
+      setLoading(false)
+    }
+  }
+  console.log(style)
 
+  return (
+<div>
     <section className="section container">
          {loading ? (
-          'Sending magic link...'
+          ''
         ) : (
-     <form onSubmit={handleLogin}>
-         {/*  <h1 className="title" id="contact">Sign Up</h1> */}
+                <div className="signupFormCentered">
+                <form onSubmit={handleSignup}  style={ style ? { display:''} : {display : 'none'} }>
                   <div className="field">
                    <label className="label" htmlFor="email">email</label>
                       <div className="control has-icons-left">
@@ -99,49 +121,70 @@ export default function Auth() {
                                     </span>
                                 </div>
                                 </div>
-                                    <button className="button mt-3 is-primary" aria-live="polite">
+                                    <button className="button mt-3 is-primary signupBtn" aria-live="polite">
                                         Sign Up
                                         </button>
                                  </form>
-           )}
-       
-         </section>
-          )
-        }
+                                 </div>
+                             )}
+                <div className='signupFormCentered'>
+                <form onSubmit={handleLogin} style={ !style ? { display:''} : {display : 'none'} }>
+                  <div className="field">
+                   <label className="label" htmlFor="email">email</label>
+                      <div className="control has-icons-left">
+                                    <input
+                                    id='email'
+                                    className="input"
+                                    type="email"
+                                    required
+                                    placeholder="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    />
+                                    <span className="icon is-small is-left">
+                                    <i className="fas fa-envelope"></i>
+                                    </span>
+                                </div>
+                                </div>
 
-    {/* <section className="section container">
-    <div className="row flex flex-center">
-      <div className="col-6 form-widget" aria-live="polite">
-        <h1 className="title">Healthy Recipes</h1>
-        <h3 className="title">Sign Up</h3> */}
-       {/*  {loading ? (
-          'Sending magic link...'
-        ) : ( */}
-         /*  <form onSubmit={handleLogin}>
-            <label className="label" htmlFor="email">email</label>
-            <input
-              id="email"
-              className="input"
-              type="email"
-              placeholder="Your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label className='label' htmlFor="password">password</label>
-            <input
-              id="password"
-              className="input"
-              type="password"
-              placeholder="Your email"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <button className="button mt-3 is-primary" aria-live="polite">
-              Sign Up
-            </button>
-          </form>
-        )}
-      </div>
-    </div>
-    </section> */
+                                <div className="field">
+                                <label className="label" htmlFor="password">password</label>
+                                <div className="control has-icons-left">
+                                    <input
+                                    id='password'
+                                    className="input"
+                                    type="password"
+                                    required
+                                    placeholder="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    />
+                                    <span className="icon is-small is-left">
+                                    <i className="fas fa-key"></i>
+                                    </span>
+                                </div>
+                                </div>
+                                 <button className="button mt-3 is-primary signupBtn" aria-live="polite">
+                                        Sign In
+                                        </button>
+                                       
+                                 </form>
+                                 <button onClick={() => {
+                            setStyle(!style)}} 
+                             className="button mt-3 underlineBtn"
+                             aria-live='polite'>
+                             {!style ? "Don't have an Account? Sign up Here" : "Already have an Account? Sign In here"}
+                        </button>
+                                 </div>
+                                {/*  <button onClick={() => {
+                            setStyle(!style)}} 
+                             className="button mt-3 signupFormCentered"
+                             aria-live='polite'>
+                             {!style ? "Don't have an Account? Sign up Here" : "Already have an Account? Sign In here"}
+                        </button>  */}
+                        </section>
+                        
+                        </div>
+          )}
+
  
