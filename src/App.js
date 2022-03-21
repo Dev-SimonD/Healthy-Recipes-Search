@@ -35,7 +35,8 @@ export default () => {
   return (
     <div/*  className="container" style={{ padding: '50px 0 100px 0' }} */>
       <Header />
-      {!session ? <Auth /> : <Account key={session.user.id} session={session} />}
+      {!session ? <Auth /> :
+       <Account key={session.user.id} session={session} />}
       <Footer />
     </div>
   )
