@@ -20,6 +20,7 @@ import Auth from './components/Auth'
 import Account from './components/Account'
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Home from './components/Home'
 
 export default () => {
   const [session, setSession] = useState(null)
@@ -33,10 +34,10 @@ export default () => {
   }, [])
 
   return (
-    <div/*  className="container" style={{ padding: '50px 0 100px 0' }} */>
+    <div>
       <Header />
       {!session ? <Auth /> :
-       <Account key={session.user.id} session={session} />}
+       <Home key={session.user.id} session={session} />}
       <Footer />
     </div>
   )

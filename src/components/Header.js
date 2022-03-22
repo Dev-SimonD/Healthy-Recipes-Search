@@ -26,8 +26,8 @@ const Header = () => {
                   <span className="icon">
                     <i className="fas fa-envelope"></i>
                   </span>
-                  <span>Sign Up</span>
-                </a>
+{/*                   <span>Sign Up</span>
+ */}                </a>
               </span>
             </div>
           </div>
@@ -36,7 +36,7 @@ const Header = () => {
     </div>
     <div className="hero-body">
       <div className="container has-text-centered">
-        <p className="title">Sign Up</p>
+       {/*  <p className="title">Sign Up</p> */}
         <p className="subtitle"></p>
       </div>
     </div>

@@ -26,4 +26,6 @@ code {
   text-decoration: underline;
   font-size: 0.8rem !important;
 }
-
+.hero.is-medium .hero-body {
+  padding: 3rem 4.5rem !important;
+}

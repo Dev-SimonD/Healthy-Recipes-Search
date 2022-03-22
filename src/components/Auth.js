@@ -35,7 +35,13 @@ export default function Auth() {
       if (error) throw error
       alert('Check your email for the login link!')
     } catch (error) {
-      alert(error.error_description || error.message)
+     /*  alert(error.error_description || error.message) */
+     Swal.fire({
+        title: 'Error!',
+        text:  error.message,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
     } finally {
       setLoading(false)
     }
@@ -53,7 +59,13 @@ export default function Auth() {
       if (error) throw error
       //alert('Login in...')
     } catch (error) {
-      alert(error.error_description || error.message)
+     /*  alert(error.error_description || error.message) */
+     Swal.fire({
+        title: 'Error!',
+        text:  error.message,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
     } finally {
       setLoading(false)
     }
@@ -105,7 +117,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="passwordConfirm">password</label>
+                                <label className="label" htmlFor="passwordConfirm">confirm password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='passwordConfirm'
