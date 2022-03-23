@@ -86,10 +86,15 @@ export default function Auth() {
     </div>
   </section>
     <section className="section container">
+      
+
          {loading ? (
           ''
         ) : (
+          
                 <div className="signupFormCentered">
+                  <h1 className='title' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
+                  <h1 className='title' style={ !style ? { display:''} : {display : 'none'} }>Sign in</h1>
                 <form onSubmit={handleSignup}  style={ style ? { display:''} : {display : 'none'} }>
                   <div className="field">
                    <label className="label" htmlFor="email">email</label>

@@ -214,7 +214,7 @@ const Dashboard = () => {
 
 function SearchFood() {
   return(
-    <h2>Users</h2>
+    <h2>Search</h2>
     ) 
 }
 
