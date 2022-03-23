@@ -70,10 +70,21 @@ export default function Auth() {
       setLoading(false)
     }
   }
-  console.log(style)
+  //console.log(style)
 
   return (
 <div>
+<section className="hero is-primary is-medium">
+    <div className="hero-head">
+      <nav className="navbar">
+        <div className="container">
+          <div className="navbar-brand">
+              <h1 className="title" id="home">Healthy Recipes</h1>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </section>
     <section className="section container">
          {loading ? (
           ''

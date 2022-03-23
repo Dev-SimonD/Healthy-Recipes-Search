@@ -5,15 +5,17 @@ import { supabase } from './supabaseClient'
 const Account = ({ session }) => {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
-  const [website, setWebsite] = useState(null)
-  const [avatar_url, setAvatarUrl] = useState(null)
   const [height, setHeight] = useState(null)
   const [weight, setWeight] = useState(null)
+  const [gender, setGender] = useState(true)
+  const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
 
   useEffect(() => {
     getProfile()
   }, [session])
+
+  
 
   const getProfile = async () => {
     try {
@@ -22,7 +24,7 @@ const Account = ({ session }) => {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, website, avatar_url, weight, height, age`)
+        .select(`username, weight, height, age, gender, sex`)
         .eq('id', user.id)
         .single()
 
@@ -31,12 +33,13 @@ const Account = ({ session }) => {
       }
 
       if (data) {
+        console.log(data)
         setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
         setWeight(data.weight)
         setHeight(data.height)
+        setGender(data.gender)
         setAge(data.age)
+        setSex(data.sex)
       }
     } catch (error) {
       alert(error.message)
@@ -55,11 +58,11 @@ const Account = ({ session }) => {
       const updates = {
         id: user.id,
         username,
-        website,
-        avatar_url,
         weight,
         height,
         age,
+        gender,
+        sex,
         updated_at: new Date(),
       }
 
@@ -75,6 +78,7 @@ const Account = ({ session }) => {
     } finally {
       setLoading(false)
     }
+    
     Swal.fire({
         title: 'Success!',
         text: 'Profile succesfully updated',
@@ -83,67 +87,121 @@ const Account = ({ session }) => {
       })
   }
 
+  const handleManButton = (e) =>{  
+      setSex(e.target.value)
+  }
+  const handleWomanButton = (e) =>{
+    setSex(e.target.value)
+
+  }
+
   return (
-      <section className='container section'>
+
+    
+      <section className='container section dashboard'>
     <div aria-live="polite">
      {/*  {loading ? (
        ''
       ) : ( */}
+      <div className="signupFormCentered">
         <form onSubmit={updateProfile} className="form-widget">
-          <div>Email: {session.user.email}</div>
-          <div>
-            <label htmlFor="username">Name</label>
-            <input
+        <div className="field">
+                   <label className="label" htmlFor="username">username</label>
+                      <div className="control">
+              <input
+               className="input"
               id="username"
+              name='username'
               type="text"
               value={username || ''}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="website">Website</label>
-            <input
-              id="website"
-              type="url"
-              value={website || ''}
-              onChange={(e) => setWebsite(e.target.value)}
-            />
           </div>
-          <div>
-            <label htmlFor="avatarUrl">Avatar</label>
-            <input
-              id="avatar"
+         {/*  <div className="field">
+                   <label className="label" htmlFor="gender">gender</label>
+                      <div className="control"> */}
+            {/* <input
+               className="input"
+              id="gender"
+              name='gender'
               type="text"
-              value={avatar_url || ''}
-              onChange={(e) => setAvatarUrl(e.target.value)}
-            />
+              value={gender || ''}
+              onChange={(e) => setGender(e.target.value)}
+            /> */}
+             {/* <select name="gender" id="gender" onChange={(e) => setGender(e.target.value)}>
+                        <option value={gender}>{gender}</option>
+                        <option value={gender == "man" ? "man" : "woman"}>{gender == "man" ? "woman" : "man"}</option>
+                       
+                      </select>
           </div>
-          <div>
-            <label htmlFor="height">Height</label>
+          </div> */}
+          {/*  <div style={{"display": "flex" , "flexDirection": "column"}}> */}
+          {/* <select name="gender" id="gender" onChange={(e) => setGender(e.target.value)}>
+          <option value={gender} disabled>{gender}</option>
+  <option value={true}>man</option>
+  <option value={false}>woman</option>
+</select> */}
+
+{/* {sex == "man" ? <p>your sex is man </p>:<p> your sex is woman </p>}
+ */}<div className="radioButtons">
+   <label className='label radiobtn'>
+<input type="radio"
+       value="man"
+       name="gender"
+       onChange={handleManButton}
+       checked={sex === "man"}
+       /> Man
+       </label>
+       <label className='label radiobtn'>
+<input type="radio" 
+       value="woman" 
+       name="gender" 
+       onChange={handleWomanButton} 
+       checked={sex === "woman"}
+       /> Woman
+       </label>
+</div>
+
+            
+          <div className="field">
+                   <label className="label" htmlFor="height">height (cm)</label>
+                      <div className="control">
             <input
+             className="input"
               id="height"
+              name='height'
               type="number"
               value={height || ''}
               onChange={(e) => setHeight(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="weight">Weight</label>
+          </div>
+          <div className="field">
+                   <label className="label" htmlFor="weight">weight (Kg)</label>
+                      <div className="control">
             <input
+             className="input"
               id="weight"
               type="number"
+              name='weight'
               value={weight || ''}
               onChange={(e) => setWeight(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="age">Age</label>
+          </div>
+          <div className="field">
+                   <label className="label" htmlFor="age">age</label>
+                      <div className="control">
             <input
+             className="input"
               id="age"
+              name='age'
               type="number"
               value={age || ''}
               onChange={(e) => setAge(e.target.value)}
             />
+          </div>
           </div>
           <div>
             <button className="button mt-3 is-primary" disabled={loading}>
@@ -151,6 +209,7 @@ const Account = ({ session }) => {
             </button>
           </div>
         </form>
+        </div>
      {/*  )
      } */}
       <button type="button" className="button mt-3 is-primary" onClick={() => supabase.auth.signOut()}>
