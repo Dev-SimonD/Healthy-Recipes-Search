@@ -3,6 +3,7 @@ import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from '../components/supabaseClient'
 import Account from '../components/Account'
 import Auth from "../components/Auth"
+import SearchFood from './SearchFood.js'
 
 import {
   BrowserRouter as Router,
@@ -211,12 +212,12 @@ const Dashboard = () => {
   return <h2>About</h2>;
 } */
 
-function SearchFood() {
+/* function SearchFood() {
   return(
     <div className='section container dashboard'>
     <h2>Search</h2>
     </div>
     ) 
-}
+} */
 
 export default Home

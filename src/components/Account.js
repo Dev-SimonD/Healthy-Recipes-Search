@@ -10,10 +10,40 @@ const Account = ({ session }) => {
   const [gender, setGender] = useState(true)
   const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
+  const [bmiValue, setBmiValue] = useState(0)
 
   useEffect(() => {
     getProfile()
   }, [session])
+
+ /*  useEffect(() => {
+    getBmi()
+    getProfile()
+  }, []) */
+
+  /* const getBmi = async () => {
+   
+      try {
+        setLoading(true)
+        const user = supabase.auth.user()
+  
+        let { data, error, status } = await supabase
+          .from('profiles')
+          .select(`username, weight, height, age, gender, sex`)
+          .eq('id', user.id)
+          .single()
+  
+        if (error && status !== 406) {
+          throw error
+        }
+        bmiFunc(data.weight, data.height)
+       
+  }catch (error) {
+   // alert(error.message)
+  } finally {
+    setLoading(false)
+  }
+} */
 
   
 
@@ -24,7 +54,7 @@ const Account = ({ session }) => {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, weight, height, age, gender, sex`)
+        .select(`username, weight, height, age, gender, sex, bmiValue`)
         .eq('id', user.id)
         .single()
 
@@ -40,6 +70,7 @@ const Account = ({ session }) => {
         setGender(data.gender)
         setAge(data.age)
         setSex(data.sex)
+        setBmiValue(data.bmiValue)
       }
     } catch (error) {
       alert(error.message)
@@ -48,13 +79,28 @@ const Account = ({ session }) => {
     }
   }
 
+  /* function bmiFunc (weight, height)  {
+    
+      let value = weight/((height/100) ** 2);
+      let fixedValue = value.toFixed(2);
+      console.log(fixedValue);
+      setBmiValue(fixedValue)
+      return value
+    
+  } */
+
   const updateProfile = async (e) => {
     e.preventDefault()
 
+    
     try {
       setLoading(true)
       const user = supabase.auth.user()
-
+      let value = weight/((height/100) ** 2);
+      let fixedValue = value.toFixed(2);
+      console.log("fixed value",fixedValue)
+      setBmiValue(fixedValue);
+   
       const updates = {
         id: user.id,
         username,
@@ -63,9 +109,10 @@ const Account = ({ session }) => {
         age,
         gender,
         sex,
+        bmiValue: fixedValue,
         updated_at: new Date(),
       }
-
+       // console.log(bmiValue)
       let { error } = await supabase.from('profiles').upsert(updates, {
         returning: 'minimal', // Don't return the value after inserting
       })
@@ -85,6 +132,8 @@ const Account = ({ session }) => {
         icon: 'success',
         confirmButtonText: 'OK'
       })
+     // bmiFunc(weight,height)
+     
   }
 
   const handleManButton = (e) =>{  
@@ -209,6 +258,7 @@ const Account = ({ session }) => {
             </button>
           </div>
         </form>
+        <div><h2 className='title'>{`Your BMI value is ${bmiValue}`}</h2></div>
         </div>
      {/*  )
      } */}
