@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from '../components/supabaseClient'
 import Account from '../components/Account'
+import Auth from "../components/Auth"
+
 import {
   BrowserRouter as Router,
   Routes,
@@ -185,24 +187,21 @@ const Home = ({ session }) => {
           </ul>
         </nav>
         </div>
-        <div className='dashboard'>
-        <Routes>
-          <Route path="/account" element={<Account key={session.user.id} session={session} />}>
+      <Routes>
+          <Route path="/account" element={!session ? <Auth/> : <Account key={session.user.id} session={session} />}>
           </Route>
           <Route path="/search" element={<SearchFood />}>
           </Route>
           <Route path="/" element={<Dashboard />}>
           </Route>
-        </Routes>
-        </div>
-      
+        </Routes>      
     </Router>
   )
 }
 
 const Dashboard = () => {
   return(
-    <div>
+    <div className='section container dashboard'>
       <h2>Dashboard</h2>
       </div>
   ) 
@@ -214,7 +213,9 @@ const Dashboard = () => {
 
 function SearchFood() {
   return(
+    <div className='section container dashboard'>
     <h2>Search</h2>
+    </div>
     ) 
 }
 

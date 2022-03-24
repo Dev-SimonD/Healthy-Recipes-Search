@@ -22,7 +22,7 @@ export default () => {
   return (
     <>
       
-      {!session ? <Auth /> : <div className='fullwidthheight'>
+      {!session ? <Auth /> : <div className='mainDiv'/*  className='fullwidthheight' */>
        <Header />
        <Home key={session.user.id} session={session} />
        <Footer />

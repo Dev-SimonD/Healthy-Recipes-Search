@@ -98,13 +98,13 @@ const Account = ({ session }) => {
   return (
 
     
-      <section className='container section dashboard'>
-    <div aria-live="polite">
-     {/*  {loading ? (
+      <section className='section container'>
+    
+       {/* {loading ? (
        ''
-      ) : ( */}
+      ) : ( } */}
       <div className="signupFormCentered">
-        <form onSubmit={updateProfile} className="form-widget">
+        <form onSubmit={updateProfile} className="">
         <div className="field">
                    <label className="label" htmlFor="username">username</label>
                       <div className="control">
@@ -215,7 +215,6 @@ const Account = ({ session }) => {
       <button type="button" className="button mt-3 is-primary" onClick={() => supabase.auth.signOut()}>
         Sign Out
       </button>
-    </div>
     </section>
   )
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Header = () => {
   return (
-    <section className="hero is-primary is-medium">
+    /* <section className="hero is-primary is-medium">
     <div className="hero-head">
       <nav className="navbar">
         <div className="container">
@@ -26,8 +26,7 @@ const Header = () => {
                   <span className="icon">
                     <i className="fas fa-envelope"></i>
                   </span>
-{/*                   <span>Sign Up</span>
- */}                </a>
+               </a>
               </span>
             </div>
           </div>
@@ -36,9 +35,19 @@ const Header = () => {
     </div>
     <div className="hero-body">
       <div className="container has-text-centered">
-       {/*  <p className="title">Sign Up</p> */}
         <p className="subtitle"></p>
       </div>
+    </div>
+  </section> */
+  <section className="hero is-primary is-medium">
+    <div className="hero-head">
+      <nav className="navbar">
+        <div className="container">
+          <div className="navbar-brand">
+              <h1 className="title" id="home">Healthy Recipes</h1>
+          </div>
+        </div>
+      </nav>
     </div>
   </section>
   )

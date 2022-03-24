@@ -51,7 +51,7 @@ code {
   align-items: center;
   font-size: 1.2rem;
   font-family: 'montserrat';
-  height: 80%;
+  height: 100%;
 }
 .radioButtons{
   display: flex;
@@ -64,4 +64,8 @@ code {
 }
 .navbar-brand{
   justify-content: center;
+}
+.mainDiv{
+  width: auto;
+  height: 100%;
 }
