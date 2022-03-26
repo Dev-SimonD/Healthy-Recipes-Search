@@ -3,7 +3,9 @@ import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from '../components/supabaseClient'
 import Account from '../components/Account'
 import Auth from "../components/Auth"
-import SearchFood from './SearchFood.js'
+import SearchFood from './SearchFood.jsx'
+import Dashboard from './Dashboard.jsx'
+import Recipes from './Recipes.jsx'
 
 import {
   BrowserRouter as Router,
@@ -161,23 +163,15 @@ const Home = ({ session }) => {
   } */
 
   return (
-      /* <section className='container section'>
-          {account ? <Account key={session.user.id} session={session} /> : ""}
-          <h1>Dashboard</h1>
-          <button type="button" className="button mt-3 is-primary" onClick={() => setAccount(!account)}>
-        Account
-      </button>
-          <button type="button" className="button mt-3 is-primary" onClick={() => supabase.auth.signOut()}>
-        Sign Out
-      </button>
-    </section> */
-    
-    <Router>
+     <Router>
       <div>
         <nav>
           <ul>
             <li>
               <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/recipes">Recipes</Link>
             </li>
             <li>
               <Link to="/account">Account</Link>
@@ -191,33 +185,16 @@ const Home = ({ session }) => {
       <Routes>
           <Route path="/account" element={!session ? <Auth/> : <Account key={session.user.id} session={session} />}>
           </Route>
-          <Route path="/search" element={<SearchFood />}>
+          <Route path="/recipes" element={<Recipes key={session.user.id} session={session} />}>
           </Route>
-          <Route path="/" element={<Dashboard />}>
+          <Route path="/search" element={<SearchFood key={session.user.id} session={session} />}>
+          </Route>
+          <Route path="/" element={<Dashboard key={session.user.id} session={session}/>}>
           </Route>
         </Routes>      
     </Router>
   )
 }
 
-const Dashboard = () => {
-  return(
-    <div className='section container dashboard'>
-      <h2>Dashboard</h2>
-      </div>
-  ) 
-}
-
-/* function About() {
-  return <h2>About</h2>;
-} */
-
-/* function SearchFood() {
-  return(
-    <div className='section container dashboard'>
-    <h2>Search</h2>
-    </div>
-    ) 
-} */
 
 export default Home

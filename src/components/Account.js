@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from './supabaseClient'
+import GaugeChart from 'react-gauge-chart'
+
 
 const Account = ({ session }) => {
   const [loading, setLoading] = useState(true)
@@ -11,11 +13,35 @@ const Account = ({ session }) => {
   const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
   const [bmiValue, setBmiValue] = useState(0)
+  //const [bmiStatus, setBmiStatus] = useState("")
 
   useEffect(() => {
     getProfile()
   }, [session])
 
+ let bmiStatus;
+  const bmiStats = ["underweight", "healthy weight", "overweight", "obese", "severly obese"]
+  if(bmiValue < 18.5){
+    bmiStatus = bmiStats[0]
+  }
+  else if(bmiValue < 24.9 && bmiValue > 18.5){
+    bmiStatus = bmiStats[1]
+  }
+  else if(bmiValue < 29.9 && bmiValue > 25){
+    bmiStatus = bmiStats[2]
+  }
+  else if(bmiValue < 34.9 && bmiValue > 30){
+    bmiStatus = bmiStats[3]
+  }
+  else{
+    bmiStatus = bmiStats[4]
+  }
+
+ /*  0-18.5 0.27 925
+  18.5 - 24.9 7.79 325
+  25 - 29.9 10  250
+  30 - 34.9 10  250
+  35 - 50   3.33  750 */
  /*  useEffect(() => {
     getBmi()
     getProfile()
@@ -259,9 +285,19 @@ const Account = ({ session }) => {
           </div>
         </form>
         <div><h2 className='title'>{`Your BMI value is ${bmiValue}`}</h2></div>
+        <div className='bmiChart'><GaugeChart 
+        id="gauge-chart5"
+         nrOfLevels={100}
+         arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
+         colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
+         percent={bmiValue/50}
+         /* hideText={true} */
+         formatTextValue={ bmiValue => bmiStatus }
+         textColor={"#000000"}
+         arcPadding={0.02} />
+           </div>
         </div>
-     {/*  )
-     } */}
+  
       <button type="button" className="button mt-3 is-primary" onClick={() => supabase.auth.signOut()}>
         Sign Out
       </button>
