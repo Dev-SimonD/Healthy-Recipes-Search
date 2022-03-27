@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from './supabaseClient'
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
-
+import cooking from "../images/cooking.jpg"
 
 
 export default function Auth() {
@@ -78,8 +78,10 @@ export default function Auth() {
   //console.log(style)
 
   return (
-<div>
-<section className="hero is-primary is-medium">
+    <div>
+<div className='auth'>
+  </div>
+{/* <section className="hero is-primary is-medium">
     <div className="hero-head">
       <nav className="navbar">
         <div className="container">
@@ -89,20 +91,20 @@ export default function Auth() {
         </div>
       </nav>
     </div>
-  </section>
+  </section> */}
     <section className="section container">
-      
+     
 
          {loading ? (
-          ''
+          'Signing...'
         ) : (
           
                 <div className="signupFormCentered">
-                  <h1 className='title' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
-                  <h1 className='title' style={ !style ? { display:''} : {display : 'none'} }>Sign in</h1>
+                  <h1 className='loginTitle' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
+                  <h1 className='loginTitle' style={ !style ? { display:''} : {display : 'none'} }>Sign in</h1>
                 <form onSubmit={handleSignup}  style={ style ? { display:''} : {display : 'none'} }>
                   <div className="field">
-                   <label className="label" htmlFor="email">email</label>
+                   <label className="loginLabel" htmlFor="email">email</label>
                       <div className="control has-icons-left">
                                     <input
                                     id='email'
@@ -120,7 +122,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="password">password</label>
+                                <label className="loginLabel" htmlFor="password">password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='password'
@@ -138,7 +140,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="passwordConfirm">confirm password</label>
+                                <label className="loginLabel" htmlFor="passwordConfirm">confirm password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='passwordConfirm'
@@ -163,7 +165,7 @@ export default function Auth() {
                 <div className='signupFormCentered'>
                 <form onSubmit={handleLogin} style={ !style ? { display:''} : {display : 'none'} }>
                   <div className="field">
-                   <label className="label" htmlFor="email">email</label>
+                   <label className="loginLabel" htmlFor="email">email</label>
                       <div className="control has-icons-left">
                                     <input
                                     id='email'
@@ -181,7 +183,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="password">password</label>
+                                <label className="loginLabel" htmlFor="password">password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='password'

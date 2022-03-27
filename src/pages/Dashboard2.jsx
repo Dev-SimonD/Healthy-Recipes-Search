@@ -165,7 +165,7 @@ const Home = ({ session }) => {
 
   return (
      <Router>
-      <div>
+      <div className='leftMenu'>
         <nav>
           <ul>
             <li>

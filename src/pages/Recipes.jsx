@@ -4,7 +4,7 @@ import { supabase } from '../components/supabaseClient';
 
 const Recipes = ({session}) => {
 
-    const randomRecipeURL = `https://api.spoonacular.com/recipes/random?number=1&tags=vegetarian,dessert&apiKey=${process.env.REACT_APP_API_KEY}`;
+    const randomRecipeURL = `https://api.spoonacular.com/recipes/random?number=1&maxCalories=100&tags=vegetarian&apiKey=${process.env.REACT_APP_API_KEY}`;
 
     const [randomRecipe, setRandomRecipe] = useState([])
 
@@ -15,6 +15,7 @@ const Recipes = ({session}) => {
     const getRecipe = async () => {
        const response = await fetch(randomRecipeURL)
        const data = await response.json()
+       console.log(data)
        setRandomRecipe(data.recipes[0])
        console.log(data.recipes[0]);  
     }

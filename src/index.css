@@ -94,3 +94,21 @@ code {
    border-radius: 50%;
    padding: 1rem;
  }
+ .auth{
+   background-image: url("./images/cooking.jpg");
+   background-size: cover;
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   filter: brightness(50%);
+ }
+ .section{
+  padding: 10rem 1rem !important;
+ }
+ .loginTitle{
+   color: whitesmoke;
+   font-size: 3rem;
+ }
+ .loginLabel{
+  color: whitesmoke;
+ }
