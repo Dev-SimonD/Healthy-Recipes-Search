@@ -1,6 +1,8 @@
 import React from 'react'
+import logout from "../images/logout.png"
+import { supabase } from './supabaseClient'
 
-const Header = () => {
+const Header = ({session}) => {
   return (
     /* <section className="hero is-primary is-medium">
     <div className="hero-head">
@@ -45,8 +47,12 @@ const Header = () => {
         <div className="container">
           <div className="navbar-brand">
               <h1 className="title" id="home">Healthy Recipes</h1>
+              <button type="button" className="button is-danger is-light" onClick={() => supabase.auth.signOut()}>
+        Log Out
+      </button>
           </div>
         </div>
+        
       </nav>
     </div>
   </section>

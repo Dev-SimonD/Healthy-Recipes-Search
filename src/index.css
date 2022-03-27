@@ -112,3 +112,41 @@ code {
  .loginLabel{
   color: whitesmoke;
  }
+ .Grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10rem,1fr));
+  grid-gap: 3rem;
+ }
+ .searchedCard img{
+    width: 50%;
+    border-radius: 2rem;
+ }  
+.searchedCard a{
+      text-decoration: none;
+  }
+ .searchedCard h4{
+      text-align: center;
+      padding: 1rem;
+}
+#searchRecipe{
+  width: 50%;
+}
+  /* Menu */
+/* .menu{
+  display: flex;
+}
+.menu nav{
+  width: 100%;
+}
+.menu nav ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+
+} */
+
+.cont{
+  display: flex;
+  flex-direction: row;
+}

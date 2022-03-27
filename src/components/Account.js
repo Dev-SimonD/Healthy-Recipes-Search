@@ -173,7 +173,7 @@ const Account = ({ session }) => {
   return (
 
     
-      <section className='section container'>
+      <section className='container'>
     
        {/* {loading ? (
        ''
@@ -185,6 +185,7 @@ const Account = ({ session }) => {
                       <div className="control">
               <input
                className="input"
+               required
               id="username"
               name='username'
               type="text"
@@ -245,6 +246,9 @@ const Account = ({ session }) => {
             <input
              className="input"
               id="height"
+              min="140"
+              max="250"
+              required
               name='height'
               type="number"
               value={height || ''}
@@ -258,6 +262,9 @@ const Account = ({ session }) => {
             <input
              className="input"
               id="weight"
+              required
+              min="40"
+              max="250"
               type="number"
               name='weight'
               value={weight || ''}
@@ -271,7 +278,10 @@ const Account = ({ session }) => {
             <input
              className="input"
               id="age"
+              min="1"
+              max="120"
               name='age'
+              required
               type="number"
               value={age || ''}
               onChange={(e) => setAge(e.target.value)}

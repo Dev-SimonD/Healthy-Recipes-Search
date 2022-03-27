@@ -7,6 +7,9 @@ import SearchFood from './SearchFood.jsx'
 import Dashboard from './Dashboard.jsx'
 import Recipes from './Recipes.jsx'
 import MealPlan from './MealPlan.jsx'
+import Recipe from './Recipe.jsx'
+import Menu from "../components/Menu.js"
+
 
 import {
   BrowserRouter as Router,
@@ -165,7 +168,7 @@ const Home = ({ session }) => {
 
   return (
      <Router>
-      <div>
+      {/* <div>
         <nav>
           <ul>
             <li>
@@ -185,7 +188,9 @@ const Home = ({ session }) => {
             </li>
           </ul>
         </nav>
-        </div>
+        </div> */}
+        <div className='cont'>
+        <Menu/>
       <Routes>
           <Route path="/account" element={!session ? <Auth/> : <Account key={session.user.id} session={session} />}>
           </Route>
@@ -195,9 +200,12 @@ const Home = ({ session }) => {
           </Route>
           <Route path="/search" element={<SearchFood key={session.user.id} session={session} />}>
           </Route>
+          <Route path="/recipes/:name" element={<Recipe />}>
+          </Route>
           <Route path="/" element={<Dashboard key={session.user.id} session={session}/>}>
           </Route>
-        </Routes>      
+        </Routes>  
+        </div>    
     </Router>
   )
 }

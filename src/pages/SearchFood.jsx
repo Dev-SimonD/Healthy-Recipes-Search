@@ -43,7 +43,7 @@ function SearchFood() {
    
 
   return (
-    <div>
+    <div className='container'>
          <form onSubmit={submitHandler}>
         <div>
         <input
