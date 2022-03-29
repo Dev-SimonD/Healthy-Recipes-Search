@@ -150,7 +150,15 @@ code {
   display: flex;
   flex-direction: row;
 }
-.active{
+/* .active{
   background-color: red;
   color: #fff;
-}
+} */
+
+@media screen and (max-width: 1023px){
+.navbar-menu {
+position: relative;
+top: 10px;
+left: 10px;
+width: 93%;
+}}

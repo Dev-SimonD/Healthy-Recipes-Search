@@ -15,11 +15,14 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link
+  Link,
+  NavLink
 } from "react-router-dom";
 
 
 const Home = ({ session }) => {
+
+  const[ burgerMenuActive, setBurgerMenuActive] = useState(false)
 
   //const [account, setAccount] = useState(false);
 /*   const [tutorial, setTutorial] = useState(false)
@@ -165,7 +168,7 @@ const Home = ({ session }) => {
         confirmButtonText: 'OK'
       })
   } */
-
+  console.log(burgerMenuActive)
   return (
      <Router>
       {/* <div>
@@ -188,9 +191,56 @@ const Home = ({ session }) => {
             </li>
           </ul>
         </nav>
+        
         </div> */}
+
+<nav className="navbar container" role="navigation" aria-label="main navigation">
+  <div className="navbar-brand">
+    {/* <a className="navbar-item" href="https://bulma.io">
+      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
+    </a> */}
+    <h1 className="navbar-item">HealthyRecipes</h1>
+
+    <a id="burgerIcon" role="button" onClick={(e) => {
+      e.preventDefault()
+      setBurgerMenuActive(!burgerMenuActive)
+    }} className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" className={burgerMenuActive ? "navbar-menu is-active" : "navbar-menu"}>
+    <div className="navbar-start" onClick={(e) => {
+      e.preventDefault()
+      setBurgerMenuActive(!burgerMenuActive)
+    }}>
+    <NavLink  className="navbar-item" to="/">Home</NavLink>
+    <NavLink className="navbar-item" to="/recipes">Recipes</NavLink>
+    <NavLink className="navbar-item" to="/account">Account</NavLink>
+    <NavLink className="navbar-item" to="/mealplan">Meal Plan</NavLink>
+    <NavLink className="navbar-item" to="/search">Food Search</NavLink>
+
+    </div>
+
+    <div className="navbar-end">
+      <div className="navbar-item">
+        <div className="buttons">
+          {/* <a className="button is-primary">
+            <strong>Sign up</strong>
+          </a> */}
+          <button type="button" className="button is-primary" onClick={() => supabase.auth.signOut()}>
+        Log Out
+      </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
         <div className='cont'>
-        <Menu/>
+       {/*  <Menu/> */}
       <Routes>
           <Route path="/account" element={!session ? <Auth/> : <Account key={session.user.id} session={session} />}>
           </Route>

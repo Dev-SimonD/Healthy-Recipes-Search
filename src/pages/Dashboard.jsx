@@ -73,14 +73,14 @@ const Dashboard = ({session}) => {
       let TDEE;
 
       if(sex === "man"){
-          LBM = ((0.407 * weight) + (0.267 * height)) -19.2
+          LBM = (((0.407 * weight) + (0.267 * height)) -19.2).toFixed(2)
       }
       else{
-        LBM = ((0.252 * weight) + (0.473 * height)) -48.3
+        LBM = (((0.252 * weight) + (0.473 * height)) -48.3).toFixed(2)
       }
 
-     BMR = 500 + (22 * LBM);
-     TDEE = 1.55 * BMR;
+     BMR = (500 + (22 * LBM)).toFixed();
+     TDEE = (1.55 * BMR).toFixed();
       
       console.log(LBM);  
 
