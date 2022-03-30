@@ -105,11 +105,25 @@ const Recipes = ({session}) => {
     </div>
        <h1>Random recipes</h1>
         <ul>
-        {randomRecipe.map((recipe) => {
+        {/* {randomRecipe.map((recipe) => {
          return(
                <li key={recipe.id}>{recipe.title}</li> 
-               ) })}
+               ) })} */}
             </ul> 
+            {randomRecipe.map((recipe) => {
+         return(
+            <Link to={"/recipes/" + recipe.id}>
+
+                <div className='cards'>
+                    <img src={recipe.image}/>
+                    <div className='cardsContent'>
+                        <h1>{recipe.title}</h1>
+                        <i className="fas fa-angle-right"></i> 250kcal
+                    </div>
+                </div>
+                </Link>
+
+                 ) })}
           </div>
   )
 }

@@ -199,7 +199,7 @@ const Home = ({ session }) => {
     {/* <a className="navbar-item" href="https://bulma.io">
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
     </a> */}
-    <h1 className="navbar-item">HealthyRecipes</h1>
+    <h1 className="navbar-item logo">Healthy<span className='logo logoSpan'>Recipes</span></h1>
 
     <a id="burgerIcon" role="button" onClick={(e) => {
       e.preventDefault()
@@ -230,10 +230,14 @@ const Home = ({ session }) => {
           {/* <a className="button is-primary">
             <strong>Sign up</strong>
           </a> */}
-          <button type="button" className="button is-primary" onClick={() => supabase.auth.signOut()}>
-        Log Out
-      </button>
-        </div>
+          <button type="button" className="button" onClick={() => supabase.auth.signOut()}>
+        Sign Out
+      </button>{/* <button className='button is-light'>
+      Logout<i className="fas fa-sign-out-alt" style={{"cursor":"pointer", "padding": "1rem"}} onClick={() => supabase.auth.signOut()}></i>
+      </button> */}
+
+{/*       
+ */}        </div>
       </div>
     </div>
   </div>
