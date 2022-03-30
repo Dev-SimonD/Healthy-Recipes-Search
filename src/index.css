@@ -159,6 +159,15 @@ code {
 .navbar-menu {
 position: relative;
 top: 10px;
-left: 10px;
-width: 93%;
+/* left: 10px; */
+width: 100%;
+text-align: center;
 }}
+.navbar{
+  display: flow-root;
+  padding-bottom: 2rem;
+}
+.buttons:last-child {
+  margin-bottom: -0.5rem;
+  justify-content: center;
+}

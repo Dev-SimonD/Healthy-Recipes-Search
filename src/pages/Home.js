@@ -226,7 +226,7 @@ const Home = ({ session }) => {
 
     <div className="navbar-end">
       <div className="navbar-item">
-        <div className="buttons">
+        <div className="buttons logoutbtn">
           {/* <a className="button is-primary">
             <strong>Sign up</strong>
           </a> */}
