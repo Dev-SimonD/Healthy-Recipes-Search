@@ -156,34 +156,13 @@ code {
   color: #fff;
 } */
 
-@media screen and (max-width: 1023px){
+@media screen and (max-width: 768px){
 .navbar-menu {
 position: relative;
 top: 10px;
 /* left: 10px; */
 width: 100%;
 text-align: center;
-}}
-.navbar{
-  display: flow-root;
-  padding-bottom: 2rem;
-}
-.buttons:last-child {
-  margin-bottom: -0.5rem;
-  justify-content: center;
-}
-.logo{
-  font-family: "segoe script";
-}
-.logoSpan{
-  background-color: #f96300;
-  border-radius: 0.5rem;
-  color: antiquewhite;
-}
-.colors{
- /*  #fff8ec cream 60%;
-  #ade5f6 blue  30%;
-  #ffcfdb pink  10%; */
 }
 .cards{
   padding: 1rem;
@@ -206,4 +185,25 @@ width: 100%;
   justify-content: space-between;
   align-items: center; */
   padding: 0 1rem;
+}}
+.navbar{
+  display: flow-root;
+  padding-bottom: 2rem;
+}
+.buttons:last-child {
+  margin-bottom: -0.5rem;
+  justify-content: center;
+}
+.logo{
+  font-family: "segoe script";
+}
+.logoSpan{
+  background-color: #f96300;
+  border-radius: 0.5rem;
+  color: antiquewhite;
+}
+.colors{
+ /*  #fff8ec cream 60%;
+  #ade5f6 blue  30%;
+  #ffcfdb pink  10%; */
 }

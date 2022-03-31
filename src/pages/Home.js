@@ -215,6 +215,7 @@ const Home = ({ session }) => {
     <div className="navbar-start" onClick={(e) => {
       e.preventDefault()
       setBurgerMenuActive(!burgerMenuActive)
+  
     }}>
     <NavLink  className="navbar-item" to="/">Home</NavLink>
     <NavLink className="navbar-item" to="/recipes">Recipes</NavLink>

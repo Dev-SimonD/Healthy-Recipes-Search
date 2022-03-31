@@ -57,7 +57,7 @@ const Recipes = ({session}) => {
    // console.log(search)
   return (
     <div className='container'>
-        <h1>
+        <h1 className='label'>
             Search Recipe
         </h1>
         {/* <form onSubmit={handleSubmit}>
@@ -94,16 +94,17 @@ const Recipes = ({session}) => {
              <div className="Grid">
         {searchedRecipe.map((item) => {
             return(
-                <div className='searchedCard' key={item.id}>
-                    <Link to={"/recipes/" + item.id}>
+                <Link to={"/recipes/" + item.id}>
+                  <div className='cards' key={item.id}>
                     <img src={item.image} alt="title" />
                     <h4>{item.title}</h4>
-                    </Link>
                     </div>
+                    </Link>
+
             )
         })}
     </div>
-       <h1>Random recipes</h1>
+       <h1 className='label'>Featured recipes</h1>
         <ul>
         {/* {randomRecipe.map((recipe) => {
          return(
