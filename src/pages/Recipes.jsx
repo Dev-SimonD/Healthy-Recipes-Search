@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { supabase } from '../components/supabaseClient';
 import  {Link} from "react-router-dom"
+import {Splide, SplideSlide} from "@splidejs/react-splide"
+import "@splidejs/splide/dist/css/splide.min.css"
 
 
 
@@ -73,7 +75,7 @@ const Recipes = ({session}) => {
              
              />
              </form> */}
-             <form className="field has-addons" onSubmit={handleSubmit}>
+             <form className="field has-addons searchBar" onSubmit={handleSubmit}>
   <div className="control">
     <input type="text"
              //id='searchRecipe'
@@ -104,14 +106,8 @@ const Recipes = ({session}) => {
             )
         })}
     </div>
-       <h1 className='label'>Featured recipes</h1>
-        <ul>
-        {/* {randomRecipe.map((recipe) => {
-         return(
-               <li key={recipe.id}>{recipe.title}</li> 
-               ) })} */}
-            </ul> 
-            {randomRecipe.map((recipe) => {
+       <h1 className='label'>Featured recipes</h1> 
+           {/*  {randomRecipe.map((recipe) => {
          return(
             <Link to={"/recipes/" + recipe.id}>
 
@@ -124,7 +120,56 @@ const Recipes = ({session}) => {
                 </div>
                 </Link>
 
-                 ) })}
+                 ) })} */}
+                  <Splide options={{
+                      mediaQuery: 'max',
+                      /* autoWidth: true, */
+                        perPage: 4,
+                        gap: "3rem",
+                        arrows: true,
+                        type: "loop",
+                        autoplay: true,
+                        lazyLoad: true,
+                        pagination: "slider",
+                        flickMaxPages: 1,
+                        breakpoints: {
+                            1000: {
+                                perPage: 3,
+                                gap: "1rem",
+
+                            },
+                              640: {
+                                  perPage: 2,
+                                gap: "2rem",
+                                                           
+                                 },
+                                 600: {
+                                  destroy: true,
+                                   },
+                                   
+                              
+                        }
+                      
+                        
+                    }}>
+                    {randomRecipe.map((recipe) => {
+                        return(
+                            <SplideSlide key={recipe.id}>
+                                    <Link to={"/recipes/" + recipe.id}>
+                                <div className="cards">
+                                <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
+                              <div className='cardContent'>
+                                <p id="cardTitle"><i className="fas fa-angle-right"></i> {recipe.title}</p>
+                             <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                             </div>
+                            </div>
+                                </Link>
+                         </SplideSlide>
+                            
+                        );
+                    })}
+                    
+                    </Splide>
           </div>
   )
 }

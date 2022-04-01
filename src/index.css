@@ -151,41 +151,6 @@ code {
   display: flex;
   flex-direction: row;
 }
-/* .active{
-  background-color: red;
-  color: #fff;
-} */
-
-@media screen and (max-width: 768px){
-.navbar-menu {
-position: relative;
-top: 10px;
-/* left: 10px; */
-width: 100%;
-text-align: center;
-}
-.cards{
-  padding: 1rem;
-display: flex;
-align-items: start;
-box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
-margin: 1rem auto;
-border-radius: 2rem;
-background-color: aliceblue;
-width: 100%;
-}
-.cards img{
- width: 70px;
- height: 70px;
-  border-radius: 50%;
-}
-.cardsContent{
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center; */
-  padding: 0 1rem;
-}}
 .navbar{
   display: flow-root;
   padding-bottom: 2rem;
@@ -202,8 +167,52 @@ width: 100%;
   border-radius: 0.5rem;
   color: antiquewhite;
 }
-.colors{
- /*  #fff8ec cream 60%;
-  #ade5f6 blue  30%;
-  #ffcfdb pink  10%; */
+.card{
+  height: 100%;
+display: flex;
+justify-content: flex-start;
+}
+.splideImg{
+  border-radius: 1rem;
+}
+.searchBar{
+  width: 100%;
+}
+
+
+
+                                /* Phone/Tablet size */
+
+@media screen and (max-width: 600px){
+.navbar-menu {
+position: relative;
+top: 10px;
+width: 100%;
+text-align: center;
+}
+.cards{
+  padding: 1rem;
+display: flex;
+align-items: start;
+box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
+margin: 1rem auto;
+border-radius: 2rem;
+background-color: white;
+width: 90%;
+justify-content: flex-start;
+}
+.cards img{
+ width: 70px;
+ height: 70px;
+  border-radius: 50%;
+}
+.cardsContent{
+  display: flex;
+  flex-direction: column;
+}
+.cards p{
+  margin-left: 1rem;
+  color: black;
+}
+
 }
