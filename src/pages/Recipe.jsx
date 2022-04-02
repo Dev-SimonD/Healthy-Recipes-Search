@@ -7,6 +7,9 @@ function Recipe() {
     let params = useParams();
     const [details, setDetails] = useState({});
     //const [activeTab, setActiveTab] = useState("instructions");
+    const [isSummary, setIsSummary] = useState(true)
+    const [isIngredients, setIsIngredients] = useState(false)
+    const [isInstructions, setIsInstructions] = useState(false)
 
     const fetchedDetails = async () => {
         const data = await fetch(`https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`)
@@ -19,24 +22,66 @@ function Recipe() {
         }, [params.name]);
         console.log(details)
 
+        const summaryHandler = ((e) => {
+            e.preventDefault()
+            setIsSummary(true)
+            setIsIngredients(false)
+            setIsInstructions(false)
+        })
+        const ingredientsHandler = ((e) => {
+            e.preventDefault()
+            setIsSummary(false)
+            setIsIngredients(true)
+            setIsInstructions(false)
+        })
+        const instructionsHandler = ((e) => {
+            e.preventDefault()
+            setIsSummary(false)
+            setIsIngredients(false)
+            setIsInstructions(true)
+        })
+
   return (
       <div className='container'>
-          <h2 className='title'>
-            {details.title}
-        </h2>
-        <img className="image" src={details.image} alt="" />
-        <br/>
+            <h2 className='title'>
+                {details.title}
+            </h2>
+            <div style={{"display": "flex", "justifyContent" : "center"}}>
+            <img className="recipeImage" src={details.image} alt="" />
+            </div>
+            <br/>
+            <br/>
         <div className='recipeIcons'>
-        <div className='likes'>
-        <i className="fas fa-heart" style={{"color":"red"}}></i>
-        <p>{details.aggregateLikes} likes</p>
-        </div>
+            <div className='likes'>
+            <i className="fas fa-heart" style={{"color":"red"}}></i>
+            <p>{details.aggregateLikes} likes</p>
+            </div>
         <div className='minutes'>
-        <i className="fas fa-alarm-clock" style={{"color":"green"}}></i>
-        <p>{details.readyInMinutes}m</p>
-        </div>
-        </div>
-            <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.summary}}/>
+            <i className="fas fa-alarm-clock" style={{"color":"green"}}></i>
+            <p>{details.readyInMinutes}m</p>
+            </div>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <button className='button is-primary is-light recipeButtons' onClick={summaryHandler}>Summary</button>
+                <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandler}>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' onClick={instructionsHandler}>Instructions</button>
+            </div>
+            {isSummary && (
+          <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.summary}}/>
+          ) }
+          {isIngredients && (
+          <ul className='recipeSummary'>
+          {details.extendedIngredients.map((ingredient) => (
+              <li key={ingredient.id}>{ingredient.original}</li>
+
+          ))}
+      </ul>
+          ) }
+          {isInstructions && (
+          <p className='recipeSummary'>{details.instructions}</p>
+          ) }
       </div>
    /*  <DetailWrapper>
         <div>
