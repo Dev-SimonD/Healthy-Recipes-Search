@@ -20,12 +20,23 @@ function Recipe() {
         console.log(details)
 
   return (
-      <div>
-          <h2>
+      <div className='container'>
+          <h2 className='title'>
             {details.title}
         </h2>
-        <img src={details.image} alt="" />
-
+        <img className="image" src={details.image} alt="" />
+        <br/>
+        <div className='recipeIcons'>
+        <div className='likes'>
+        <i className="fas fa-heart" style={{"color":"red"}}></i>
+        <p>{details.aggregateLikes} likes</p>
+        </div>
+        <div className='minutes'>
+        <i className="fas fa-alarm-clock" style={{"color":"green"}}></i>
+        <p>{details.readyInMinutes}m</p>
+        </div>
+        </div>
+            <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.summary}}/>
       </div>
    /*  <DetailWrapper>
         <div>
