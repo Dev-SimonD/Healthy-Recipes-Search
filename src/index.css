@@ -2,20 +2,32 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  
 }
 body {
-  width: 100vw;
-  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
   font-family: 'montserrat',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-/*   background-color: #fff8ec;
+  background-color: #fcf8ff;
+ /*  background: hsla(211, 66%, 87%, 1);
+
+  background: linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
+  
+  background: -moz-linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
+  
+  background: -webkit-linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
+  
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#C9DEF4", endColorstr="#F5CCD4", GradientType=1 );
+ */ /*   background-color: #fff8ec;
  */}
 #root{
   height: 100%;
   width: 100%;
+  
 }
 .fullwidthheight{
   width: 100%;
@@ -150,10 +162,19 @@ code {
 .cont{
   display: flex;
   flex-direction: row;
+  padding: 1rem;
 }
 .navbar{
   display: flow-root;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
+}
+.navbar-item{
+  text-transform: capitalize;
+}
+.navbar-brand{
+ /*  display: flex;
+  justify-content: center;   */
+  align-items: center !important;
 }
 .buttons:last-child {
   margin-bottom: -0.5rem;
@@ -163,7 +184,9 @@ code {
   font-family: "segoe script";
 }
 .logoSpan{
-  background-color: #f96300;
+  /* background-color: #f96300;
+ */
+ background-color:#f9f871;
   border-radius: 0.5rem;
   color: antiquewhite;
 }
@@ -181,6 +204,7 @@ justify-content: flex-start;
 
 
 
+
                                 /* Phone/Tablet size */
 
 @media screen and (max-width: 600px){
@@ -189,6 +213,9 @@ position: relative;
 top: 10px;
 width: 100%;
 text-align: center;
+}
+.navbar{
+  padding-bottom: 0;
 }
 .cards{
   padding: 1rem;
@@ -215,4 +242,9 @@ justify-content: flex-start;
   color: black;
 }
 
+.navbar-burger{
+  margin-left: 0 !important;
+position: absolute !important;
+right: 10%;
+}
 }
