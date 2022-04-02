@@ -125,25 +125,27 @@ const Recipes = ({session}) => {
                       mediaQuery: 'max',
                       /* autoWidth: true, */
                         perPage: 4,
-                        gap: "3rem",
+                        gap: "2rem",
                         arrows: true,
+                        width: "90vw",
                         type: "loop",
-                        autoplay: true,
+                        autoplay: false,
                         lazyLoad: true,
                         pagination: "slider",
-                        flickMaxPages: 1,
+                         flickMaxPages: 1,
                         breakpoints: {
                             1000: {
                                 perPage: 3,
-                                gap: "1rem",
+                                gap: "2rem",
 
                             },
                               640: {
                                   perPage: 2,
-                                gap: "2rem",
-                                                           
+                                gap: "1rem",
+                               
+                                                         
                                  },
-                                 600: {
+                                 300: {
                                   destroy: true,
                                    },
                                    
@@ -157,12 +159,12 @@ const Recipes = ({session}) => {
                             <SplideSlide key={recipe.id}>
                                     <Link to={"/recipes/" + recipe.id}>
                                 <div className="cards">
-                                <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
-                              <div className='cardContent'>
-                                <p id="cardTitle"><i className="fas fa-angle-right"></i> {recipe.title}</p>
-                             <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
-                             </div>
-                            </div>
+                                 <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
+                                 <div className='cardContent'>
+                                 <p id="cardTitle"><i className="fas fa-angle-right"></i> {recipe.title}</p>
+                                 <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                                 </div>
+                               </div>
                                 </Link>
                          </SplideSlide>
                             

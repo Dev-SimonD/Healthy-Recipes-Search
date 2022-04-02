@@ -9,6 +9,7 @@ const Account = ({ session }) => {
   const [username, setUsername] = useState(null)
   const [height, setHeight] = useState(null)
   const [weight, setWeight] = useState(null)
+  const [updated, setUpdated] = useState(null)
   const [gender, setGender] = useState(true)
   const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
@@ -80,7 +81,7 @@ const Account = ({ session }) => {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, weight, height, age, gender, sex, bmiValue`)
+        .select(`username, weight, height, age, gender, sex, bmiValue, updated`)
         .eq('id', user.id)
         .single()
 
@@ -97,6 +98,7 @@ const Account = ({ session }) => {
         setAge(data.age)
         setSex(data.sex)
         setBmiValue(data.bmiValue)
+        setUpdated(data.updated)
       }
     } catch (error) {
       alert(error.message)
@@ -136,6 +138,7 @@ const Account = ({ session }) => {
         gender,
         sex,
         bmiValue: fixedValue,
+        updated: true,
         updated_at: new Date(),
       }
        // console.log(bmiValue)

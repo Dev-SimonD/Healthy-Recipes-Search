@@ -244,7 +244,7 @@ const Home = ({ session }) => {
   </div>
 </nav>
 
-        <div className='cont'>
+        {/* <div className='cont'> */}
        {/*  <Menu/> */}
       <Routes>
           <Route path="/account" element={!session ? <Auth/> : <Account key={session.user.id} session={session} />}>
@@ -260,7 +260,7 @@ const Home = ({ session }) => {
           <Route path="/" element={<Dashboard key={session.user.id} session={session}/>}>
           </Route>
         </Routes>  
-        </div>    
+        {/* </div> */}    
     </Router>
   )
 }
