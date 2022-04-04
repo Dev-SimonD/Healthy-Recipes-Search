@@ -199,7 +199,8 @@ const Home = ({ session }) => {
     {/* <a className="navbar-item" href="https://bulma.io">
       <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
     </a> */}
-    <h1 className="navbar-item logo">Healthy<span className='logo logoSpan'>Recipes</span></h1>
+    <NavLink  className="navbar-item" to="/"><h1 className="navbar-item logo">Healthy<span className='logo logoSpan'>Recipes</span></h1></NavLink>
+    
 
     <a id="burgerIcon" role="button" onClick={(e) => {
       e.preventDefault()

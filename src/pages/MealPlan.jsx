@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { supabase } from '../components/supabaseClient';
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { NavLink } from 'react-router-dom';
+import loadingGif from "../images/loadingGif.gif"
+
 
 
 const MealPlan = ({session}) => {
@@ -78,6 +80,8 @@ const MealPlan = ({session}) => {
 
   return (
     <div>
+      {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
+        <div>
     <div className={!updated ? "" : "nonDisplay" }>
     <div className="modal2" id="modal2">
      <h2>Meal Plan feature require user info</h2>
@@ -102,6 +106,8 @@ const MealPlan = ({session}) => {
         <img src={dinner.image} alt={dinner.title}/>
     </div>
     </div>
+    </div>
+    )}
     </div>
   )
 }

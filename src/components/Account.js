@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react'
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from './supabaseClient'
 import GaugeChart from 'react-gauge-chart'
+import loadingGif from "../images/loadingGif.gif"
+
+
 
 
 const Account = ({ session }) => {
@@ -16,6 +19,8 @@ const Account = ({ session }) => {
   const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
   const [bmiValue, setBmiValue] = useState(0)
+  const [bmrValue, setBmrValue] = useState(0)
+  const [lbmValue, setLbmValue] = useState(0)
   //const [bmiStatus, setBmiStatus] = useState("")
 
   useEffect(() => {
@@ -83,7 +88,7 @@ const Account = ({ session }) => {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, weight, height, age, gender, sex, bmiValue, updated, exercise, exerciseType`)
+        .select(`username, weight, height, age, gender, sex, bmiValue, updated, exercise, exerciseType, bmrValue, lbmValue`)
         .eq('id', user.id)
         .single()
 
@@ -103,6 +108,8 @@ const Account = ({ session }) => {
         setUpdated(data.updated)
         setExercise(data.exercise)
         setExerciseType(data.exerciseType)
+        setBmrValue(data.bmrValue)
+        setLbmValue(data.lbmValue)
       }
     } catch (error) {
       alert(error.message)
@@ -120,10 +127,54 @@ const Account = ({ session }) => {
       return value
     
   } */
+  const handleManButton = (e) =>{  
+    setSex(e.target.value)
+}
+const handleWomanButton = (e) =>{
+  setSex(e.target.value)
+
+}
+const handleRange = ((e) => {
+  if(e.target.value === "1"){
+    setExerciseType("Little or no exercise")
+  }
+  if(e.target.value === "2"){
+    setExerciseType("1-3 days per week")
+  }
+  if(e.target.value === "3"){
+    setExerciseType("3-5 days per week")
+  }
+  if(e.target.value === "4"){
+    setExerciseType("6-7 days per week")
+  }
+  if(e.target.value === "5"){
+    setExerciseType("Exercise twice a day")
+  }
+})
 
   const updateProfile = async (e) => {
     e.preventDefault()
 
+    
+  let LBM;
+  let BMR;
+
+  if(sex === "man"){
+      LBM = (((0.407 * weight) + (0.267 * height)) -19.2).toFixed(2)
+  }
+  else{
+    LBM = (((0.252 * weight) + (0.473 * height)) -48.3).toFixed(2)
+  }
+  setLbmValue(LBM)
+  BMR = (500 + (22 * LBM)).toFixed();
+  setBmrValue(BMR)
+/*   let exerciseCoef;
+ */  
+
+
+
+/*  console.log(BMR)
+ console.log(TDEE) */
     
     try {
       setLoading(true)
@@ -145,6 +196,8 @@ const Account = ({ session }) => {
         updated: true,
         exercise,
         exerciseType,
+        bmrValue: BMR,
+        lbmValue: LBM,
         updated_at: new Date(),
       }
        // console.log(bmiValue)
@@ -171,39 +224,15 @@ const Account = ({ session }) => {
      
   }
 
-  const handleManButton = (e) =>{  
-      setSex(e.target.value)
-  }
-  const handleWomanButton = (e) =>{
-    setSex(e.target.value)
-
-  }
-  const handleRange = ((e) => {
-    if(e.target.value === "1"){
-      setExerciseType("Little or no exercise")
-    }
-    if(e.target.value === "2"){
-      setExerciseType("1-3 days per week")
-    }
-    if(e.target.value === "3"){
-      setExerciseType("3-5 days per week")
-    }
-    if(e.target.value === "4"){
-      setExerciseType("6-7 days per week")
-    }
-    if(e.target.value === "5"){
-      setExerciseType("Exercise twice a day")
-    }
-  })
+ 
+  
 
   return (
 
     
       <section className='container'>
     
-       {/* {loading ? (
-       ''
-      ) : ( } */}
+       {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>) : (
       <div className="signupFormCentered">
         <form onSubmit={updateProfile} className="">
         <div className="field">
@@ -355,19 +384,18 @@ const Account = ({ session }) => {
             </button>
           </div>
         </form>
-        <div><p className='label'>{`Your BMI value is ${bmiValue}`}</p></div>
+        {/* <div><p className='label'>{`Your BMI value is ${bmiValue}`}</p></div>
         <div className='bmiChart'><GaugeChart 
         id="gauge-chart5"
          nrOfLevels={100}
          arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
          colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
          percent={bmiValue/50}
-         /* hideText={true} */
          formatTextValue={ bmiValue => bmiStatus }
          textColor={"#000000"}
          arcPadding={0.02} />
-           </div>
-        </div>
+           </div> */}
+        </div>)}
     </section>
   )
 }

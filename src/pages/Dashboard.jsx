@@ -15,6 +15,9 @@ const Dashboard = ({session}) => {
     const [age, setAge] = useState(null)
     const [exercise, setExercise] = useState(null)
     const [bmiValue, setBmiValue] = useState(0)
+    const [bmrValue, setBmrValue] = useState(0)
+    const [lbmValue, setLbmValue] = useState(0)
+    const [tdeeValue, setTdeeValue] = useState(0)
 
     useEffect(() => {
         getProfile()
@@ -27,7 +30,7 @@ const Dashboard = ({session}) => {
     
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username, weight, height, age, gender, sex, bmiValue, exercise`)
+            .select(`username, weight, height, age, gender, sex, bmiValue, exercise, bmrValue, lbmValue`)
             .eq('id', user.id)
             .single()
     
@@ -45,6 +48,9 @@ const Dashboard = ({session}) => {
             setSex(data.sex)
             setBmiValue(data.bmiValue)
             setExercise(data.exercise)
+            setBmrValue(data.bmrValue)
+           // setTdeeValue(data.tdeeValue)
+            setLbmValue(data.lbmValue)
           }
         } catch (error) {
           alert(error.message)
@@ -53,7 +59,7 @@ const Dashboard = ({session}) => {
         }
       }
 
-      let bmiStatus;
+     /*  let bmiStatus;
       const bmiStats = ["underweight", "healthy weight", "overweight", "obese", "severly obese"]
       if(bmiValue < 18.5){
         bmiStatus = bmiStats[0]
@@ -69,8 +75,8 @@ const Dashboard = ({session}) => {
       }
       else{
         bmiStatus = bmiStats[4]
-      }
-      let LBM;
+      } */
+     /*  let LBM;
       let BMR;
       let TDEE;
 
@@ -79,7 +85,9 @@ const Dashboard = ({session}) => {
       }
       else{
         LBM = (((0.252 * weight) + (0.473 * height)) -48.3).toFixed(2)
-      }
+      } */
+      let TDEE;
+      if(exercise){
       let exerciseCoef;
       if(exercise === 1)
         {
@@ -102,9 +110,15 @@ const Dashboard = ({session}) => {
           exerciseCoef = 1.9;
         }     
 
-        console.log(exerciseCoef)
-      BMR = (500 + (22 * LBM)).toFixed();
-     TDEE = (exerciseCoef * BMR).toFixed();
+       /*  console.log(exerciseCoef)
+      BMR = (500 + (22 * LBM)).toFixed(); */
+     TDEE = (exerciseCoef * bmrValue).toFixed();
+    }
+    else{
+      TDEE=0;
+    }
+     /* setTdeeValue(TDEE) */
+     
       
   return (
 <div className='container'>
@@ -120,22 +134,22 @@ const Dashboard = ({session}) => {
          textColor={"#000000"}
          arcPadding={0.02} />
            </div>  */}
-           <h2>{`Your Body Mass Index is ${bmiValue}`}</h2><br/>
+           <h2>Your Body Mass Index is {loading ? ("loading...") : (`${bmiValue}`)}</h2><br/>
            <p>The body mass index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.
                The BMI calculation divides an adult's weight in kilograms by their height in metres squared.
                 For example, A BMI of 25 means 25kg/m2.
 </p><br/>
-           <h2>{`Your Lean Body Mass is ${LBM}kg`}</h2><br/>
+           <h2>Your Lean Body Mass is {loading ? ("loading..."): (`${lbmValue}kg`)}</h2><br/>
            <p>Lean body mass (LBM) is a part of body composition
                 that is defined as the difference between total body weight and body fat weight.
                  This means that it counts the mass of all organs except body fat,
                 including bones, muscles, blood, skin, and everything else.
                  This App uses Boers Formula for calculating the Lean body mass.</p><br/>
-           <h2>{`Your Basal Metabolic Rate is ${BMR}kcal`}</h2><br/>
+           <h2>Your Basal Metabolic Rate is {loading ? ("loading...") : (`${bmrValue}kcal`)}</h2><br/>
            <p>BMR is just the number of calories your body burns at rest and
                 does not account for the calories you need to walk, talk, exercise, etc. </p><br/><br/>
-           <h2>{`Your Total Daily Energy Expenditure (TDEE) is ${TDEE}kcal`}</h2><br/>
-           <p> TDEE is a number of calories which you should cuncume to maintain your body weight
+           <h2>Your Total Daily Energy Expenditure (TDEE) is {loading ? ("loading..."): (`${TDEE}kcal`) }</h2><br/>
+           <p> TDEE is a number of calories which you should cunsume to maintain your body weight
                considering your body measurements and level of daily activities.</p>     
 
 
