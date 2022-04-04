@@ -13,6 +13,7 @@ const Dashboard = ({session}) => {
     const [gender, setGender] = useState(true)
     const [sex, setSex] = useState(null)
     const [age, setAge] = useState(null)
+    const [exercise, setExercise] = useState(null)
     const [bmiValue, setBmiValue] = useState(0)
 
     useEffect(() => {
@@ -26,7 +27,7 @@ const Dashboard = ({session}) => {
     
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username, weight, height, age, gender, sex, bmiValue`)
+            .select(`username, weight, height, age, gender, sex, bmiValue, exercise`)
             .eq('id', user.id)
             .single()
     
@@ -43,6 +44,7 @@ const Dashboard = ({session}) => {
             setAge(data.age)
             setSex(data.sex)
             setBmiValue(data.bmiValue)
+            setExercise(data.exercise)
           }
         } catch (error) {
           alert(error.message)
@@ -78,12 +80,32 @@ const Dashboard = ({session}) => {
       else{
         LBM = (((0.252 * weight) + (0.473 * height)) -48.3).toFixed(2)
       }
+      let exerciseCoef;
+      if(exercise === 1)
+        {
+          exerciseCoef = 1.2;
+        }
+      if(exercise === 2)
+        {
+          exerciseCoef = 1.375;
+        }  
+        if(exercise === 3)
+        {
+          exerciseCoef = 1.55;
+        }
+        if(exercise === 4)
+        {
+          exerciseCoef = 1.725;
+        } 
+        if(exercise === 5)
+        {
+          exerciseCoef = 1.9;
+        }     
 
-     BMR = (500 + (22 * LBM)).toFixed();
-     TDEE = (1.55 * BMR).toFixed();
+        console.log(exerciseCoef)
+      BMR = (500 + (22 * LBM)).toFixed();
+     TDEE = (exerciseCoef * BMR).toFixed();
       
-      console.log(LBM);  
-
   return (
 <div className='container'>
        {/* <h1>Dashboard</h1>

@@ -50,7 +50,7 @@ function Recipe() {
             <img className="recipeImage" src={details.image} alt="" />
             </div>
             <br/>
-            <br/>
+           
         <div className='recipeIcons'>
             <div className='likes'>
             <i className="fas fa-heart" style={{"color":"red"}}></i>
@@ -62,7 +62,7 @@ function Recipe() {
             </div>
             </div>
             <br/>
-            <br/>
+           
             <div>
                 <button className='button is-primary is-light recipeButtons' onClick={summaryHandler}>Summary</button>
                 <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandler}>Ingredients</button>
@@ -72,15 +72,17 @@ function Recipe() {
           <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.summary}}/>
           ) }
           {isIngredients && (
-          <ul className='recipeSummary'>
+              <div className='recipeSummary'>
+            <ol className='recipeSummary'>
           {details.extendedIngredients.map((ingredient) => (
               <li key={ingredient.id}>{ingredient.original}</li>
 
           ))}
-      </ul>
+      </ol>
+      </div>
           ) }
           {isInstructions && (
-          <p className='recipeSummary'>{details.instructions}</p>
+           <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.instructions}}/>
           ) }
       </div>
    /*  <DetailWrapper>

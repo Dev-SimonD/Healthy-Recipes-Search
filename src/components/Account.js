@@ -11,6 +11,8 @@ const Account = ({ session }) => {
   const [weight, setWeight] = useState(null)
   const [updated, setUpdated] = useState(null)
   const [gender, setGender] = useState(true)
+  const [exercise, setExercise] = useState(null)
+  const [exerciseType, setExerciseType] = useState("set your exercise level")
   const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
   const [bmiValue, setBmiValue] = useState(0)
@@ -81,7 +83,7 @@ const Account = ({ session }) => {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, weight, height, age, gender, sex, bmiValue, updated`)
+        .select(`username, weight, height, age, gender, sex, bmiValue, updated, exercise, exerciseType`)
         .eq('id', user.id)
         .single()
 
@@ -99,6 +101,8 @@ const Account = ({ session }) => {
         setSex(data.sex)
         setBmiValue(data.bmiValue)
         setUpdated(data.updated)
+        setExercise(data.exercise)
+        setExerciseType(data.exerciseType)
       }
     } catch (error) {
       alert(error.message)
@@ -139,6 +143,8 @@ const Account = ({ session }) => {
         sex,
         bmiValue: fixedValue,
         updated: true,
+        exercise,
+        exerciseType,
         updated_at: new Date(),
       }
        // console.log(bmiValue)
@@ -172,6 +178,23 @@ const Account = ({ session }) => {
     setSex(e.target.value)
 
   }
+  const handleRange = ((e) => {
+    if(e.target.value === "1"){
+      setExerciseType("Little or no exercise")
+    }
+    if(e.target.value === "2"){
+      setExerciseType("1-3 days per week")
+    }
+    if(e.target.value === "3"){
+      setExerciseType("3-5 days per week")
+    }
+    if(e.target.value === "4"){
+      setExerciseType("6-7 days per week")
+    }
+    if(e.target.value === "5"){
+      setExerciseType("Exercise twice a day")
+    }
+  })
 
   return (
 
@@ -184,7 +207,7 @@ const Account = ({ session }) => {
       <div className="signupFormCentered">
         <form onSubmit={updateProfile} className="">
         <div className="field">
-                   <label className="label" htmlFor="username">username</label>
+                   <label className="label" htmlFor="username">Username</label>
                       <div className="control">
               <input
                className="input"
@@ -223,7 +246,9 @@ const Account = ({ session }) => {
 </select> */}
 
 {/* {sex == "man" ? <p>your sex is man </p>:<p> your sex is woman </p>}
- */}<div className="radioButtons">
+ */}
+ <label className="label" htmlFor="gender">Gender</label>
+ <div className="radioButtons">
    <label className='label radiobtn'>
 <input type="radio"
        value="man"
@@ -242,9 +267,42 @@ const Account = ({ session }) => {
        </label>
 </div>
 
+<div className="field">
+                   <label className="label" htmlFor="exercise">Exercise Level</label>
+                      <div className="control">
+            <input
+              id="exercise"
+              className='exerciseRange'
+              min="1"
+              max="5"
+              required
+              name='exercise'
+              type="range"
+              value={exercise || ''}
+              onChange={(e) => {
+                handleRange(e)
+                setExercise(e.target.value)
+                console.log(e.target.value)
+              }}
+             
+            />
+          </div>
+          </div>
+
+          <p style={{"textAlign": "center"}}>{exerciseType}</p>
+
+{/* <label className="label" htmlFor="exercise">Exercise Level</label>
+          <select className="exercise" name="exercise"id="exercise" onChange={(e) => setExercise(e.target.value)}>
+                        <option disabled>{`${exercise}x day`}</option>
+                        <option value="1">1x day</option>
+                        <option value="2">2x day</option>
+                        <option value="3">3x day</option>
+                        <option value="4">4x day</option>
+                        <option value="5">5x day</option>                       
+                      </select> */}
             
           <div className="field">
-                   <label className="label" htmlFor="height">height (cm)</label>
+                   <label className="label" htmlFor="height">Height (cm)</label>
                       <div className="control">
             <input
              className="input"
@@ -260,7 +318,7 @@ const Account = ({ session }) => {
           </div>
           </div>
           <div className="field">
-                   <label className="label" htmlFor="weight">weight (Kg)</label>
+                   <label className="label" htmlFor="weight">Weight (Kg)</label>
                       <div className="control">
             <input
              className="input"
@@ -276,7 +334,7 @@ const Account = ({ session }) => {
           </div>
           </div>
           <div className="field">
-                   <label className="label" htmlFor="age">age</label>
+                   <label className="label" htmlFor="age">Age</label>
                       <div className="control">
             <input
              className="input"
@@ -297,7 +355,7 @@ const Account = ({ session }) => {
             </button>
           </div>
         </form>
-        <div><h2 className='title'>{`Your BMI value is ${bmiValue}`}</h2></div>
+        <div><p className='label'>{`Your BMI value is ${bmiValue}`}</p></div>
         <div className='bmiChart'><GaugeChart 
         id="gauge-chart5"
          nrOfLevels={100}
@@ -310,10 +368,6 @@ const Account = ({ session }) => {
          arcPadding={0.02} />
            </div>
         </div>
-  
-      <button type="button" className="button mt-3 is-primary" onClick={() => supabase.auth.signOut()}>
-        Sign Out
-      </button>
     </section>
   )
 }
