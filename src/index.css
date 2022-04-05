@@ -5,7 +5,9 @@
   
 }
 body {
-  min-width: 100vw;
+  /* min-width: 100vw;
+  min-height: 100vh; */
+  width: 100vw;
   min-height: 100vh;
   font-family: 'montserrat',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -13,6 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fcf8ff;
+  overflow: hidden;
+
  /*  background: hsla(211, 66%, 87%, 1);
 
   background: linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
@@ -24,19 +28,31 @@ body {
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#C9DEF4", endColorstr="#F5CCD4", GradientType=1 );
  */ /*   background-color: #fff8ec;
  */}
-#root{
+/* #root{
   height: 100%;
-  width: 100%;
-  
+  width: 100%;  
 }
 .fullwidthheight{
   width: 100%;
   height: 100%;
-}
+} */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+#loginPage{
+  display: flex;
+  padding-top: 10rem;
+  justify-content: space-evenly;
+}
+.loginMainTitle{
+  color: white;
+  font-weight: bold;
+  font-size: 4rem;
+}
+.loginDescription{
+  color: white;
 }
 .signupFormCentered{
   width: auto;
@@ -48,11 +64,22 @@ code {
 }
 .signupBtn{
   width: 100%;
+  background-color: #ffbf00 !important;
+}
+.signupBtn:hover{
+  width: 100%;
+  background-color: #f0b503 !important;
 }
 .underlineBtn{
   border: none !important;
-  text-decoration: underline;
-  font-size: 0.8rem !important;
+/*   text-decoration: underline;
+ */  font-size: 0.8rem !important;
+  background-color: transparent !important;
+  color: white !important;
+}
+.underlineBtn:hover{
+  color: white !important;
+  border: none;
 }
 .hero.is-medium .hero-body {
   padding: 3rem 4.5rem !important;
@@ -112,7 +139,7 @@ code {
    background-size: cover;
    position: absolute;
    width: 100vw;
-   height: 100vh;
+   min-height: 100%;
    filter: brightness(50%);
  }
  .exerciseRange{
@@ -124,7 +151,7 @@ code {
  }
  .loginTitle{
    color: whitesmoke;
-   font-size: 3rem;
+   font-size: 2rem;
  }
  .loginLabel{
   color: whitesmoke;
@@ -335,6 +362,31 @@ justify-content: flex-start;
                                 /* Phone/Tablet size */
 
 @media screen and (max-width: 600px){
+.auth{
+    background-image: url("./images/cooking.jpg");
+    background-size: inherit;
+    position: fixed;
+ width: 100%;
+    height: 100%;
+    filter: brightness(50%);
+}
+#loginPage{
+  flex-direction: column;
+  padding-top: 5rem;
+}  
+.loginTitle{
+  font-size: 1rem;
+}
+#loginTextContent{
+  padding: 1.5rem;
+}
+.loginMainTitle{
+  font-size: 2rem;
+  text-align: center;
+}
+.loginDescription{
+  text-align: center;
+}
 .navbar-menu {
 position: relative;
 top: 10px;

@@ -92,13 +92,13 @@ export default function Auth() {
       </nav>
     </div>
   </section> */}
-    <section className="section container">
-     
-
-         {loading ? (
-          'Signing...'
-        ) : (
-          
+   
+    <section className="container" id='loginPage'>
+    <div id="loginTextContent">
+    <h1 className='loginMainTitle'>Healthy Recipes</h1>
+    <p className='loginDescription'>The Ideal recipes for your Fitness goal</p>
+    </div>
+                <div id='loadingForm'> 
                 <div className="signupFormCentered">
                   <h1 className='loginTitle' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
                   <h1 className='loginTitle' style={ !style ? { display:''} : {display : 'none'} }>Sign in</h1>
@@ -161,7 +161,7 @@ export default function Auth() {
                                         </button>
                                  </form>
                                  </div>
-                             )}
+                             
                 <div className='signupFormCentered'>
                 <form onSubmit={handleLogin} style={ !style ? { display:''} : {display : 'none'} }>
                   <div className="field">
@@ -210,6 +210,7 @@ export default function Auth() {
                              aria-live='polite'>
                              {!style ? "Don't have an Account? Sign up Here" : "Already have an Account? Sign In here"}
                         </button>
+                                 </div>
                                  </div>
                                 {/*  <button onClick={() => {
                             setStyle(!style)}} 
