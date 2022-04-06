@@ -87,7 +87,7 @@ const Recipes = ({session}) => {
              value={search}/>
   </div>
   <div className="control">
-    <button type="submit" className="button /* is-info */" style={{"background" : "#f9f871", "color": "black"}}>
+    <button type="submit" className="button is-primary signupBtn">
       Search
     </button>
   </div>

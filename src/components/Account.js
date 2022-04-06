@@ -3,6 +3,7 @@ import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from './supabaseClient'
 import GaugeChart from 'react-gauge-chart'
 import loadingGif from "../images/loadingGif.gif"
+import fitness from "../images/fitness.jpg"
 
 
 
@@ -234,8 +235,9 @@ const handleRange = ((e) => {
     
        {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>) : (
       <div className="signupFormCentered">
-        <form onSubmit={updateProfile} className="">
+        <form onSubmit={updateProfile} className="accountForm">
         <div className="field">
+          <h1 className="title">Profile</h1>
                    <label className="label" htmlFor="username">Username</label>
                       <div className="control">
               <input
@@ -379,7 +381,7 @@ const handleRange = ((e) => {
           </div>
           </div>
           <div>
-            <button className="button mt-3 is-primary" disabled={loading}>
+            <button className="button mt-3 is-primary signupBtn" disabled={loading}>
               Update profile
             </button>
           </div>
@@ -396,7 +398,8 @@ const handleRange = ((e) => {
          arcPadding={0.02} />
            </div> */}
         </div>)}
-    </section>
+{/*         <img src={fitness} alt="fitness"/>
+ */}    </section>
   )
 }
 

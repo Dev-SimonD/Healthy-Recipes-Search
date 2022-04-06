@@ -8,6 +8,7 @@ import Dashboard from './Dashboard.jsx'
 import Recipes from './Recipes.jsx'
 import MealPlan from './MealPlan.jsx'
 import Recipe from './Recipe.jsx'
+import Settings from './Settings.jsx'
 import Menu from "../components/Menu.js"
 
 
@@ -223,6 +224,7 @@ const Home = ({ session }) => {
     <NavLink className="navbar-item" to="/account">Account</NavLink>
     <NavLink className="navbar-item" to="/mealplan">Meal Plan</NavLink>
     <NavLink className="navbar-item" to="/search">Food Search</NavLink>
+    <NavLink className="navbar-item" to="/settings">Settings</NavLink>
 
     </div>
 
@@ -257,6 +259,8 @@ const Home = ({ session }) => {
           <Route path="/search" element={<SearchFood key={session.user.id} session={session} />}>
           </Route>
           <Route path="/recipes/:name" element={<Recipe />}>
+          </Route>
+          <Route path="/settings" element={<Settings />}>
           </Route>
           <Route path="/" element={<Dashboard key={session.user.id} session={session}/>}>
           </Route>

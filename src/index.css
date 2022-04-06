@@ -43,16 +43,30 @@ code {
 }
 #loginPage{
   display: flex;
-  padding-top: 10rem;
+  padding-top: 7rem;
   justify-content: space-evenly;
 }
 .loginMainTitle{
   color: white;
   font-weight: bold;
   font-size: 4rem;
+  display: flex;
+  flex-direction: column;
 }
 .loginDescription{
   color: white;
+  font-weight: bold;
+}
+.angleIcons{
+  display: flex;
+}
+#healthy{
+  color: #f0b503;
+  font-size: 5rem;
+  font-style: italic;
+}
+#recipes{
+  font-style: italic;
 }
 .signupFormCentered{
   width: auto;
@@ -103,6 +117,14 @@ code {
 .radiobtn{
   padding-left: 2rem;
 }
+.accountForm{
+  padding: 3rem;
+  background-color: white;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
+}
+
 .navbar-brand{
   justify-content: center;
 }
@@ -137,16 +159,24 @@ code {
  .auth{
    background-image: url("./images/cooking.jpg");
    background-size: cover;
-   position: absolute;
-   width: 100vw;
+/*    position: absolute;
+ */   
+ position: fixed; 
+ width: 100vw;
    min-height: 100%;
-   filter: brightness(50%);
+   filter: brightness(45%);
  }
  .exerciseRange{
    width: 100%;
   box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
 }
- .section{
+input[type="range"]::-moz-range-progress {
+  background-color: #ffbf00; 
+}
+input[type="range"]::-moz-range-track {  
+  background-color: #ffbf00;
+}
+.section{
   padding: 10rem 1rem !important;
  }
  .loginTitle{
@@ -291,9 +321,9 @@ code {
 .logoSpan{
   /* background-color: #f96300;
  */
- background-color:#f9f871;
+ background-color: #ffbf00 !important;
   border-radius: 0.5rem;
-  color: antiquewhite;
+  color: white;
 }
 .card{
   height: 100%;
@@ -340,7 +370,13 @@ justify-content: flex-start;
 .recipeButtons{
   margin: 0 0.1rem !important;
   padding:0  0.1rem !important;
+  /* background-color: #ffbf00 !important;
+  color: white !important; */
 }
+/* .recipeButtons:hover{
+  background-color: #f0b503 !important;
+  color: white !important;
+} */
 .likes p{
   font-size: 1rem;
 }
@@ -364,16 +400,22 @@ justify-content: flex-start;
 @media screen and (max-width: 600px){
 .auth{
     background-image: url("./images/cooking.jpg");
-    background-size: inherit;
+    background-size: cover;
     position: fixed;
  width: 100%;
     height: 100%;
-    filter: brightness(50%);
+    filter: brightness(45%);
+}
+.fa-angle-right{
+  display: none;
 }
 #loginPage{
   flex-direction: column;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }  
+#healthy{
+  font-size: 3rem;
+}
 .loginTitle{
   font-size: 1rem;
 }
@@ -383,9 +425,14 @@ justify-content: flex-start;
 .loginMainTitle{
   font-size: 2rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 .loginDescription{
   text-align: center;
+  color: white;
+  font-size: 1rem;
+  font-weight: normal;
 }
 .navbar-menu {
 position: relative;

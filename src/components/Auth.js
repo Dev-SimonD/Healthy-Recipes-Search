@@ -11,10 +11,14 @@ export default function Auth() {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [style, setStyle] = useState(false)
 
- 
+  const pwregex=  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+
+
 
   const handleSignup = async (e) => {
     e.preventDefault()
+    if(password.match(pwregex)){
+
     if(password!==passwordConfirm){
         
         Swal.fire({
@@ -35,8 +39,8 @@ export default function Auth() {
       if (error) throw error
       Swal.fire({
         title: 'Success!',
-        text:  "Check your email for confirmatio link.",
-        icon: 'Success',
+        text:  "Check your email for confirmation link.",
+        icon: 'success',
         confirmButtonText: 'OK'
       })
     } catch (error) {
@@ -50,6 +54,17 @@ export default function Auth() {
     } finally {
       setLoading(false)
     }
+  } 
+  }
+  else{
+    Swal.fire({
+      title: 'Error!',
+      text:  "Password must include min. 8 characters, one Uppercase letter, number and special character",
+      icon: 'error',
+      confirmButtonText: 'OK'
+    })
+    setPassword("")
+    setPasswordConfirm("")
   }}
 
   const handleLogin = async (e) => {
@@ -67,14 +82,29 @@ export default function Auth() {
      /*  alert(error.error_description || error.message) */
      Swal.fire({
         title: 'Error!',
-        text:  error.message,
+        text:  [error.message, " please try again"],
         icon: 'error',
         confirmButtonText: 'OK'
       })
+      setEmail("")
+      setPassword("")
     } finally {
       setLoading(false)
     }
   }
+ // function CheckPassword(inputtxt) 
+
+/* if(password.value.match(paswd)) 
+{ 
+console.log('Correct, try another...')
+return true;
+}
+else
+{ 
+console.log('Wrong...!')
+return false;
+} */
+
   //console.log(style)
 
   return (
@@ -95,8 +125,12 @@ export default function Auth() {
    
     <section className="container" id='loginPage'>
     <div id="loginTextContent">
-    <h1 className='loginMainTitle'>Healthy Recipes</h1>
-    <p className='loginDescription'>The Ideal recipes for your Fitness goal</p>
+    <h1 className='loginMainTitle'><span id="healthy">Healthy</span> <span id='recipes'>Recipes</span></h1>
+    <p className='loginDescription'>
+    <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
+    <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
+    <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
+    {` The Ideal recipes for your Fitness goal`}</p>
     </div>
                 <div id='loadingForm'> 
                 <div className="signupFormCentered">
@@ -131,7 +165,8 @@ export default function Auth() {
                                     required
                                     placeholder="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => setPassword(e.target.value)
+                                   }
                                     />
                                     <span className="icon is-small is-left">
                                     <i className="fas fa-key"></i>
