@@ -8,9 +8,13 @@ import loadingGif from "../images/loadingGif.gif"
 
 const MealPlan = ({session}) => {
 
-    const [breakfast, setBreakfast] = useState([])
-    const [launch, setLaunch] = useState([])
-    const [dinner, setDinner] = useState([])
+
+    const [breakfastId, setBreakfastId] = useState("")
+    const [launchId, setLaunchId] = useState("")
+    const [dinnerId, setDinnerId] = useState("")
+    const [breakfast, setBreakfast] = useState(null)
+    const [launch, setLaunch] = useState(null)
+    const [dinner, setDinner] = useState(null)
 
 
     const mealURL = `https://api.spoonacular.com/mealplanner/generate?timeFrame=day&apiKey=${process.env.REACT_APP_API_KEY}`;
@@ -18,6 +22,11 @@ const MealPlan = ({session}) => {
 
    const [loading, setLoading] = useState(true)   
    const [updated, setUpdated] = useState(null)
+   const [spoonUsername, setSpoonUsername] = useState(null)
+  const [spoonPassword, setSpoonPassword] = useState(null)
+  const [spoonHash, setSpoonHash] = useState(null)
+  const [mealPlan, setMealPlan] = useState()
+  const [mealPlanNutrients, setMealPlanNutrients] = useState()
 
 
    useEffect(() => {
@@ -31,7 +40,7 @@ const MealPlan = ({session}) => {
    
          let { data, error, status } = await supabase
            .from('profiles')
-           .select(`updated`)
+           .select(`username, updated, spoonUsername, spoonPassword, spoonHash`)
            .eq('id', user.id)
            .single()
    
@@ -42,27 +51,55 @@ const MealPlan = ({session}) => {
          if (data) {
            console.log(data)
            setUpdated(data.updated)
+           setSpoonUsername(data.spoonUsername)
+           setSpoonPassword(data.spoonPassword)
+           setSpoonHash(data.spoonHash)
          }
+          
+        // console.log(breakfast)
+        
+
+        const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=2500&apiKey=${process.env.REACT_APP_API_KEY}`)
+    const spoonData = await response.json()
+    setMealPlanNutrients(spoonData.nutrients)
+    console.log(spoonData.nutrients)
+    //console.log(spoonData.meals[0].id);
+    /* setBreakfastId(spoonData.meals[0].id)
+    setLaunchId(spoonData.meals[1].id)
+    setDinnerId(spoonData.meals[2].id) */
+         
+         const meals = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${spoonData.meals[0].id},${spoonData.meals[1].id},${spoonData.meals[2].id}&apiKey=${process.env.REACT_APP_API_KEY}`)
+         const mealsData = await meals.json()
+        // console.log(mealsData[2])
+        setBreakfast(mealsData[0])
+        setLaunch(mealsData[1])
+        setDinner(mealsData[2])
+
        } catch (error) {
          alert(error.message)
        } finally {
          setLoading(false)
        }
-     }
+            
+      }
 
-    useEffect(() => {
+     /*  console.log("breakfast", breakfast)
+      console.log("launch", launch)
+      console.log("dinner", dinner) */
+
+    /* useEffect(() => {
         getMeal()
-    }, []);
+    }, []); */
 
-    const getMeal = async () => {
-       const response = await fetch(mealURL)
+    /* const getMeal = async () => {
+       const response = await fetch(`https://api.spoonacular.com/mealplanner/${spoonUsername}/day/2022-06-01?hash=${spoonHash}&apiKey=${process.env.REACT_APP_API_KEY}`)
        const data = await response.json()
-       //console.log(data);
+       console.log(data);
        setBreakfast(data.meals[0])
        setLaunch(data.meals[1])
        setDinner(data.meals[2])
-      // console.log(data.meals[0])
- }
+       console.log(data.meals[0])
+ } */
  //console.log(meal)
 /* 
  const getMealplanDetails = async (id) => {
@@ -92,19 +129,25 @@ const MealPlan = ({session}) => {
    </div>
    </div>
         <div className={updated ? "" : "nonDisplay" }>
-           
+           <h1>Meal plan for a day</h1>
+           <ul>
+             <li>calories: {mealPlanNutrients.calories}</li>
+             <li>carbs: {mealPlanNutrients.carbohydrates}</li>
+             <li>fats: {mealPlanNutrients.fat}</li>
+             <li>proteins: {mealPlanNutrients.protein}</li>
+           </ul>
     <div className='recipesCard'>     
-           <h2> {breakfast.title} </h2>  
-           <img src={breakfast.image} alt={breakfast.title}/>                           
-      </div>
+           <h2>{`Breakfast: `} {breakfast != null ? (breakfast.title) : ""}</h2>  
+{/*            <img src={breakfast.image} alt={breakfast.title}/>                           
+ */}      </div>
       <div className='recipesCard'> 
-           <h2>  {launch.title} </h2>
-           <img src={launch.image} alt={launch.title}/>
-     </div>
+      <h2>{`Launch: `} {launch != null ? (launch.title) : ""}</h2>  
+{/*            <img src={launch.image} alt={launch.title}/>
+ */}     </div>
       <div className='recipesCard'>           
-        <h2>  {dinner.title}</h2>
-        <img src={dinner.image} alt={dinner.title}/>
-    </div>
+      <h2>{`Dinnere: `} {dinner != null ? (dinner.title) : ""}</h2>  
+{/*         <img src={dinner.image} alt={dinner.title}/>
+ */}    </div>
     </div>
     </div>
     )}

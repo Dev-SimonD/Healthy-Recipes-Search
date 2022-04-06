@@ -22,6 +22,15 @@ const Account = ({ session }) => {
   const [bmiValue, setBmiValue] = useState(0)
   const [bmrValue, setBmrValue] = useState(0)
   const [lbmValue, setLbmValue] = useState(0)
+  const [spoonData, setSpoonData] = useState(null)
+  const [spoonUsername, setSpoonUsername] = useState(null)
+  const [spoonPassword, setSpoonPassword] = useState(null)
+  const [spoonHash, setSpoonHash] = useState(null)
+  const [vegetarian, setVegetarian] = useState(false);
+  const [paleo, setPaleo] = useState(false);
+  const [ketogenic, setKetogenic] = useState(false);
+  const [pescaterian, setPescaterian] = useState(false);
+
   //const [bmiStatus, setBmiStatus] = useState("")
 
   useEffect(() => {
@@ -89,7 +98,9 @@ const Account = ({ session }) => {
 
       let { data, error, status } = await supabase
         .from('profiles')
-        .select(`username, weight, height, age, gender, sex, bmiValue, updated, exercise, exerciseType, bmrValue, lbmValue`)
+        .select(`username, weight, height, age, gender, sex, bmiValue, updated,
+         exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
+         vegetarian, paleo, ketogenic, pescaterian`)
         .eq('id', user.id)
         .single()
 
@@ -111,6 +122,13 @@ const Account = ({ session }) => {
         setExerciseType(data.exerciseType)
         setBmrValue(data.bmrValue)
         setLbmValue(data.lbmValue)
+        setSpoonUsername(data.spoonUsername)
+        setSpoonPassword(data.spoonPassword)
+        setSpoonHash(data.spoonHash)
+        setVegetarian(data.vegetarian)
+        setPaleo(data.paleo)
+        setKetogenic(data.ketogenic)
+        setPescaterian(data.pescaterian)
       }
     } catch (error) {
       alert(error.message)
@@ -135,6 +153,30 @@ const handleWomanButton = (e) =>{
   setSex(e.target.value)
 
 }
+
+const handleVegetarian = () => {
+  setVegetarian(!vegetarian);
+};
+
+const handlePaleo = () => {
+  setPaleo(!paleo);
+};
+const handleKetogenic = () => {
+  setKetogenic(!ketogenic);
+};
+
+const handlePescaterian = () => {
+  setPescaterian(!pescaterian);
+};
+
+const Checkbox = ({ label, value, onChange }) => {
+  return (
+    <label>
+      <input type="checkbox" checked={value} onChange={onChange} />
+      {label}
+    </label>
+  );
+};
 const handleRange = ((e) => {
   if(e.target.value === "1"){
     setExerciseType("Little or no exercise")
@@ -172,10 +214,23 @@ const handleRange = ((e) => {
 /*   let exerciseCoef;
  */  
 
+const requestOptions = {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ "username": username })
+};
+fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_API_KEY}`, requestOptions)
+  .then(response => response.json())
+  .then(data => {
+    setSpoonHash(data.hash)
+    setSpoonUsername(data.username)
+    setSpoonPassword(data.spoonacularPassword)
+    console.log(spoonHash, spoonPassword, spoonUsername)
+    console.log("hash",spoonHash)
+  });
 
-
-/*  console.log(BMR)
- console.log(TDEE) */
+  console.log("hash",spoonHash)
+ 
     
     try {
       setLoading(true)
@@ -199,6 +254,13 @@ const handleRange = ((e) => {
         exerciseType,
         bmrValue: BMR,
         lbmValue: LBM,
+        spoonUsername,
+        spoonPassword,
+        spoonHash,
+        vegetarian,
+        paleo,
+        ketogenic,
+        pescaterian,
         updated_at: new Date(),
       }
        // console.log(bmiValue)
@@ -222,11 +284,21 @@ const handleRange = ((e) => {
         confirmButtonText: 'OK'
       })
      // bmiFunc(weight,height)
-     
-  }
+/*      getMealPlan()
+ */  }
 
- 
-  
+ /*  const getMealPlan = async () => {
+        const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ "username": username })
+    };
+    fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_API_KEY}`, requestOptions)
+        .then(response => response.json())
+        .then(data => setSpoonData(data));
+  } */
+  //console.log(spoonData)
+
 
   return (
 
@@ -280,7 +352,7 @@ const handleRange = ((e) => {
  */}
  <label className="label" htmlFor="gender">Gender</label>
  <div className="radioButtons">
-   <label className='label radiobtn'>
+   <label className='radiobtn'>
 <input type="radio"
        value="man"
        name="gender"
@@ -288,7 +360,7 @@ const handleRange = ((e) => {
        checked={sex === "man"}
        /> Man
        </label>
-       <label className='label radiobtn'>
+       <label className='radiobtn'>
 <input type="radio" 
        value="woman" 
        name="gender" 
@@ -331,7 +403,34 @@ const handleRange = ((e) => {
                         <option value="4">4x day</option>
                         <option value="5">5x day</option>                       
                       </select> */}
-            
+            <div className="field">
+                   <label className="label">Diets</label>
+                      <div className="control"></div>
+                      <div className='dietCheckboxes'>
+            <Checkbox
+        label=" Vegetarian"
+        value={vegetarian}
+        onChange={handleVegetarian}
+      />
+      <Checkbox
+        label=" Paleo"
+        value={paleo}
+        onChange={handlePaleo}
+      />
+      <Checkbox
+        label=" Ketogenic"
+        value={ketogenic}
+        onChange={handleKetogenic}
+      />
+      <Checkbox
+        label=" Pescaterian"
+        value={pescaterian}
+        onChange={handlePescaterian}
+      />
+      </div>
+      </div>
+      
+
           <div className="field">
                    <label className="label" htmlFor="height">Height (cm)</label>
                       <div className="control">
