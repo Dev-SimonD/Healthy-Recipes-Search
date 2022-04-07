@@ -30,6 +30,7 @@ const Account = ({ session }) => {
   const [paleo, setPaleo] = useState(false);
   const [ketogenic, setKetogenic] = useState(false);
   const [pescaterian, setPescaterian] = useState(false);
+  const [theTDEE, setTDEE] = useState(0);
 
   //const [bmiStatus, setBmiStatus] = useState("")
 
@@ -239,6 +240,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
       let fixedValue = value.toFixed(2);
       console.log("fixed value",fixedValue)
       setBmiValue(fixedValue);
+
    
       const updates = {
         id: user.id,
@@ -276,7 +278,10 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
     } finally {
       setLoading(false)
     }
-    
+
+   
+/*   console.log(TDEE)
+ */    
     Swal.fire({
         title: 'Success!',
         text: 'Profile succesfully updated',
@@ -286,6 +291,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
      // bmiFunc(weight,height)
 /*      getMealPlan()
  */  }
+
 
  /*  const getMealPlan = async () => {
         const requestOptions = {
@@ -306,7 +312,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
       <section className='container'>
     
        {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>) : (
-      <div className="signupFormCentered">
+      <div /* className="signupFormCentered" */ id='accountDoubleColumn'>
         <form onSubmit={updateProfile} className="accountForm">
         <div className="field">
           <h1 className="title">Profile</h1>
@@ -429,7 +435,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
       />
       </div>
       </div>
-      
+
 
           <div className="field">
                    <label className="label" htmlFor="height">Height (cm)</label>
@@ -496,9 +502,45 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
          textColor={"#000000"}
          arcPadding={0.02} />
            </div> */}
+          
+            <div className='accountForm' id='statistics'>
+            <h1 className='title' style={{"textAlign": "center"}}>Statistics</h1>
+          <div className="statisticsGauge">
+            <div><p>{`Your BMI value is ${bmiValue}`}</p></div>
+        <div className='bmiChart'><GaugeChart 
+        id="gauge-chart5"
+         nrOfLevels={100}
+         arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
+         colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
+         percent={bmiValue/50}
+         formatTextValue={ bmiValue => bmiStatus }
+         textColor={"#000000"}
+         arcPadding={0.02} />
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your basal metabolic rate:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${bmrValue}kcal`}</p></div>
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your lean body mass:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${lbmValue}kg`}</p></div>
+           </div>
+           </div>
+           {/* <div className="statisticsGauge">
+            <p>Your Total daily energy expenditure:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${theTDEE}kcal`}</p></div>
+           </div>
+           </div> */}
+                </div>
+                   
         </div>)}
-{/*         <img src={fitness} alt="fitness"/>
- */}    </section>
+       
+   </section>
   )
 }
 

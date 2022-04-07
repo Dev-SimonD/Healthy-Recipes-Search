@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { supabase } from '../components/supabaseClient'
 import GaugeChart from 'react-gauge-chart'
+import loadingGif from "../images/loadingGif.gif"
+
 
 
 
@@ -14,6 +16,7 @@ const Dashboard = ({session}) => {
     const [sex, setSex] = useState(null)
     const [age, setAge] = useState(null)
     const [exercise, setExercise] = useState(null)
+    const [updated, setUpdated] = useState(false)
     const [bmiValue, setBmiValue] = useState(0)
     const [bmrValue, setBmrValue] = useState(0)
     const [lbmValue, setLbmValue] = useState(0)
@@ -23,6 +26,25 @@ const Dashboard = ({session}) => {
         getProfile()
     }, [session])
 
+    let bmiStatus;
+  const bmiStats = ["underweight", "healthy weight", "overweight", "obese", "severly obese"]
+  if(bmiValue < 18.5){
+    bmiStatus = bmiStats[0]
+  }
+  else if(bmiValue < 24.9 && bmiValue > 18.5){
+    bmiStatus = bmiStats[1]
+  }
+  else if(bmiValue < 29.9 && bmiValue > 25){
+    bmiStatus = bmiStats[2]
+  }
+  else if(bmiValue < 34.9 && bmiValue > 30){
+    bmiStatus = bmiStats[3]
+  }
+  else{
+    bmiStatus = bmiStats[4]
+  }
+
+
     const getProfile = async () => {
         try {
           setLoading(true)
@@ -30,7 +52,7 @@ const Dashboard = ({session}) => {
     
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username, weight, height, age, gender, sex, bmiValue, exercise, bmrValue, lbmValue`)
+            .select(`username, weight, height, age, gender, sex,updated, bmiValue, exercise, bmrValue, lbmValue`)
             .eq('id', user.id)
             .single()
     
@@ -51,6 +73,7 @@ const Dashboard = ({session}) => {
             setBmrValue(data.bmrValue)
            // setTdeeValue(data.tdeeValue)
             setLbmValue(data.lbmValue)
+            setUpdated(data.updated)
           }
         } catch (error) {
           alert(error.message)
@@ -134,6 +157,46 @@ const Dashboard = ({session}) => {
          textColor={"#000000"}
          arcPadding={0.02} />
            </div>  */}
+           {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
+             
+             <div>
+               {!updated ? (""): (
+            <div className='accountForm' id='statistics'>
+            <h1 className='title' style={{"textAlign": "center"}}>Statistics</h1>
+          <div className="statisticsGauge">
+            <div><p>{`Your BMI value is ${bmiValue}`}</p></div>
+        <div className='bmiChart'><GaugeChart 
+        id="gauge-chart5"
+         nrOfLevels={100}
+         arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
+         colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
+         percent={bmiValue/50}
+         formatTextValue={ bmiValue => bmiStatus }
+         textColor={"#000000"}
+         arcPadding={0.02} />
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your basal metabolic rate:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${bmrValue}kcal`}</p></div>
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your lean body mass:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${lbmValue}kg`}</p></div>
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your Total daily energy expenditure:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${TDEE}kcal`}</p></div>
+           </div>
+           </div>
+                </div>
+                    )}
+
            <h2>Your Body Mass Index is {loading ? ("loading...") : (`${bmiValue}`)}</h2><br/>
            <p>The body mass index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.
                The BMI calculation divides an adult's weight in kilograms by their height in metres squared.
@@ -150,8 +213,10 @@ const Dashboard = ({session}) => {
                 does not account for the calories you need to walk, talk, exercise, etc. </p><br/><br/>
            <h2>Your Total Daily Energy Expenditure (TDEE) is {loading ? ("loading..."): (`${TDEE}kcal`) }</h2><br/>
            <p> TDEE is a number of calories which you should cunsume to maintain your body weight
-               considering your body measurements and level of daily activities.</p>     
-
+               considering your body measurements and level of daily activities.</p>  
+               </div>   
+           )}
+             
 
       </div>  
       )
