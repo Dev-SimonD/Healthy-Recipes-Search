@@ -578,6 +578,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
           
             <div className='accountForm' id='statistics'>
             <h1 className='title' style={{"textAlign": "center"}}>Statistics</h1>
+            <div className='statisticsInfo'>
           <div className="statisticsGauge">
             <div><p>{`Your BMI value is ${bmiValue}`}</p></div>
         <div className='bmiChart'><GaugeChart 
@@ -604,9 +605,10 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
            </div>
            </div>
            <div className="statisticsGauge">
-            <p>Your Total daily energy expenditure:</p>
+            <p style={{"textAlign":"center"}}>Your Total daily energy expenditure:</p>
         <div className='bmiChart'>
            <div className="statisticsCircle"><p className='label'>{` ${(bmrValue*coef).toFixed()}kcal`}</p></div>
+           </div>
            </div>
            </div>
                 </div>
