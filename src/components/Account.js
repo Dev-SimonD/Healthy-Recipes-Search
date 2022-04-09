@@ -30,8 +30,10 @@ const Account = ({ session }) => {
   const [paleo, setPaleo] = useState(false);
   const [ketogenic, setKetogenic] = useState(false);
   const [pescaterian, setPescaterian] = useState(false);
-  const [theTDEE, setTDEE] = useState(0);
-
+  const [tdeeValue, setTdeeValue] = useState(0);
+  const [coef, setCoef] = useState(0);
+/*   const [theTDEE, setTDEE] = useState(0);
+ */
   //const [bmiStatus, setBmiStatus] = useState("")
 
   useEffect(() => {
@@ -101,7 +103,7 @@ const Account = ({ session }) => {
         .from('profiles')
         .select(`username, weight, height, age, gender, sex, bmiValue, updated,
          exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
-         vegetarian, paleo, ketogenic, pescaterian`)
+         vegetarian, paleo, ketogenic, pescaterian, coef`)
         .eq('id', user.id)
         .single()
 
@@ -130,6 +132,11 @@ const Account = ({ session }) => {
         setPaleo(data.paleo)
         setKetogenic(data.ketogenic)
         setPescaterian(data.pescaterian)
+        setCoef(data.coef)
+       /*  setTdeeValue(data.tdeeValue)
+        setCoef(data.coef) */
+
+      
       }
     } catch (error) {
       alert(error.message)
@@ -181,18 +188,23 @@ const Checkbox = ({ label, value, onChange }) => {
 const handleRange = ((e) => {
   if(e.target.value === "1"){
     setExerciseType("Little or no exercise")
+    setCoef(1.2)
   }
   if(e.target.value === "2"){
     setExerciseType("1-3 days per week")
+    setCoef(1.375)
   }
   if(e.target.value === "3"){
     setExerciseType("3-5 days per week")
+    setCoef(1.55)
   }
   if(e.target.value === "4"){
     setExerciseType("6-7 days per week")
+    setCoef(1.725)
   }
   if(e.target.value === "5"){
     setExerciseType("Exercise twice a day")
+    setCoef(1.9)
   }
 })
 
@@ -212,8 +224,39 @@ const handleRange = ((e) => {
   setLbmValue(LBM)
   BMR = (500 + (22 * LBM)).toFixed();
   setBmrValue(BMR)
-/*   let exerciseCoef;
- */  
+
+ 
+
+     
+/*   let TDEE = 0;
+  let exerciseCoef;
+  if(exercise === 1)
+    {
+      exerciseCoef = 1.2;
+    }
+  if(exercise === 2)
+    {
+      exerciseCoef = 1.375;
+    }  
+    if(exercise === 3)
+    {
+      exerciseCoef = 1.55;
+    }
+    if(exercise === 4)
+    {
+      exerciseCoef = 1.725;
+    } 
+    if(exercise === 5)
+    {
+      exerciseCoef = 1.9;
+    }     
+
+    
+ TDEE = (exerciseCoef * BMR).toFixed();
+ console.log("tdee before is", TDEE)
+ setTdeeValue(TDEE)
+ console.log("after is",tdeeValue) */
+ 
 
 const requestOptions = {
   method: 'POST',
@@ -263,6 +306,9 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         paleo,
         ketogenic,
         pescaterian,
+        coef,
+        /* tdeeValue,
+        coef, */
         updated_at: new Date(),
       }
        // console.log(bmiValue)
@@ -288,9 +334,20 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         icon: 'success',
         confirmButtonText: 'OK'
       })
+
+        
+     /*  console.log(coef)
+  let tdee;
+  tdee = (coef * bmrValue).toFixed();
+  setTdeeValue(tdee);
+  console.log("tdee value is", tdee) */
      // bmiFunc(weight,height)
 /*      getMealPlan()
  */  }
+
+    
+   
+    
 
 
  /*  const getMealPlan = async () => {
@@ -391,6 +448,13 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
               onChange={(e) => {
                 handleRange(e)
                 setExercise(e.target.value)
+                 
+              
+                  
+              /*  TDEE = (exerciseCoef * BMR).toFixed();
+               console.log("tdee before is", TDEE)
+               setTdeeValue(TDEE)
+               console.log("after is",tdeeValue) */
                 console.log(e.target.value)
               }}
              
@@ -530,12 +594,12 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
            <div className="statisticsCircle"><p className='label'>{`${lbmValue}kg`}</p></div>
            </div>
            </div>
-           {/* <div className="statisticsGauge">
+           <div className="statisticsGauge">
             <p>Your Total daily energy expenditure:</p>
         <div className='bmiChart'>
-           <div className="statisticsCircle"><p className='label'>{`${theTDEE}kcal`}</p></div>
+           <div className="statisticsCircle"><p className='label'>{` ${(bmrValue*coef).toFixed()}kcal`}</p></div>
            </div>
-           </div> */}
+           </div>
                 </div>
                    
         </div>)}
