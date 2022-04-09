@@ -27,6 +27,9 @@ const MealPlan = ({session}) => {
   const [spoonHash, setSpoonHash] = useState(null)
   const [mealPlan, setMealPlan] = useState()
   const [mealPlanNutrients, setMealPlanNutrients] = useState()
+  const [bmrValue, setBmrValue] = useState()
+  const [coef, setCoef] = useState()
+  const [calories, setCalories] = useState(0)
 
 
    useEffect(() => {
@@ -40,7 +43,7 @@ const MealPlan = ({session}) => {
    
          let { data, error, status } = await supabase
            .from('profiles')
-           .select(`username, updated, spoonUsername, spoonPassword, spoonHash`)
+           .select(`username, updated, spoonUsername, spoonPassword, spoonHash, bmrValue, coef `)
            .eq('id', user.id)
            .single()
    
@@ -54,12 +57,16 @@ const MealPlan = ({session}) => {
            setSpoonUsername(data.spoonUsername)
            setSpoonPassword(data.spoonPassword)
            setSpoonHash(data.spoonHash)
+           setBmrValue(data.bmrValue)
+           setCoef(data.coef)
+          
          }
           
         // console.log(breakfast)
         
-
-        const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=2500&apiKey=${process.env.REACT_APP_API_KEY}`)
+          /* setCalories((bmrValue * coef).toFixed())
+          console.log(calories) */
+        const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=${2000}&apiKey=${process.env.REACT_APP_API_KEY}`)
     const spoonData = await response.json()
     setMealPlanNutrients(spoonData.nutrients)
     console.log(spoonData.nutrients)

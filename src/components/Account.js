@@ -103,7 +103,7 @@ const Account = ({ session }) => {
         .from('profiles')
         .select(`username, weight, height, age, gender, sex, bmiValue, updated,
          exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
-         vegetarian, paleo, ketogenic, pescaterian, coef`)
+         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue`)
         .eq('id', user.id)
         .single()
 
@@ -133,8 +133,8 @@ const Account = ({ session }) => {
         setKetogenic(data.ketogenic)
         setPescaterian(data.pescaterian)
         setCoef(data.coef)
-       /*  setTdeeValue(data.tdeeValue)
-        setCoef(data.coef) */
+        setTdeeValue(data.tdeeValue)
+       
 
       
       }
@@ -207,6 +207,8 @@ const handleRange = ((e) => {
     setCoef(1.9)
   }
 })
+
+
 
   const updateProfile = async (e) => {
     e.preventDefault()
@@ -284,6 +286,10 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
       console.log("fixed value",fixedValue)
       setBmiValue(fixedValue);
 
+      let tdeeTest = (BMR*coef);
+      let tdeeFixed = tdeeTest.toFixed();
+  
+
    
       const updates = {
         id: user.id,
@@ -307,6 +313,8 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         ketogenic,
         pescaterian,
         coef,
+        tdeeValue: tdeeFixed,
+        
         /* tdeeValue,
         coef, */
         updated_at: new Date(),

@@ -20,8 +20,8 @@ const Dashboard = ({session}) => {
     const [bmiValue, setBmiValue] = useState(0)
     const [bmrValue, setBmrValue] = useState(0)
     const [lbmValue, setLbmValue] = useState(0)
-    const [tdeeValue, setTdeeValue] = useState(0)
-
+/*     const [tdeeValue, setTdeeValue] = useState(0)
+ */
     useEffect(() => {
         getProfile()
     }, [session])
@@ -136,6 +136,7 @@ const Dashboard = ({session}) => {
        /*  console.log(exerciseCoef)
       BMR = (500 + (22 * LBM)).toFixed(); */
      TDEE = (exerciseCoef * bmrValue).toFixed();
+     console.log("bmi value is", bmiValue)
     }
     else{
       TDEE=0;
