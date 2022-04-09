@@ -15,7 +15,7 @@ const Account = ({ session }) => {
   const [weight, setWeight] = useState(null)
   const [updated, setUpdated] = useState(null)
   const [gender, setGender] = useState(true)
-  const [exercise, setExercise] = useState(null)
+  const [exercise, setExercise] = useState(3)
   const [exerciseType, setExerciseType] = useState("set your exercise level")
   const [sex, setSex] = useState(null)
   const [age, setAge] = useState(null)
@@ -419,6 +419,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
 <input type="radio"
        value="man"
        name="gender"
+       required
        onChange={handleManButton}
        checked={sex === "man"}
        /> Man
