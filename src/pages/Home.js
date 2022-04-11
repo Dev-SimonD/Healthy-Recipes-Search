@@ -24,6 +24,16 @@ import {
 const Home = ({ session }) => {
 
   const[ burgerMenuActive, setBurgerMenuActive] = useState(false)
+  const[ profileMenuActive, setProfileMenuActive] = useState(false)
+  const[ darkMode, setDarkMode] = useState(false)
+
+
+
+  const handleDarkMode = ((e) => {
+    e.preventDefault()
+    setDarkMode(!darkMode)
+    console.log(darkMode)
+  })
 
   //const [account, setAccount] = useState(false);
 /*   const [tutorial, setTutorial] = useState(false)
@@ -225,8 +235,33 @@ const Home = ({ session }) => {
     <NavLink className="navbar-item" to="/mealplan">Meal Plan</NavLink>
     <NavLink className="navbar-item" to="/search">Food Search</NavLink>
     <NavLink className="navbar-item" to="/settings">Settings</NavLink>
-
+    {/* <button className='button is-primary' onClick={handleDarkMode}>switch</button> */}
     </div>
+
+   {/*  <div class={profileMenuActive ? ("dropdown is-active"): ("dropdown")}>
+  <div class="dropdown-trigger">
+    <button class="button" onClick={handleProfileClick} aria-haspopup="true" aria-controls="dropdown-menu">
+      <span>Profile</span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu" role="menu">
+    <div class="dropdown-content">
+      <a href="#" class="dropdown-item">
+        Your Profile
+      </a>
+      <a class="dropdown-item">
+        Settings
+      </a>
+      <a href="#" class="dropdown-item">
+        Some menu stuff
+      </a>
+      <hr class="dropdown-divider"/>
+      <a href="#" class="dropdown-item">
+        Sign out
+      </a>
+    </div>
+  </div>
+</div> */}
 
     <div className="navbar-end">
       <div className="navbar-item">

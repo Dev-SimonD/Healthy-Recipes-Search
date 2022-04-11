@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react'
 //import styled from 'styled-components';
 import {useParams} from "react-router-dom"
+import { supabase } from '../components/supabaseClient'
 
-function Recipe() {
+
+function Recipe({session}) {
 
     let params = useParams();
     const [details, setDetails] = useState({});
@@ -10,6 +12,9 @@ function Recipe() {
     const [isSummary, setIsSummary] = useState(true)
     const [isIngredients, setIsIngredients] = useState(false)
     const [isInstructions, setIsInstructions] = useState(false)
+    const [loading, setLoading] = useState(true)
+    const [favorites, setFavorites] = useState(false)
+    const [favoritesArray, setFavoritesArray] = useState([])
 
     const fetchedDetails = async () => {
         const data = await fetch(`https://api.spoonacular.com/recipes/${params.name}/information?apiKey=${process.env.REACT_APP_API_KEY}`)
@@ -19,8 +24,65 @@ function Recipe() {
 
         useEffect(() => {
             fetchedDetails()
-        }, [params.name]);
+            getProfile()
+        }, [params.name, session]);
         console.log(details)
+
+        const getProfile = async () => {
+            try {
+              setLoading(true)
+              const user = supabase.auth.user()
+        
+              let { data, error, status } = await supabase
+                .from('profiles')
+                .select(`username, favoritesArray`)
+                .eq('id', user.id)
+                .single()
+        
+              if (error && status !== 406) {
+                throw error
+              }
+        
+              if (data) {
+                console.log(data)
+               /*  setFavorites(data.favorites) */
+                setFavoritesArray(data.favoritesArray)
+                console.log(favorites)
+              }
+            } catch (error) {
+              alert(error.message)
+            } finally {
+              setLoading(false)
+            }
+          }
+
+          
+  const addFavorite = async (e) => {
+    e.preventDefault()
+    console.log(details.id)
+    
+    try {
+      setLoading(true)
+      const user = supabase.auth.user()
+       const updates = {
+        id: user.id,
+        /* favorites: details.id, */
+        favoritesArray,
+         }
+      let { error } = await supabase.from('profiles').upsert(updates, {
+        returning: 'minimal', 
+      })
+
+      if (error) {
+        throw error
+      }
+    } catch (error) {
+      alert(error.message)
+    } finally {
+      setLoading(false)
+     
+    }
+ }
 
         const summaryHandler = ((e) => {
             e.preventDefault()
@@ -40,6 +102,21 @@ function Recipe() {
             setIsIngredients(false)
             setIsInstructions(true)
         })
+        const handleFavorite = (e) => {
+            setFavorites(!favorites)
+            console.log("favorite clicked")
+            if(favoritesArray.includes(details.id))
+            return;
+            
+            if(favorites)
+            {
+                setFavoritesArray([...favoritesArray,details.id])
+                console.log(favoritesArray)
+                addFavorite(e)
+                
+            }
+        }
+
 
   return (
       <div className='container'>
@@ -59,6 +136,11 @@ function Recipe() {
         <div className='minutes'>
             <i className="fas fa-alarm-clock" style={{"color":"green"}}></i>
             <p>{details.readyInMinutes}m</p>
+            </div>
+            <div className='likes'>
+            <i className="fas fa-star" style={!favoritesArray.includes(details.id)?({"cursor":"pointer"}):({"cursor":"pointer","color":"#f0b503"})} onClick={handleFavorite}></i>
+           {/* <button className='button is-primary'  onClick={handleFavorite}>favorite</button> */}
+             <p>save</p>
             </div>
             </div>
             <br/>

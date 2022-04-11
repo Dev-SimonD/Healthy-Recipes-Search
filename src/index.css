@@ -56,7 +56,17 @@ code {
 .loginDescription{
   color: white;
   font-weight: bold;
+  
 }
+/* #getStartedBtn{
+  width: 50%;
+  border-radius: 2rem;
+}
+#getStartedBtn:hover{
+  background-color: white !important;
+  color: #f0b503 !important;
+  
+} */
 .angleIcons{
   display: flex;
 }
@@ -68,6 +78,18 @@ code {
 #recipes{
   font-style: italic;
 }
+              /* Animation */
+
+.loginTextContent{
+  position: relative;
+  animation: mymove 1s ease-in-out;
+  
+}              
+@keyframes mymove {
+  from {left: -400px; opacity: 50%;}
+  to {left: 0px; opacity: 100%;}
+}
+      
 .signupFormCentered{
   width: auto;
   max-width: 100%;
@@ -128,6 +150,10 @@ code {
 .navbar-brand{
   justify-content: center;
 }
+/* .navbar-dark{
+  background-color: black !important;
+  color: white !important;
+} */
 .mainDiv{
   width: auto;
   height: 100%;
@@ -441,7 +467,7 @@ justify-content: flex-start;
 .loginTitle{
   font-size: 1rem;
 }
-#loginTextContent{
+.loginTextContent{
   padding: 1.5rem;
 }
 .loginMainTitle{

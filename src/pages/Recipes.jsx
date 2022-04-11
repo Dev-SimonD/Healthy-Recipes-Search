@@ -3,21 +3,58 @@ import { supabase } from '../components/supabaseClient';
 import  {Link} from "react-router-dom"
 import {Splide, SplideSlide} from "@splidejs/react-splide"
 import "@splidejs/splide/dist/css/splide.min.css"
+//import { supabase } from './supabaseClient'
+
 
 
 
 const Recipes = ({session}) => {
 
     const randomRecipeURL = `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=6&tags=vegetarian`;
-    
+    /* const favoritesRecipeURL = `https://api.spoonacular.com/recipes/complexSearch?id=${favorite_id}?apiKey=${process.env.REACT_APP_API_KEY}`; */
 
     const [randomRecipe, setRandomRecipe] = useState([])
     const [searchedRecipe, setSearchedRecipe] = useState([])
     const [search, setSearch] = useState("")
+    const [favoritesArray, setFavoritesArray] = useState([])
+    const [favorites, setFavorites] = useState(null)
+    const [favoritesRecipes, setFavoritesRecipes] = useState([])
+    const [loading, setLoading] = useState(false)
 
     useEffect(() => {
+        getDetails()
         getRecipe()
     }, []);
+
+    const getDetails = async () => {
+        try {
+          setLoading(true)
+          const user = supabase.auth.user()
+    
+          let { data, error, status } = await supabase
+            .from('profiles')
+            .select(`username,favorites, favoritesArray`)
+            .eq('id', user.id)
+            .single()
+    
+          if (error && status !== 406) {
+            throw error
+          }
+    
+          if (data) {
+            console.log(data)
+           /*  setFavorites(data.favorites) */
+            setFavoritesArray(data.favoritesArray)
+            setFavorites(data.favorites)
+            console.log(favorites)
+          }
+        } catch (error) {
+          alert(error.message)
+        } finally {
+/*           getFavorites()  
+ */          setLoading(false)
+        }
+      }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -52,16 +89,21 @@ const Recipes = ({session}) => {
            // console.log(data.recipes[0]);  
           // console.log(randomRecipe)
         }
-
-       
-      
     }
-   // console.log(search)
+
+    
+   /*  const getFavorites = async () => {
+
+             const response = await fetch(`https://api.spoonacular.com/recipes/715378/information?apiKey=${process.env.REACT_APP_API_KEY}`)
+             const data = await response.json()
+             console.log(data)
+            setFavoritesRecipes(data);
+     } */
   return (
     <div className='container'>
-        <h1 className='label'>
+        {/* <h1 className='label'>
             Search Recipe
-        </h1>
+        </h1> */}
         {/* <form onSubmit={handleSubmit}>
         <input
              type="text"
@@ -106,7 +148,7 @@ const Recipes = ({session}) => {
             )
         })}
     </div>
-       <h1 className='label'>Featured recipes</h1> 
+       <h1 className='label has-text-centered' >Our Picks</h1> 
            {/*  {randomRecipe.map((recipe) => {
          return(
             <Link to={"/recipes/" + recipe.id}>
@@ -172,6 +214,60 @@ const Recipes = ({session}) => {
                     })}
                     
                     </Splide>
+                        {/* Favorites */}
+                    <h1 className='label has-text-centered' >Favorites</h1> 
+                          
+                            <Splide options={{
+                      mediaQuery: 'max',
+                        perPage: 4,
+                        gap: "2rem",
+                        arrows: true,
+                        width: "90vw",
+                        type: "loop",
+                        autoplay: true,
+                        lazyLoad: true,
+                        pagination: "slider",
+                         flickMaxPages: 1,
+                        breakpoints: {
+                            1000: {
+                                perPage: 3,
+                                gap: "2rem",
+
+                            },
+                              640: {
+                                  perPage: 2,
+                                gap: "1rem",
+                               
+                                                         
+                                 },
+                                 300: {
+                                  destroy: true,
+                                   },
+                                   
+                              
+                        }
+                      
+                        
+                    }}>
+                    {randomRecipe.map((recipe) => {
+                        return(
+                            <SplideSlide key={recipe.id}>
+                                    <Link to={"/recipes/" + recipe.id}>
+                                <div className="cards">
+                                 <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
+                                 <div className='cardContent'>
+                                 <p id="cardTitle"><i className="fas fa-angle-right"></i> {recipe.title}</p>
+                                 <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                                 </div>
+                               </div>
+                                </Link>
+                         </SplideSlide>
+                            
+                        );
+                    })}
+                    
+                    </Splide>
+                    
           </div>
   )
 }

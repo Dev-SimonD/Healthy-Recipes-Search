@@ -124,14 +124,15 @@ return false;
   </section> */}
    
     <section className="container" id='loginPage'>
-    <div id="loginTextContent">
+    <div className="loginTextContent">
     <h1 className='loginMainTitle'><span id="healthy">Healthy</span> <span id='recipes'>Recipes</span></h1>
     <p className='loginDescription'>
     <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
     <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
     <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
     {` The Ideal recipes for your Fitness goal`}</p>
-    </div>
+{/*     <button className='button is-primary signupBtn' id='getStartedBtn'>Get Started</button>
+ */}    </div>
                 <div id='loadingForm'> 
                 <div className="signupFormCentered">
                   <h1 className='loginTitle' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
