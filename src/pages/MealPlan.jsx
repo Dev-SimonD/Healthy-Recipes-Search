@@ -139,12 +139,18 @@ const MealPlan = ({session}) => {
       {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
         <div>
     <div className={!updated ? "" : "nonDisplay" }>
-    <div className="modal2" id="modal2">
+    {/* <div className="modal2" id="modal2">
      <h2>Meal Plan feature require user info</h2>
      <div className="content2">For accessing meal plan feature, please fill out your profile information. After that you will be able to access the meal plan.</div>
      <div className="actions2">
        <NavLink className="linkName" to="/account">OK</NavLink>
      </div>
+   </div> */}
+   <div className='accountForm' id='mealPlanNotUpdated'>
+     <h3 className='title has-text-centered'>For accessing meal plan, please fill out your account information</h3>
+     
+       <div><NavLink className="button is-primary signupBtn" to="/account">Account</NavLink></div>
+     
    </div>
    </div>
         <div className={updated ? "" : "nonDisplay" }>

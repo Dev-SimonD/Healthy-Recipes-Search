@@ -144,7 +144,7 @@ function Recipe({session}) {
 
   return (
       <div className='container'>
-        <div className='accountForm p-3'>
+        <div className='accountForm p-3' id='recipeCard'>
             <h2 className='title' id='recipeTitle'>
                 {details.title}
             </h2>

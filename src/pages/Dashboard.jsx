@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { supabase } from '../components/supabaseClient'
 import GaugeChart from 'react-gauge-chart'
 import loadingGif from "../images/loadingGif.gif"
+import RecipesLogo from "../images/RecipesLogo.png"
+import StatisticsLogo from "../images/statistics.png"
 
 
 
@@ -141,6 +143,10 @@ const Dashboard = ({session}) => {
     else{
       TDEE=0;
     }
+
+    
+
+
      /* setTdeeValue(TDEE) */
      
       
@@ -197,8 +203,8 @@ const Dashboard = ({session}) => {
            </div>
                 </div>
                     )}
-
-           <h2>Your Body Mass Index is {loading ? ("loading...") : (`${bmiValue}`)}</h2><br/>
+            
+          {/*  <h2>Your Body Mass Index is {loading ? ("loading...") : (`${bmiValue}`)}</h2><br/>
            <p>The body mass index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.
                The BMI calculation divides an adult's weight in kilograms by their height in metres squared.
                 For example, A BMI of 25 means 25kg/m2.
@@ -214,7 +220,95 @@ const Dashboard = ({session}) => {
                 does not account for the calories you need to walk, talk, exercise, etc. </p><br/><br/>
            <h2>Your Total Daily Energy Expenditure (TDEE) is {loading ? ("loading..."): (`${TDEE}kcal`) }</h2><br/>
            <p> TDEE is a number of calories which you should cunsume to maintain your body weight
-               considering your body measurements and level of daily activities.</p>  
+               considering your body measurements and level of daily activities.</p>   */}
+               <div className='accountForm homeCards' id='homePageNotUpdatedWelcome'>
+               <h1 className='title has-text-centered'>Welcome to healthy recipes</h1>
+               <p className='has-text-justified'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
+                  Fuga natus asperiores facilis quisquam? 
+                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
+                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
+                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
+               </div>
+
+
+              {/*  <div id='homeRecipes'> */}
+               <div className='accountForm homeCards' id='homePageNotUpdatedRecipes'>
+                 <div>
+               <h1 className='title has-text-centered'>Recipes</h1>
+               <p className='has-text-justified'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
+                  Fuga natus asperiores facilis quisquam? 
+                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
+                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
+                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>  
+                  </div>
+                  <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
+                    <img id="recipesLogo" src={RecipesLogo} alt="RecipesLogo"/>
+                </div>
+               </div>
+               
+               {/*  </div> */}
+
+
+                {/* <div id='homeStatistics'> */}
+                 <div className='accountForm homeCards' id='homePageNotUpdatedStatistics'>
+                   
+                  
+             <div>
+               <h1 className='title has-text-centered'>Statistics</h1>
+               <p className='has-text-justified' id='statisticsPara'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
+                  Fuga natus asperiores facilis quisquam? 
+                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
+                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
+                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
+                  </div>
+
+                  <div style={{"minWidth": "40%", "margin":"1rem"}}>
+                  <div className="statisticsGauge">
+            <div><p>Your BMI value is 21.3</p></div>
+        <div className='bmiChart'><GaugeChart 
+        id="gauge-chart5"
+         nrOfLevels={100}
+         arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
+         colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
+         percent={0.4}
+         formatTextValue={ bmiValue => "healthy weight" }
+         textColor={"#000000"}
+         arcPadding={0.02} />
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your basal metabolic rate:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>1454kcal</p></div>
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p>Your lean body mass:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>45.53kg</p></div>
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p className='has-text-centered'>Your Total daily energy expenditure:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>2757kcal</p></div>
+           </div>
+           </div>
+             </div>
+               {/* </div> */}
+                </div>
+
+
+               <div className='accountForm homeCards' id='homePageNotUpdatedMealplan'>
+               <h1 className='title has-text-centered'>Meal Plan</h1>
+               <p className='has-text-justified' >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
+                  Fuga natus asperiores facilis quisquam? 
+                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
+                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
+                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
+               </div>
+              
+              
                </div>   
            )}
              

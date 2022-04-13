@@ -226,15 +226,15 @@ const Home = ({ session }) => {
   <div id="navbarBasicExample" className={burgerMenuActive ? "navbar-menu is-active" : "navbar-menu"}>
     <div className="navbar-start" onClick={(e) => {
       e.preventDefault()
-      setBurgerMenuActive(!burgerMenuActive)
+      setBurgerMenuActive(false)
   
     }}>
-    <NavLink  className="navbar-item" to="/">Home</NavLink>
-    <NavLink className="navbar-item" to="/recipes">Recipes</NavLink>
-    <NavLink className="navbar-item" to="/account">Account</NavLink>
-    <NavLink className="navbar-item" to="/mealplan">Meal Plan</NavLink>
-    <NavLink className="navbar-item" to="/search">Food Search</NavLink>
-    <NavLink className="navbar-item" to="/settings">Settings</NavLink>
+    <NavLink  className="navbar-item nav-link-ltr" to="/">Home</NavLink>
+    <NavLink className="navbar-item nav-link-ltr" to="/recipes">Recipes</NavLink>
+    <NavLink className="navbar-item nav-link-ltr" to="/account">Account</NavLink>
+    <NavLink className="navbar-item nav-link-ltr" to="/mealplan">Meal Plan</NavLink>
+    <NavLink className="navbar-item nav-link-ltr" to="/search">Food Search</NavLink>
+    <NavLink className="navbar-item nav-link-ltr" to="/settings">Settings</NavLink>
     {/* <button className='button is-primary' onClick={handleDarkMode}>switch</button> */}
     </div>
 
