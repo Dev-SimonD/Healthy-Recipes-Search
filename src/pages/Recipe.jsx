@@ -26,8 +26,9 @@ function Recipe({session}) {
             fetchedDetails()
             getProfile()
         }, [params.name, session]);
-        console.log(details)
-
+/*         console.log(details)
+ *//*         console.log("params.name is",params.name)
+ */
         const getProfile = async () => {
             try {
               setLoading(true)
@@ -44,23 +45,27 @@ function Recipe({session}) {
               }
         
               if (data) {
-                console.log(data)
-               /*  setFavorites(data.favorites) */
+/*                 console.log(data)
+ */               /*  setFavorites(data.favorites) */
                 setFavoritesArray(data.favoritesArray)
-                console.log(favorites)
+                
+                
               }
             } catch (error) {
               alert(error.message)
             } finally {
+              if(favoritesArray.includes(params.name)){
+                setFavorites(true)
+              }
               setLoading(false)
             }
           }
 
           
-  const addFavorite = async (e) => {
-    e.preventDefault()
-    console.log(details.id)
-    
+  const addFavorite = async () => {
+/*     e.preventDefault()
+ *//*     console.log(details.id)
+ */    
     try {
       setLoading(true)
       const user = supabase.auth.user()
@@ -102,8 +107,27 @@ function Recipe({session}) {
             setIsIngredients(false)
             setIsInstructions(true)
         })
+        const removeItem = (item) => {
+          setFavoritesArray((prevState) =>
+            prevState.filter((prevItem) => prevItem !== item)
+          );
+          addFavorite()
+          console.log(favoritesArray)
+        };
         const handleFavorite = (e) => {
-            setFavorites(!favorites)
+          e.preventDefault()
+          if(favoritesArray.includes(params.name)){
+            removeItem(parseInt(params.name))
+           }
+          else{
+            setFavoritesArray([...favoritesArray, parseInt(params.name)])
+            addFavorite()
+            console.log("favorites array",favoritesArray)
+          }
+          setFavorites(!favorites);
+
+          /* addFavorite() */
+          /* setFavorites(!favorites)
             console.log("favorite clicked")
             if(favoritesArray.includes(details.id))
             return;
@@ -114,13 +138,14 @@ function Recipe({session}) {
                 console.log(favoritesArray)
                 addFavorite(e)
                 
-            }
+            } */
         }
 
 
   return (
       <div className='container'>
-            <h2 className='title'>
+        <div className='accountForm p-3'>
+            <h2 className='title' id='recipeTitle'>
                 {details.title}
             </h2>
             <div style={{"display": "flex", "justifyContent" : "center"}}>
@@ -138,7 +163,7 @@ function Recipe({session}) {
             <p>{details.readyInMinutes}m</p>
             </div>
             <div className='likes'>
-            <i className="fas fa-star" style={!favoritesArray.includes(details.id)?({"cursor":"pointer"}):({"cursor":"pointer","color":"#f0b503"})} onClick={handleFavorite}></i>
+            <i className="fas fa-star" style={!favoritesArray.includes(details.id) && !favorites ?({"cursor":"pointer"}):({"cursor":"pointer","color":"gold"})} onClick={handleFavorite}></i>
            {/* <button className='button is-primary'  onClick={handleFavorite}>favorite</button> */}
              <p>save</p>
             </div>
@@ -166,6 +191,7 @@ function Recipe({session}) {
           {isInstructions && (
            <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.instructions}}/>
           ) }
+          </div>
       </div>
    /*  <DetailWrapper>
         <div>

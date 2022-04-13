@@ -190,7 +190,7 @@ const Dashboard = ({session}) => {
            </div>
            </div>
            <div className="statisticsGauge">
-            <p>Your Total daily energy expenditure:</p>
+            <p className='has-text-centered'>Your Total daily energy expenditure:</p>
         <div className='bmiChart'>
            <div className="statisticsCircle"><p className='label'>{`${TDEE}kcal`}</p></div>
            </div>
