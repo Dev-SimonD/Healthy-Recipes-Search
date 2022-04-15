@@ -269,7 +269,7 @@ const Home = ({ session }) => {
           {/* <a className="button is-primary">
             <strong>Sign up</strong>
           </a> */}
-          <button type="button" className="button" onClick={() => supabase.auth.signOut()}>
+          <button type="button" className="button mr-3" onClick={() => supabase.auth.signOut()}>
         Sign Out
       </button>{/* <button className='button is-light'>
       Logout<i className="fas fa-sign-out-alt" style={{"cursor":"pointer", "padding": "1rem"}} onClick={() => supabase.auth.signOut()}></i>

@@ -25,7 +25,7 @@ function Recipe({session}) {
         useEffect(() => {
             fetchedDetails()
             getProfile()
-        }, [params.name, session]);
+        }, []);
 /*         console.log(details)
  *//*         console.log("params.name is",params.name)
  */
@@ -48,15 +48,14 @@ function Recipe({session}) {
 /*                 console.log(data)
  */               /*  setFavorites(data.favorites) */
                 setFavoritesArray(data.favoritesArray)
-                
-                
+/*                 let myArr = favoritesArray;
+ */               
               }
             } catch (error) {
               alert(error.message)
             } finally {
-              if(favoritesArray.includes(params.name)){
-                setFavorites(true)
-              }
+                  
+
               setLoading(false)
             }
           }
@@ -108,23 +107,49 @@ function Recipe({session}) {
             setIsInstructions(true)
         })
         const removeItem = (item) => {
-          setFavoritesArray((prevState) =>
+          let myArr = favoritesArray;
+          /* setFavoritesArray((prevState) =>
             prevState.filter((prevItem) => prevItem !== item)
-          );
+          ); */
+          const index = myArr.indexOf(item);
+          if (index > -1) {
+            myArr.splice(index, 1); // 2nd parameter means remove one item only
+            setFavoritesArray(myArr)
+          }
+          console.log(myArr)
           addFavorite()
-          console.log(favoritesArray)
+          /* console.log("in remove function", favoritesArray) */
         };
+
+        const addItem = (item) => {
+          let myArr = favoritesArray;
+          /* setFavoritesArray((prevState) =>
+            prevState.filter((prevItem) => prevItem !== item)
+          ); */
+          myArr.push(item)
+          setFavoritesArray(myArr)
+          console.log("myArr is ",myArr)
+          addFavorite()
+          /* console.log("in adding function", favoritesArray) */
+        };
+        
         const handleFavorite = (e) => {
           e.preventDefault()
-          if(favoritesArray.includes(params.name)){
-            removeItem(parseInt(params.name))
+          console.log("current array",favoritesArray)
+          if(favoritesArray.includes(parseInt(params.name))){
+
+           removeItem(parseInt(params.name))
+            console.log("removing from array")
+            return
            }
           else{
-            setFavoritesArray([...favoritesArray, parseInt(params.name)])
-            addFavorite()
-            console.log("favorites array",favoritesArray)
+            /* setFavoritesArray([...favoritesArray, parseInt(params.name)]) */
+            addItem(parseInt(params.name))
+            console.log("add to array")
+            /* addFavorite() */
+           return
           }
-          setFavorites(!favorites);
+         /*  setFavorites(!favorites); */
 
           /* addFavorite() */
           /* setFavorites(!favorites)
@@ -140,6 +165,13 @@ function Recipe({session}) {
                 
             } */
         }
+         /*  console.log(favoritesArray[0])
+        if(favoritesArray.includes(644846)){
+          console.log("INSIDE INCLUDE")
+          setFavorites(true)
+        }
+        console.log(`includes ${params.name}? ${favorites}`) */
+        
 
 
   return (
@@ -148,7 +180,10 @@ function Recipe({session}) {
             <h2 className='title' id='recipeTitle'>
                 {details.title}
             </h2>
-            <div style={{"display": "flex", "justifyContent" : "center"}}>
+            <p>
+          {favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ("included"):("not included"):("nothing here")}
+          </p>
+             <div style={{"display": "flex", "justifyContent" : "center"}}>
             <img className="recipeImage" src={details.image} alt="" />
             </div>
             <br/>
@@ -163,7 +198,8 @@ function Recipe({session}) {
             <p>{details.readyInMinutes}m</p>
             </div>
             <div className='likes'>
-            <i className="fas fa-star" style={!favoritesArray.includes(details.id) && !favorites ?({"cursor":"pointer"}):({"cursor":"pointer","color":"gold"})} onClick={handleFavorite}></i>
+{/*             <i className="fas fa-star" style={favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ({"cursor":"pointer","color":"gold"}):({"cursor":"pointer"}):("nothing here")} onClick={handleFavorite}></i>
+ */}            <i className="fas fa-star" style={favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ({"cursor":"pointer","color":"gold"}):({"cursor":"pointer", "color":"grey"}):("nothing here")} onClick={handleFavorite}></i>
            {/* <button className='button is-primary'  onClick={handleFavorite}>favorite</button> */}
              <p>save</p>
             </div>

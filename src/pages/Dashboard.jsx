@@ -262,7 +262,7 @@ const Dashboard = ({session}) => {
                   Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
                   </div>
 
-                  <div style={{"minWidth": "40%", "margin":"1rem"}}>
+                  <div className="accountForm" style={{"minWidth": "40%", "margin":"1rem", "padding":"1rem"}}>
                   <div className="statisticsGauge">
             <div><p>Your BMI value is 21.3</p></div>
         <div className='bmiChart'><GaugeChart 

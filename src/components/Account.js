@@ -32,6 +32,8 @@ const Account = ({ session }) => {
   const [pescaterian, setPescaterian] = useState(false);
   const [tdeeValue, setTdeeValue] = useState(0);
   const [coef, setCoef] = useState(0);
+  const [weightArray, setWeightArray] = useState([]);
+  const [weightHistory, setWeightHistory] = useState([]);
 /*   const [theTDEE, setTDEE] = useState(0);
  */
   //const [bmiStatus, setBmiStatus] = useState("")
@@ -103,7 +105,7 @@ const Account = ({ session }) => {
         .from('profiles')
         .select(`username, weight, height, age, gender, sex, bmiValue, updated,
          exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
-         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue`)
+         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory`)
         .eq('id', user.id)
         .single()
 
@@ -134,6 +136,7 @@ const Account = ({ session }) => {
         setPescaterian(data.pescaterian)
         setCoef(data.coef)
         setTdeeValue(data.tdeeValue)
+        setWeightHistory(data.weightHistory)
        
 
       
@@ -214,6 +217,11 @@ const handleRange = ((e) => {
     e.preventDefault()
 
     
+   /*  let tempWeightArray = weightArray;
+    tempWeightArray = []
+    tempWeightArray.push(...tempWeightArray, parseInt(weight));
+    setWeightArray(tempWeightArray);
+    console.log(weightArray) */
   let LBM;
   let BMR;
 
@@ -314,6 +322,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         pescaterian,
         coef,
         tdeeValue: tdeeFixed,
+       /*  weightHistory: weightArray, */
         
         /* tdeeValue,
         coef, */

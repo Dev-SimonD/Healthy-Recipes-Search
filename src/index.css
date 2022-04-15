@@ -218,6 +218,12 @@ code {
    border-radius: 50%;
    padding: 1rem;
  }
+ .field.has-addons {
+  display: flex;
+  justify-content: center !important;
+  padding: 1rem;
+  
+}
  .auth{
    background-image: url("./images/cooking.jpg");
    background-size: cover;
@@ -400,7 +406,8 @@ input[type="range"]::-moz-range-track {
 }
 .navbar{
   display: flow-root;
-  padding-bottom: 1rem;
+/*   padding-bottom: 1rem;
+ */  box-shadow: 0 0 1em 0 rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
 }
 .navbar-item{
   text-transform: capitalize;

@@ -148,7 +148,7 @@ const Recipes = ({session}) => {
             )
         })}
     </div>
-       <h1 className='label has-text-centered' >Our Picks</h1> 
+       <h1 className='label has-text-centered p-4'>Our Picks</h1> 
            {/*  {randomRecipe.map((recipe) => {
          return(
             <Link to={"/recipes/" + recipe.id}>
@@ -215,11 +215,11 @@ const Recipes = ({session}) => {
                     
                     </Splide>
                         {/* Favorites */}
-                    <h1 className='label has-text-centered' >Favorites</h1> 
+                    <h1 className='label has-text-centered p-4'>Your Favorites</h1> 
                           
                             <Splide options={{
                       mediaQuery: 'max',
-                        perPage: 4,
+                        perPage: 5,
                         gap: "2rem",
                         arrows: true,
                         width: "90vw",
@@ -230,12 +230,12 @@ const Recipes = ({session}) => {
                          flickMaxPages: 1,
                         breakpoints: {
                             1000: {
-                                perPage: 3,
+                                perPage: 4,
                                 gap: "2rem",
 
                             },
                               640: {
-                                  perPage: 2,
+                                  perPage: 3,
                                 gap: "1rem",
                                
                                                          
