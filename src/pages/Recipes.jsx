@@ -3,6 +3,7 @@ import { supabase } from '../components/supabaseClient';
 import  {Link} from "react-router-dom"
 import {Splide, SplideSlide} from "@splidejs/react-splide"
 import "@splidejs/splide/dist/css/splide.min.css"
+import loadingGif from "../images/loadingGif.gif"
 //import { supabase } from './supabaseClient'
 
 
@@ -24,7 +25,12 @@ const Recipes = ({session}) => {
     useEffect(() => {
         getDetails()
         getRecipe()
+       /*  getFavorites() */
     }, []);
+
+    useEffect(() => {
+            getFavorites()
+  }, [favoritesArray]);
 
     const getDetails = async () => {
         try {
@@ -33,7 +39,7 @@ const Recipes = ({session}) => {
     
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username,favorites, favoritesArray`)
+            .select(`username, favoritesArray`)
             .eq('id', user.id)
             .single()
     
@@ -45,8 +51,7 @@ const Recipes = ({session}) => {
             console.log(data)
            /*  setFavorites(data.favorites) */
             setFavoritesArray(data.favoritesArray)
-            setFavorites(data.favorites)
-            console.log(favorites)
+            getFavorites()
           }
         } catch (error) {
           alert(error.message)
@@ -92,13 +97,16 @@ const Recipes = ({session}) => {
     }
 
     
-   /*  const getFavorites = async () => {
-
-             const response = await fetch(`https://api.spoonacular.com/recipes/715378/information?apiKey=${process.env.REACT_APP_API_KEY}`)
-             const data = await response.json()
-             console.log(data)
-            setFavoritesRecipes(data);
-     } */
+    const getFavorites = async () => {
+      let favArray = favoritesArray;
+      let favoritesString = favArray.join()
+      /* console.log(favArray.join()) */
+      const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${favoritesString}&apiKey=${process.env.REACT_APP_API_KEY}`)
+      const favorites = await response.json()
+      setFavoritesRecipes(favorites)
+      console.log(favorites)
+            /* setFavoritesRecipes(data); */
+     }
   return (
     <div className='container'>
         {/* <h1 className='label'>
@@ -163,6 +171,7 @@ const Recipes = ({session}) => {
                 </Link>
 
                  ) })} */}
+                 <div className='accountForm p-3'>
                   <Splide options={{
                       mediaQuery: 'max',
                       /* autoWidth: true, */
@@ -213,10 +222,15 @@ const Recipes = ({session}) => {
                         );
                     })}
                     
+
+                    
                     </Splide>
+                    </div>
                         {/* Favorites */}
+                        
                     <h1 className='label has-text-centered p-4'>Your Favorites</h1> 
-                          
+                          <div className='accountForm p-3'>
+                          {favoritesArray == null ? (loadingGif):(
                             <Splide options={{
                       mediaQuery: 'max',
                         perPage: 5,
@@ -249,7 +263,8 @@ const Recipes = ({session}) => {
                       
                         
                     }}>
-                    {randomRecipe.map((recipe) => {
+                      
+                    {favoritesRecipes.map((recipe) => {
                         return(
                             <SplideSlide key={recipe.id}>
                                     <Link to={"/recipes/" + recipe.id}>
@@ -267,7 +282,8 @@ const Recipes = ({session}) => {
                     })}
                     
                     </Splide>
-                    
+                    )}
+                    </div>
           </div>
   )
 }

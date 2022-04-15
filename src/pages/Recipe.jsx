@@ -201,7 +201,7 @@ function Recipe({session}) {
 {/*             <i className="fas fa-star" style={favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ({"cursor":"pointer","color":"gold"}):({"cursor":"pointer"}):("nothing here")} onClick={handleFavorite}></i>
  */}            <i className="fas fa-star" style={favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ({"cursor":"pointer","color":"gold"}):({"cursor":"pointer", "color":"grey"}):("nothing here")} onClick={handleFavorite}></i>
            {/* <button className='button is-primary'  onClick={handleFavorite}>favorite</button> */}
-             <p>save</p>
+             <p>Favorite</p>
             </div>
             </div>
             <br/>
