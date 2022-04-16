@@ -34,6 +34,7 @@ const Account = ({ session }) => {
   const [coef, setCoef] = useState(0);
   const [weightArray, setWeightArray] = useState([]);
   const [weightHistory, setWeightHistory] = useState([]);
+  const [weightGoal, setWeightGoal] = useState("keep");
 /*   const [theTDEE, setTDEE] = useState(0);
  */
   //const [bmiStatus, setBmiStatus] = useState("")
@@ -105,7 +106,7 @@ const Account = ({ session }) => {
         .from('profiles')
         .select(`username, weight, height, age, gender, sex, bmiValue, updated,
          exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
-         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory`)
+         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory, weightGoal`)
         .eq('id', user.id)
         .single()
 
@@ -137,6 +138,7 @@ const Account = ({ session }) => {
         setCoef(data.coef)
         setTdeeValue(data.tdeeValue)
         setWeightHistory(data.weightHistory)
+        setWeightGoal(data.weightGoal)
        
 
       
@@ -322,6 +324,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         pescaterian,
         coef,
         tdeeValue: tdeeFixed,
+        weightGoal,
        /*  weightHistory: weightArray, */
         
         /* tdeeValue,
@@ -567,6 +570,31 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
             />
           </div>
           </div>
+          <div className='field'>
+          <label className="label" htmlFor="weightGoal">Weight Goal</label>
+             {weightGoal==="keep" ? (
+          <select onChange={(e)=>{setWeightGoal(e.target.value)}} className="weightGoal" name="weightGoal"id="weightGoal" /* onChange={(e) => setExercise(e.target.value)} */>
+             <option value="keep">Keep current weight</option>
+             <option value="lose">Lose weight</option>
+             <option value="gain">Gain weight</option>  
+            </select>
+             ): ("")}
+              {weightGoal==="lose" ? (
+          <select onChange={(e)=>{setWeightGoal(e.target.value)}} className="weightGoal" name="weightGoal"id="weightGoal" /* onChange={(e) => setExercise(e.target.value)} */>
+             <option value="lose">Lose weight</option>
+             <option value="keep">Keep current weight</option>
+             <option value="gain">Gain weight</option>  
+            </select>
+             ): ("")}
+              {weightGoal==="gain" ? (
+          <select onChange={(e)=>{setWeightGoal(e.target.value)}} className="weightGoal" name="weightGoal"id="weightGoal" /* onChange={(e) => setExercise(e.target.value)} */>
+             <option value="gain">Gain weight</option>  
+             <option value="keep">Keep current weight</option>
+             <option value="lose">Lose weight</option>
+            </select>
+             ): ("")}                         
+              </div>
+         
           <div>
             <button className="button mt-3 is-primary signupBtn" disabled={loading}>
               Update profile

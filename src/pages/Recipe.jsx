@@ -180,9 +180,9 @@ function Recipe({session}) {
             <h2 className='title' id='recipeTitle'>
                 {details.title}
             </h2>
-            <p>
+           {/*  <p>
           {favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ("included"):("not included"):("nothing here")}
-          </p>
+          </p> */}
              <div style={{"display": "flex", "justifyContent" : "center"}}>
             <img className="recipeImage" src={details.image} alt="" />
             </div>

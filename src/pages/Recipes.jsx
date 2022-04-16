@@ -4,6 +4,7 @@ import  {Link} from "react-router-dom"
 import {Splide, SplideSlide} from "@splidejs/react-splide"
 import "@splidejs/splide/dist/css/splide.min.css"
 import loadingGif from "../images/loadingGif.gif"
+import { toBeInTheDOM } from '@testing-library/jest-dom/dist/matchers';
 //import { supabase } from './supabaseClient'
 
 
@@ -233,29 +234,34 @@ const Recipes = ({session}) => {
                           {favoritesArray == null ? (loadingGif):(
                             <Splide options={{
                       mediaQuery: 'max',
-                        perPage: 5,
+                        perPage: 4,
                         gap: "2rem",
                         arrows: true,
-                        width: "90vw",
-                        type: "loop",
-                        autoplay: true,
+                        width: "80vw",
+                       /*  type: "loop",
+                        autoplay: true, */
                         lazyLoad: true,
                         pagination: "slider",
                          flickMaxPages: 1,
                         breakpoints: {
                             1000: {
-                                perPage: 4,
+                              direction: "ltr",
+                                perPage: 3,
                                 gap: "2rem",
 
                             },
                               640: {
+                                direction: "ltr",
                                   perPage: 3,
                                 gap: "1rem",
                                
                                                          
                                  },
-                                 300: {
+                                 600: {
                                   destroy: true,
+                                  /* direction: "ttb",
+                                  height: "auto",
+                                  gap: "2rem", */
                                    },
                                    
                               
@@ -268,10 +274,10 @@ const Recipes = ({session}) => {
                         return(
                             <SplideSlide key={recipe.id}>
                                     <Link to={"/recipes/" + recipe.id}>
-                                <div className="cards">
+                                <div className="cards smallRecipeCard">
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
-                                 <div className='cardContent'>
-                                 <p id="cardTitle"><i className="fas fa-angle-right"></i> {recipe.title}</p>
+                                 <div className='cardContent m-a'>
+                                 <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
                                  <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
                                  </div>
                                </div>

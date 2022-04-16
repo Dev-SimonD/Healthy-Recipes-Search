@@ -249,6 +249,16 @@ input[type="range"]::-moz-range-progress {
 input[type="range"]::-moz-range-track {  
   background-color: #ffbf00;
 }
+#weightGoal{
+  box-shadow: inset 0 0.0625em 0.125em rgb(10 10 10 / 5%);
+    max-width: 100%;
+    width: 100%;
+    background-color: white;
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    color: #363636;
+    height: 2rem;
+}
 .statisticsGauge{
   display: flex;
   flex-direction: column;
@@ -652,14 +662,21 @@ right: 5%;
   font-size: 0.8rem;
   color: black;
 }
-#cardLikes{
+/* #cardLikes{
   display: none;
-}
+} */
 .recipeImage{
   max-width: 100%;
   margin: auto;
   padding: 1rem;
   border-radius: 2rem;
+}
+.smallRecipeCard{
+  padding: 1rem;
+  background-color: white;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
 }
 #mealPlanNotUpdated h1{
   font-size: 1em !important;
