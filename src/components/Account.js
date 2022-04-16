@@ -530,6 +530,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
               id="height"
               min="140"
               max="250"
+              step="0.1"
               required
               name='height'
               type="number"
@@ -547,6 +548,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
               required
               min="40"
               max="250"
+              step="0.1"
               type="number"
               name='weight'
               value={weight || ''}
