@@ -3,6 +3,7 @@ import { supabase } from '../components/supabaseClient';
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { NavLink } from 'react-router-dom';
 import loadingGif from "../images/loadingGif.gif"
+import  {Link} from "react-router-dom"
 
 
 
@@ -15,6 +16,8 @@ const MealPlan = ({session}) => {
     const [breakfast, setBreakfast] = useState(null)
     const [launch, setLaunch] = useState(null)
     const [dinner, setDinner] = useState(null)
+    const [period, setPeriod] = useState("")
+    const [weightGoal, setWeightGoal] = useState("")
 
 
     const mealURL = `https://api.spoonacular.com/mealplanner/generate?timeFrame=day&apiKey=${process.env.REACT_APP_API_KEY}`;
@@ -30,6 +33,7 @@ const MealPlan = ({session}) => {
   const [bmrValue, setBmrValue] = useState()
   const [coef, setCoef] = useState()
   const [tdeeValue, setTdeeValue] = useState(0)
+  const [weightGoalValue, setWeightGoalValue] = useState()
 
 
    useEffect(() => {
@@ -43,7 +47,7 @@ const MealPlan = ({session}) => {
    
          let { data, error, status } = await supabase
            .from('profiles')
-           .select(`username, updated, spoonUsername, spoonPassword, spoonHash, bmrValue, coef, tdeeValue `)
+           .select(`username, updated, spoonUsername, spoonPassword, spoonHash, bmrValue, coef, tdeeValue, weightGoal `)
            .eq('id', user.id)
            .single()
    
@@ -60,6 +64,7 @@ const MealPlan = ({session}) => {
            setBmrValue(data.bmrValue)
            setCoef(data.coef)
            setTdeeValue(data.tdeeValue)
+           setWeightGoal(data.weightGoal)
           
          }
           
@@ -71,6 +76,7 @@ const MealPlan = ({session}) => {
        } catch (error) {
          alert(error.message)
        } finally {
+        
          setLoading(false)
        }
             
@@ -116,11 +122,37 @@ const MealPlan = ({session}) => {
     getMealPlanNow()
    
   })
+
+  /* const handlePeriod = ((e) => {
+    e.preventDefault
+    console.log("the value of period is",e.target.value," the weight Goal is", weightGoal)
+  }) */
   
   const getMealPlanNow = async () => {
-    console.log("tdee value before apicall",tdeeValue)
+/*     console.log("tdee value before apicall",tdeeValue)
+ */
+   
 
-    const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=${tdeeValue}&apiKey=${process.env.REACT_APP_API_KEY}`)
+      let tempTdeeValue = tdeeValue;
+    const tempWeightGoal = weightGoal;
+    if(tempWeightGoal === "lose"){
+      tempTdeeValue = tempTdeeValue - 500
+      setWeightGoalValue(tempTdeeValue)
+    }
+    else if(tempWeightGoal === "gain"){
+      tempTdeeValue = tempTdeeValue + 500
+      setWeightGoalValue(tempTdeeValue)
+
+    }
+    else{
+      tempTdeeValue = tempTdeeValue
+      setWeightGoalValue(tempTdeeValue)
+
+    }
+
+    console.log("Temp tdee valu is",tempTdeeValue)
+
+    const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=${tempTdeeValue}&apiKey=${process.env.REACT_APP_API_KEY}`)
     const spoonData = await response.json()
     setMealPlanNutrients(spoonData.nutrients)
     console.log(spoonData.nutrients)
@@ -131,11 +163,14 @@ const MealPlan = ({session}) => {
         setBreakfast(mealsData[0])
         setLaunch(mealsData[1])
         setDinner(mealsData[2])
-        console.log(dinner)
+        console.log(breakfast)
+    
+     
   }
 
   return (
     <div className='container'>
+      <div className='accountForm'>
       {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
         <div>
     <div className={!updated ? "" : "nonDisplay" }>
@@ -155,36 +190,64 @@ const MealPlan = ({session}) => {
    </div>
    </div>
         <div className={updated ? "" : "nonDisplay" }>
-          <button className='button is-primary signupBtn' onClick={handleClick}>find recipe</button>
            <h1 className='title'>Daily meal plan for your individual goals</h1>
+          
+           <div className='field'>
+          <label className="label" htmlFor="period">Select period</label>
+          <select onChange={(e) => (setPeriod(e.target.value))} className="period" name="period"id="period" /* onChange={(e) => setExercise(e.target.value)} */>
+             <option value="now">Now</option>
+             <option value="day">Day</option>
+             <option value="week">Week</option>
+              
+            </select>
+          
+            </div>
+          <button className='button is-primary signupBtn' onClick={handleClick}>find recipe</button>
            {mealPlanNutrients ? (
              <div>
-           <p className='label'>{`Your healthy calories intake is ${tdeeValue}kcal`}</p>
+           <p className='label'>{`Your daily calorie intake to support your weight goal is ${weightGoalValue}kcal`}</p>
            <ul>
+             <p>This meal plan nutrition:</p>
              <li>calories: {mealPlanNutrients ? (mealPlanNutrients.calories) : ("")}</li>
              <li>carbs: {mealPlanNutrients ? (mealPlanNutrients.carbohydrates) : ("")}</li>
              <li>fats: {mealPlanNutrients ? (mealPlanNutrients.fat) : ("")}</li>
              <li>proteins: {mealPlanNutrients ? (mealPlanNutrients.protein) : ("")}</li>
            </ul>
-           <div className='row'>
-              <div className='recipesCard col-3'>     
-                    <h2>{`Breakfast: `} {breakfast != null ? (breakfast.title) : ""}</h2>  
+           <div className='mealPlanCards'>
+           {breakfast ? (
+           <Link to={"/recipes/" + breakfast.id}>
+              <div className='accountForm p-3 m-1'>  
+                  <h1 className='has-text-centered fs-1'>Breakfast</h1>   
                     {breakfast ? (<img src={breakfast.image} alt={breakfast.title}/>):("")}                           
+                    <h2>{breakfast != null ? (breakfast.title) : ""}</h2>  
                 </div>
-                <div className='recipesCard col-3'> 
-                <h2>{`Launch: `} {launch != null ? (launch.title) : ""}</h2>  
+                </Link>
+                ):("")}
+                {launch ? (
+                <Link to={"/recipes/" + launch.id}>
+                <div className='accountForm p-3 m-1'> 
+                <h1 className='has-text-centered fs-1'>Launch</h1>
                 {launch ? (<img src={launch.image} alt={launch.title}/>):("")}
+                <h2>{launch != null ? (launch.title) : ""}</h2>  
               </div>
-                <div className='recipesCard col-3'>           
-                <h2>{`Dinner: `} {dinner != null ? (dinner.title) : ""}</h2>  
+              </Link>
+              ):("")}
+              {dinner ? (
+              <Link to={"/recipes/" + dinner.id}>
+                <div className='accountForm p-3 m-1'>  
+                  <h1 className='has-text-centered fs-1'>Dinner</h1>         
                   {dinner ? (<img src={dinner.image} alt={dinner.title}/>):("")}
+                <h2>{dinner != null ? (dinner.title) : ""}</h2>  
               </div>
+              </Link>
+              ):("")}
               </div>
     </div>
     ) : ("")}
     </div>
     </div>
     )}
+    </div>
     </div>
   )
 }

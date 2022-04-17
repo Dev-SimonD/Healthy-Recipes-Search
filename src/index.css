@@ -306,6 +306,11 @@ input[type="range"]::-moz-range-track {
 #searchRecipe{
   width: 50%;
 }
+.cardContent{
+  display: flex;
+  flex-direction: column;
+
+}
   /* Menu */
 /* .menu{
   display: flex;
@@ -338,6 +343,23 @@ input[type="range"]::-moz-range-track {
 }
 .mealPlanNotUpdated div{
   justify-content: end;
+}
+.mealPlanCards{
+  display: flex;
+  justify-content: space-between;
+}
+.mealPlanCards img{
+  border-radius: 1rem;
+}
+#period{
+  box-shadow: inset 0 0.0625em 0.125em rgb(10 10 10 / 5%);
+    max-width: 300px;
+    width: 100%;
+    background-color: white;
+    border-color: #dbdbdb;
+    border-radius: 4px;
+    color: #363636;
+    height: 2rem;
 }
 .modal2 {
   max-width: 600px;
@@ -680,6 +702,9 @@ right: 5%;
 }
 #mealPlanNotUpdated h1{
   font-size: 1em !important;
+}
+.mealPlanCards{
+  flex-direction: column;
 }
 
 }

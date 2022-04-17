@@ -14,7 +14,8 @@ const Recipes = ({session}) => {
 
     const randomRecipeURL = `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=6&tags=vegetarian`;
     /* const favoritesRecipeURL = `https://api.spoonacular.com/recipes/complexSearch?id=${favorite_id}?apiKey=${process.env.REACT_APP_API_KEY}`; */
-
+/*     const randomRecipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&number=6&instructionsRequired=true&sort=random`;
+ */
     const [randomRecipe, setRandomRecipe] = useState([])
     const [searchedRecipe, setSearchedRecipe] = useState([])
     const [search, setSearch] = useState("")
@@ -71,7 +72,7 @@ const Recipes = ({session}) => {
 
     const getSearchedRecipe = async (query) => {
 
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?instructionsRequired=true&apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
         const data = await response.json()
         setSearchedRecipe(data.results)
         //console.log(data);
@@ -79,6 +80,7 @@ const Recipes = ({session}) => {
 
     const getRecipe = async () => {
 
+      setLoading(true)
         const check = localStorage.getItem("random");
 
         if(check){
@@ -95,10 +97,12 @@ const Recipes = ({session}) => {
            // console.log(data.recipes[0]);  
           // console.log(randomRecipe)
         }
+        setLoading(false)
     }
 
     
     const getFavorites = async () => {
+      setLoading(true)
       let favArray = favoritesArray;
       let favoritesString = favArray.join()
       /* console.log(favArray.join()) */
@@ -106,6 +110,7 @@ const Recipes = ({session}) => {
       const favorites = await response.json()
       setFavoritesRecipes(favorites)
       console.log(favorites)
+      setLoading(false)
             /* setFavoritesRecipes(data); */
      }
   return (
@@ -130,7 +135,7 @@ const Recipes = ({session}) => {
   <div className="control">
     <input type="text"
              //id='searchRecipe'
-             placeholder='Search recipe...'
+             placeholder='Recipes'
              className='input'
              onChange={((e) => {
                  setSearch(e.target.value)
@@ -144,6 +149,7 @@ const Recipes = ({session}) => {
   </div>
 </form>
              
+           
              <div className="Grid">
         {searchedRecipe.map((item) => {
             return(
@@ -158,20 +164,7 @@ const Recipes = ({session}) => {
         })}
     </div>
        <h1 className='label has-text-centered p-4'>Our Picks</h1> 
-           {/*  {randomRecipe.map((recipe) => {
-         return(
-            <Link to={"/recipes/" + recipe.id}>
-
-                <div className='cards'>
-                    <img src={recipe.image}/>
-                    <div className='cardsContent'>
-                        <h1>{recipe.title}</h1>
-                        <i className="fas fa-angle-right"></i> 250kcal
-                    </div>
-                </div>
-                </Link>
-
-                 ) })} */}
+           
                  <div className='accountForm p-3'>
                   <Splide options={{
                       mediaQuery: 'max',
@@ -231,7 +224,7 @@ const Recipes = ({session}) => {
                         
                     <h1 className='label has-text-centered p-4'>Your Favorites</h1> 
                           <div className='accountForm p-3'>
-                          {favoritesArray == null ? (loadingGif):(
+                          {favoritesArray ? (
                             <Splide options={{
                       mediaQuery: 'max',
                         perPage: 4,
@@ -288,8 +281,10 @@ const Recipes = ({session}) => {
                     })}
                     
                     </Splide>
-                    )}
+                    ):("")}
                     </div>
+
+                  
           </div>
   )
 }
