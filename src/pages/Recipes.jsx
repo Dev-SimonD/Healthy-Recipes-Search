@@ -22,12 +22,12 @@ const Recipes = ({session}) => {
     const [favoritesArray, setFavoritesArray] = useState([])
     const [favorites, setFavorites] = useState(null)
     const [favoritesRecipes, setFavoritesRecipes] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         getDetails()
         getRecipe()
-       /*  getFavorites() */
+        
     }, []);
 
     useEffect(() => {
@@ -59,7 +59,7 @@ const Recipes = ({session}) => {
           alert(error.message)
         } finally {
 /*           getFavorites()  
- */          setLoading(false)
+ */         /*  setLoading(false) */
         }
       }
 
@@ -79,8 +79,8 @@ const Recipes = ({session}) => {
     }
 
     const getRecipe = async () => {
-
-      setLoading(true)
+      
+     /*  setLoading(true) */
         const check = localStorage.getItem("random");
 
         if(check){
@@ -91,66 +91,54 @@ const Recipes = ({session}) => {
             const data = await response.json()
             localStorage.setItem("random", JSON.stringify(data.recipes));
            // console.log(data)
-            console.log(data.recipes)
+            console.log("SHOWME",data.recipes)
             //setRandomRecipe(data.recipes)
             setRandomRecipe(data.recipes);
+           /*  setLoading(false) */
            // console.log(data.recipes[0]);  
           // console.log(randomRecipe)
         }
-        setLoading(false)
+        
     }
 
     
     const getFavorites = async () => {
-      setLoading(true)
+      
       let favArray = favoritesArray;
       let favoritesString = favArray.join()
       /* console.log(favArray.join()) */
       const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${favoritesString}&apiKey=${process.env.REACT_APP_API_KEY}`)
       const favorites = await response.json()
       setFavoritesRecipes(favorites)
-      console.log(favorites)
+     /*  console.log(favorites) */
       setLoading(false)
             /* setFavoritesRecipes(data); */
      }
   return (
     <div className='container'>
-        {/* <h1 className='label'>
-            Search Recipe
-        </h1> */}
-        {/* <form onSubmit={handleSubmit}>
-        <input
-             type="text"
-             id='searchRecipe'
-             placeholder='Search recipe...'
-             className='input'
-             onChange={((e) => {
-                 setSearch(e.target.value)
-             })}
-             value={search}
-             
-             />
-             </form> */}
-             <form className="field has-addons searchBar" onSubmit={handleSubmit}>
-  <div className="control">
-    <input type="text"
-             //id='searchRecipe'
+                 {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
+                    <div>
+       
+   <form className="field has-addons searchBar" onSubmit={handleSubmit}>
+      <div className="control">
+        <input type="text"
+                //id='searchRecipe'
              placeholder='Recipes'
              className='input'
              onChange={((e) => {
                  setSearch(e.target.value)
              })}
              value={search}/>
-  </div>
-  <div className="control">
-    <button type="submit" className="button is-primary signupBtn">
-      Search
-    </button>
-  </div>
-</form>
+          </div>
+          <div className="control">
+            <button type="submit" className="button is-primary signupBtn">
+              Search
+            </button>
+          </div>
+      </form>
              
            
-             <div className="Grid">
+       <div className="Grid">
         {searchedRecipe.map((item) => {
             return(
                 <Link to={"/recipes/" + item.id}>
@@ -163,6 +151,7 @@ const Recipes = ({session}) => {
             )
         })}
     </div>
+
        <h1 className='label has-text-centered p-4'>Our Picks</h1> 
            
                  <div className='accountForm p-3'>
@@ -222,9 +211,10 @@ const Recipes = ({session}) => {
                     </div>
                         {/* Favorites */}
                         
+                    
                     <h1 className='label has-text-centered p-4'>Your Favorites</h1> 
+                    {favoritesArray ? (
                           <div className='accountForm p-3'>
-                          {favoritesArray ? (
                             <Splide options={{
                       mediaQuery: 'max',
                         perPage: 4,
@@ -281,10 +271,11 @@ const Recipes = ({session}) => {
                     })}
                     
                     </Splide>
-                    ):("")}
+                         
                     </div>
+                      ):("")}
+                    </div>)}
 
-                  
           </div>
   )
 }
