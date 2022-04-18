@@ -8,6 +8,7 @@ import StatisticsLogo from "../images/statistics.png"
 
 
 
+
 const Dashboard = ({session}) => {
 
     const [loading, setLoading] = useState(true)
@@ -151,7 +152,7 @@ const Dashboard = ({session}) => {
      
       
   return (
-<div className='container'>
+<div >
        {/* <h1>Dashboard</h1>
       <h2>Your BMI:</h2>
       <div className='bmiChart'><GaugeChart 
@@ -168,6 +169,12 @@ const Dashboard = ({session}) => {
              
              <div>
                {!updated ? (""): (
+                 <div>
+                   <div id='homePageImage' className='display-flex-center'>
+                     <h1 className='has-text-centered title' id="homePageTitle">Healthy Recipes</h1>
+                     <h1 className='has-text-centered title' id="homePageDescription">Find the recipe for <span style={{"color": "gold"}}> YOU</span></h1>
+                   </div>
+                   <div className='container'>
             <div className='accountForm' id='statistics'>
             <h1 className='title' style={{"textAlign": "center"}}>Statistics</h1>
           <div className="statisticsGauge">
@@ -201,6 +208,8 @@ const Dashboard = ({session}) => {
            <div className="statisticsCircle"><p className='label'>{`${TDEE}kcal`}</p></div>
            </div>
            </div>
+                </div>
+                </div>
                 </div>
                     )}
             

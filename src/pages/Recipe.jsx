@@ -194,7 +194,7 @@ function Recipe({session}) {
             <p>{details.aggregateLikes} likes</p>
             </div>
         <div className='minutes'>
-            <i className="fas fa-alarm-clock" style={{"color":"green"}}></i>
+        <i class="fa-regular fa-alarm-clock"></i>
             <p>{details.readyInMinutes}m</p>
             </div>
             <div className='likes'>

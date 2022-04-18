@@ -650,6 +650,24 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
            </div>
            </div>
            </div>
+           <div id='accordeon'>
+               <div className='accordeonItemA'>
+                <h1>BMI</h1>
+                <p>Body mass index tells how healthy a perso is based on their weight and height</p>
+              </div>
+              <div className='accordeonItemB'>
+                <h1>BMR</h1>
+                <p>Basal Metabolic Rate index tells how healthy a perso is based on their weight and height</p>
+              </div>
+              <div className='accordeonItemA'>
+                <h1>LBM</h1>
+                <p>Lean Body Mass tells how healthy a perso is based on their weight and height</p>
+              </div>
+              <div className='accordeonItemB'>
+                <h1>TDEE</h1>
+                <p>Total Daily Energy Expenditure tells how healthy a perso is based on their weight and height</p>
+              </div>
+           </div>
                 </div>
                    
         </div>)}

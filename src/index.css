@@ -166,11 +166,39 @@ code {
 #homePageNotUpdatedMealplan{
   flex-direction: column;
 }
+#homePageImage{
+  background-image: url("./images/homeImage.png");
+  background-size: cover;
+   position: relative;
+   
+ /*  position: fixed;  */
+/*  z-index: 33;
+ */  width: 100vw;
+  min-height: 50vh;
+justify-content: flex-start;
+  flex-direction: column;
+  
+}
+#homePageTitle{
+  font-size: 3rem;
+  padding-top: 4rem;
+  color: whitesmoke;
+}
+#homePageDescription{
+  font-size: 2rem;
+  text-align: center;
+  color: whitesmoke;
+}
 .radioButtons{
   display: flex;
   flex-direction: column;
   padding-bottom: 1rem;
   
+}
+.display-flex-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* .radiobtn{
   padding-left: 2rem;
@@ -185,6 +213,9 @@ code {
 
 .navbar-brand{
   justify-content: center;
+}
+.navbar-mobile{
+  display: none !important;
 }
 /* .navbar-dark{
   background-color: black !important;
@@ -269,6 +300,21 @@ input[type="range"]::-moz-range-track {
 #statistics{
   margin-left: 1rem;
   min-width: 60%;
+}
+#accordeon{
+  display: flex;
+  flex-direction: column;
+  padding-top: 3rem;
+}
+.accordeonItemA{
+  background-color: grey;
+  color: white;
+  margin: 1rem;
+}
+.accordeonItemB{
+  margin: 1rem;
+  background-color: white;
+  color: black;
 }
 #accountDoubleColumn{
   width: auto;
@@ -480,6 +526,9 @@ a.navbar-link.is-active{
   background-color: none !important;
   color: #ffbf00 !important;
 } */
+a.navbar-link.is-active{
+  color: #f0b503 !important;
+ }
 .buttons:last-child {
   margin-bottom: -0.5rem;
   justify-content: center;
@@ -706,5 +755,77 @@ right: 5%;
 .mealPlanCards{
   flex-direction: column;
 }
+
+}
+@media screen and (max-width: 400px){
+
+  .navbar{
+    position: fixed !important;
+    width: 100%;
+    bottom: 0;
+    background-color: white !important;
+    padding: 0 !important;
+    
+  }
+.navbar-burger{
+    display: none !important;
+  }
+  .navbar-desktop{
+    display: none;
+  }
+  .navbar-mobile{
+    display: block !important;
+  }
+  .navbar-mobile-logo{
+    display: none !important;
+  }
+  .navbar-brand{
+    justify-content: space-evenly;
+    min-width: 300px;
+    margin: auto;
+  }
+  .mobile-menu-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-menu-item p{
+    font-size: 0.5rem;
+  }
+  .mobile-menu-item i{
+    width: 20px;
+    color: #f0b503;
+  }
+  /* .fa-calendar:before{
+    margin-bottom: 5px;
+  } */
+  .active .mobile-menu-item{
+   color: #f16868 !important;
+   margin-bottom: 8px;
+  }
+  .active i{
+    color: #f16868 !important;
+    /* margin-bottom: 8px; */
+   }  /* .active .mobile-menu-item p{
+    display: "block";
+  } */
+ 
+
+  /* .fa-gear:before {
+    color: whitesmoke;
+  }
+  .fa-user:before{
+    color: whitesmoke;
+  }
+  .fa-utensils:before{
+    color: whitesmoke;
+  }
+  .fa-house-user:before{
+    color: whitesmoke;
+  }
+  .fa-calendar:before{
+    color: whitesmoke;
+  } */
 
 }
