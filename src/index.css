@@ -392,7 +392,6 @@ input[type="range"]::-moz-range-track {
 }
 #mealPlanAccountForm{
   padding:1rem;
-  margin-bottom: 2rem;
 }
 .tryMeBtn{
   min-width: 200px;
@@ -421,6 +420,7 @@ input[type="range"]::-moz-range-track {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 2rem;
 }
 .displayFlex h1{
   text-align: center;
