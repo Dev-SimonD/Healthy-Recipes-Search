@@ -392,7 +392,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
       <div /* className="signupFormCentered" */ id='accountDoubleColumn'>
         <form onSubmit={updateProfile} className="accountForm">
         <div className="field">
-          <h1 className="title">Profile</h1>
+          <h1 className="title" id='accountTitle'>Profile</h1>
                    <label className="label" htmlFor="username">Username</label>
                       <div className="control">
               <input

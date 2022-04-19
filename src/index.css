@@ -390,12 +390,43 @@ input[type="range"]::-moz-range-track {
 .mealPlanNotUpdated div{
   justify-content: end;
 }
+#mealPlanAccountForm{
+  padding:1rem;
+  margin-bottom: 2rem;
+}
+.tryMeBtn{
+  min-width: 200px;
+ 
+}
+#mealPlanSearchForm{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .mealPlanCards{
   display: flex;
   justify-content: space-between;
 }
 .mealPlanCards img{
   border-radius: 1rem;
+}
+.mealPlanCardFlex{
+  display: flex;
+  justify-content: space-evenly;
+
+}
+.displayFlex{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.displayFlex h1{
+  text-align: center;
+}
+.displayFlex p{
+  text-align: center;
 }
 #period{
   box-shadow: inset 0 0.0625em 0.125em rgb(10 10 10 / 5%);
@@ -621,8 +652,14 @@ justify-content: flex-start;
   font-size: 1rem;
 }
 
-
-
+@media screen and (max-width: 800px){
+.mealPlanCardFlex{
+  justify-content: center;
+flex-direction: column;
+align-items: center;
+display: flex;
+}
+}
 
 
                                 /* Phone/Tablet size */
@@ -698,6 +735,7 @@ text-align: center;
 }
 #statistics{
   margin-left: 0;
+  padding: 3rem 1rem;
 }
 /* .cards{
   padding: 1rem;
@@ -755,6 +793,13 @@ right: 5%;
 .mealPlanCards{
   flex-direction: column;
 }
+.mealPlanCardFlex{
+  padding: 0;
+}
+.mealPlanCardFlex img{
+  padding: 1rem;
+}
+
 
 }
 @media screen and (max-width: 400px){
@@ -796,6 +841,9 @@ right: 5%;
   .mobile-menu-item i{
     width: 20px;
     color: #f0b503;
+  }
+  #accountTitle{
+    text-align: center;
   }
   /* .fa-calendar:before{
     margin-bottom: 5px;

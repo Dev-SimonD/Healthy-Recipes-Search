@@ -11,13 +11,16 @@ const MealPlan = ({session}) => {
 
 
     const [breakfastId, setBreakfastId] = useState("")
-    const [launchId, setLaunchId] = useState("")
+    const [lunchId, setLunchId] = useState("")
     const [dinnerId, setDinnerId] = useState("")
     const [breakfast, setBreakfast] = useState(null)
-    const [launch, setLaunch] = useState(null)
+    const [lunch, setLunch] = useState(null)
     const [dinner, setDinner] = useState(null)
-    const [period, setPeriod] = useState("")
+    const [period, setPeriod] = useState("day")
     const [weightGoal, setWeightGoal] = useState("")
+    const [onlyBreakfast, setOnlyBreakfast] = useState(null)
+    const [onlyLunch, setOnlyLunch] = useState(null)
+    const [onlyDinner, setOnlyDinner] = useState(null)
 
 
     const mealURL = `https://api.spoonacular.com/mealplanner/generate?timeFrame=day&apiKey=${process.env.REACT_APP_API_KEY}`;
@@ -108,7 +111,12 @@ const MealPlan = ({session}) => {
 
 } */
 
-  
+ /*  const changeHandler = ((e) => {
+    e.preventDefault()
+    console.log(e.target.value)
+    setPeriod(e.target.value)
+    
+  }) */
 
   const clickHandler = ((e) => {
     e.preventDefault()
@@ -117,7 +125,7 @@ const MealPlan = ({session}) => {
   })
 
   const handleClick = ((e) => {
-    e.preventDefault()
+    /* e.preventDefault() */
     console.log("tdee on click", tdeeValue)
     getMealPlanNow()
    
@@ -150,7 +158,9 @@ const MealPlan = ({session}) => {
 
     }
 
-    console.log("Temp tdee valu is",tempTdeeValue)
+    let tempPeriod = period;
+
+    if(tempPeriod === "day"){
 
     const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=${tempTdeeValue}&apiKey=${process.env.REACT_APP_API_KEY}`)
     const spoonData = await response.json()
@@ -161,16 +171,59 @@ const MealPlan = ({session}) => {
          const mealsData = await meals.json()
          console.log(mealsData)
         setBreakfast(mealsData[0])
-        setLaunch(mealsData[1])
+        setLunch(mealsData[1])
         setDinner(mealsData[2])
+        setOnlyBreakfast()
+        setOnlyLunch()
+        setOnlyDinner()
         console.log(breakfast)
-    
-     
+        /* setPeriod("") */
+    }
+    if(tempPeriod === "breakfast"){
+      console.log("get Breakfast")
+      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&instructionsRequired=true&sort=random&type=breakfast&minCalories=500&maxCalories=600&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
+      const data = await response.json()
+      setOnlyBreakfast(data.results)
+      setBreakfast()
+        setLunch()
+        setDinner()
+        setOnlyLunch()
+        setOnlyDinner()
+      console.log(data.results)
+      /* setPeriod("") */
+  }
+  if(tempPeriod === "lunch"){
+    console.log("get Lunch")
+    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&instructionsRequired=true&sort=random&type=lunch&minCalories=700&maxCalories=800&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
+    const data = await response.json()
+    setOnlyLunch(data.results)
+    setBreakfast()
+        setLunch()
+        setDinner()
+        setOnlyBreakfast()
+        setOnlyDinner()
+    console.log(data.results)
+   /*  setPeriod("") */
+}
+if(tempPeriod === "dinner"){
+  console.log("get Dinner")
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&instructionsRequired=true&sort=random&type=dinner&minCalories=600&maxCalories=800&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
+  const data = await response.json()
+  setOnlyDinner(data.results)
+  setBreakfast()
+        setLunch()
+        setDinner()
+        setOnlyBreakfast()
+        setOnlyLunch()
+  console.log(data.results)
+  /* setPeriod("") */
+}
+console.log(onlyBreakfast)
   }
 
   return (
     <div className='container'>
-      <div className='accountForm'>
+      <div className='accountForm' id="mealPlanAccountForm">
       {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
         <div>
     <div className={!updated ? "" : "nonDisplay" }>
@@ -190,20 +243,23 @@ const MealPlan = ({session}) => {
    </div>
    </div>
         <div className={updated ? "" : "nonDisplay" }>
-           <h1 className='title'>Daily meal plan for your individual goals</h1>
-          
-           <div className='field'>
+           <h1 className='title has-text-centered'>Daily meal plan for your individual goals</h1>
+           <div id='mealPlanSearchForm'>
+            <div className='field'>
           <label className="label" htmlFor="period">Select period</label>
           <select onChange={(e) => (setPeriod(e.target.value))} className="period" name="period"id="period" /* onChange={(e) => setExercise(e.target.value)} */>
-             <option value="now">Now</option>
-             <option value="day">Day</option>
-             <option value="week">Week</option>
+             <option value="day">Day plan</option>
+             <option value="breakfast">Breakfast</option>
+             <option value="lunch">Lunch</option>
+             <option value="dinner">Dinner</option>
               
             </select>
           
             </div>
-          <button className='button is-primary signupBtn' onClick={handleClick}>find recipe</button>
-           {mealPlanNutrients ? (
+          <button className='button is-primary signupBtn' style={{"maxWidth":"300px"}} onClick={handleClick}>Search</button>
+          </div>
+          
+           {/* {mealPlanNutrients ? (
              <div>
            <p className='label'>{`Your daily calorie intake to support your weight goal is ${weightGoalValue}kcal`}</p>
            <ul>
@@ -212,9 +268,52 @@ const MealPlan = ({session}) => {
              <li>carbs: {mealPlanNutrients ? (mealPlanNutrients.carbohydrates) : ("")}</li>
              <li>fats: {mealPlanNutrients ? (mealPlanNutrients.fat) : ("")}</li>
              <li>proteins: {mealPlanNutrients ? (mealPlanNutrients.protein) : ("")}</li>
-           </ul>
+           </ul> </div>):("")} */}
            <div className='mealPlanCards'>
-           {breakfast ? (
+              {/*  period === "breakfast" &&  */onlyBreakfast ? (<div><div className='accountForm mealPlanCardFlex'>
+      <img style={{"borderRadius":"2rem"}} src={onlyBreakfast[0].image} alt={onlyBreakfast[0].title}/>
+        <div className='displayFlex'>
+        <h1 className='title'>{onlyBreakfast[0].title}</h1>
+        <p className='mb-3'>Calories: {onlyBreakfast[0].nutrition.nutrients[0].amount}{onlyBreakfast[0].nutrition.nutrients[0].unit}</p>
+        <Link to={"/recipes/" + onlyBreakfast[0].id}><button className='button is-primary signupBtn tryMeBtn'>Try It</button></Link>
+        </div>
+        </div>
+        <div>
+        <p className='recipeSummary' dangerouslySetInnerHTML={{__html: onlyBreakfast[0].summary}}/> 
+         </div>
+         </div>)
+        :("")}
+        { /* period === "lunch" &&  */onlyLunch ? (<div><div className='accountForm mealPlanCardFlex'>
+      <img style={{"borderRadius":"2rem"}} src={onlyLunch[0].image} alt={onlyLunch[0].title}/>
+       <div className='displayFlex'>
+        <h1 className='title'>{onlyLunch[0].title}</h1>
+        <p className='mb-3'>Calories: {onlyLunch[0].nutrition.nutrients[0].amount}{onlyLunch[0].nutrition.nutrients[0].unit}</p>
+        <Link to={"/recipes/" + onlyLunch[0].id}><button className='button is-primary signupBtn tryMeBtn'>Try It</button></Link>
+        </div>
+        </div>
+        <div>
+        <p className='recipeSummary' dangerouslySetInnerHTML={{__html: onlyLunch[0].summary}}/>
+        
+        </div>
+        </div>
+        )
+        :("")}
+        {/*  period === "dinner" &&  */onlyDinner ? (<div><div className='accountForm mealPlanCardFlex'>
+      <img style={{"borderRadius":"2rem"}} src={onlyDinner[0].image} alt={onlyDinner[0].title}/>
+       <div className='displayFlex'>
+        <h1 className='title'>{onlyDinner[0].title}</h1>
+        <p className='mb-3'>Calories: {onlyDinner[0].nutrition.nutrients[0].amount}{onlyDinner[0].nutrition.nutrients[0].unit}</p>
+        <Link to={"/recipes/" + onlyDinner[0].id}><button className='button is-primary signupBtn tryMeBtn'>Try It</button></Link>
+        </div>
+        </div>
+        <div>
+        <p className='recipeSummary' dangerouslySetInnerHTML={{__html: onlyDinner[0].summary}}/>
+        </div>
+        </div>)
+        :("")}
+          
+          
+           {/* period === "day" && */ breakfast ?  (
            <Link to={"/recipes/" + breakfast.id}>
               <div className='accountForm p-3 m-1'>  
                   <h1 className='has-text-centered fs-1'>Breakfast</h1>   
@@ -222,17 +321,18 @@ const MealPlan = ({session}) => {
                     <h2>{breakfast != null ? (breakfast.title) : ""}</h2>  
                 </div>
                 </Link>
+                
                 ):("")}
-                {launch ? (
-                <Link to={"/recipes/" + launch.id}>
+                {/* period === "day" && */ lunch ? (
+                <Link to={"/recipes/" + lunch.id}>
                 <div className='accountForm p-3 m-1'> 
-                <h1 className='has-text-centered fs-1'>Launch</h1>
-                {launch ? (<img src={launch.image} alt={launch.title}/>):("")}
-                <h2>{launch != null ? (launch.title) : ""}</h2>  
+                <h1 className='has-text-centered fs-1'>Lunch</h1>
+                {lunch ? (<img src={lunch.image} alt={lunch.title}/>):("")}
+                <h2>{lunch != null ? (lunch.title) : ""}</h2>  
               </div>
               </Link>
               ):("")}
-              {dinner ? (
+              {/* period === "day" &&  */dinner ? (
               <Link to={"/recipes/" + dinner.id}>
                 <div className='accountForm p-3 m-1'>  
                   <h1 className='has-text-centered fs-1'>Dinner</h1>         
@@ -241,12 +341,62 @@ const MealPlan = ({session}) => {
               </div>
               </Link>
               ):("")}
+
+              {/* {onlyBreakfast? (
+                
+                
+                  onlyBreakfast.map((recipe) => {
+                               <Link to={"/recipes/" + recipe.id}>
+                                <div className="cards smallRecipeCard">
+                                 <img className='splideImg' src={recipe.image} alt={recipe.title}/>
+                                 <div className='cardContent m-a'>
+                                 <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
+                                 <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                                 </div>
+                               </div>
+                                </Link>})                             
+                    ):("")}
+              {onlyLunch? (
+                onlyLunch.map((recipe) => {
+                  <Link to={"/recipes/" + recipe.id}>
+                   <div className="cards smallRecipeCard">
+                    <img className='splideImg' src={recipe.image} alt={recipe.title}/>
+                    <div className='cardContent m-a'>
+                    <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
+                    <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                    </div>
+                  </div>
+                   </Link>}) 
+              ):("")}
+              {onlyDinner? (
+                onlyDinner.map((recipe) => {
+                  <Link to={"/recipes/" + recipe.id}>
+                   <div className="cards smallRecipeCard">
+                    <img className='splideImg' src={recipe.image} alt={recipe.title}/>
+                    <div className='cardContent m-a'>
+                    <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
+                    <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                    </div>
+                  </div>
+                   </Link>}) 
+              ):("")} */}
               </div>
-    </div>
-    ) : ("")}
+    {/* </div>
+    ) : ("")} */}
+
+
+
+
+
     </div>
     </div>
     )}
+
+   {/*  {onlyBreakfast ? (<div className='accountForm'>
+      <img style={{"borderRadius":"2rem"}} src={onlyBreakfast[0].image} alt={onlyBreakfast[0].title}/>
+        <h1>{onlyBreakfast[0].title}</h1>
+        <p>{onlyBreakfast[0].nutrition.nutrients[0].amount}{onlyBreakfast[0].nutrition.nutrients[0].unit}</p></div>)
+        :("")} */}
     </div>
     </div>
   )

@@ -216,7 +216,7 @@ const Home = ({ session }) => {
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/mealplan"><div className='mobile-menu-item'><i className="fas fa-calendar"></i><p style={{"display":"none"}}>Meal Plan</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/account"><div className='mobile-menu-item'><i className="fas fa-user"></i><p style={{"display":"none"}}>Profile</p></div></NavLink>
 {/*     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/search">F</NavLink>
- */}    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/settings"><div className='mobile-menu-item'><i class="fas fa-gear"></i><p style={{"display":"none"}}>Settings</p></div></NavLink>
+ */}    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/settings"><div className='mobile-menu-item'><i className="fas fa-gear"></i><p style={{"display":"none"}}>Settings</p></div></NavLink>
 
     <a id="burgerIcon" role="button" onClick={(e) => {
       e.preventDefault()
