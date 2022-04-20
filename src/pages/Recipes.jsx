@@ -72,10 +72,10 @@ const Recipes = ({session}) => {
 
     const getSearchedRecipe = async (query) => {
 
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?instructionsRequired=true&apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeNutrition=true&instructionsRequired=true&apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
         const data = await response.json()
         setSearchedRecipe(data.results)
-        //console.log(data);
+        console.log(data.results);
     }
 
     const getRecipe = async () => {
@@ -107,10 +107,10 @@ const Recipes = ({session}) => {
       let favArray = favoritesArray;
       let favoritesString = favArray.join()
       /* console.log(favArray.join()) */
-      const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?ids=${favoritesString}&apiKey=${process.env.REACT_APP_API_KEY}`)
+      const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?includeNutrition=true&ids=${favoritesString}&apiKey=${process.env.REACT_APP_API_KEY}`)
       const favorites = await response.json()
       setFavoritesRecipes(favorites)
-     /*  console.log(favorites) */
+      console.log(favorites)
       setLoading(false)
             /* setFavoritesRecipes(data); */
      }
