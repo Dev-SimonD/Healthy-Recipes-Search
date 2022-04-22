@@ -37,6 +37,10 @@ const MealPlan = ({session}) => {
   const [coef, setCoef] = useState()
   const [tdeeValue, setTdeeValue] = useState(0)
   const [weightGoalValue, setWeightGoalValue] = useState()
+  const [vegetarian, setVegetarian] = useState(false);
+  const [paleo, setPaleo] = useState(false);
+  const [ketogenic, setKetogenic] = useState(false);
+  const [pescaterian, setPescaterian] = useState(false);
 
 
    useEffect(() => {
@@ -50,7 +54,8 @@ const MealPlan = ({session}) => {
    
          let { data, error, status } = await supabase
            .from('profiles')
-           .select(`username, updated, spoonUsername, spoonPassword, spoonHash, bmrValue, coef, tdeeValue, weightGoal `)
+           .select(`username, updated, spoonUsername, spoonPassword, spoonHash, bmrValue, coef, tdeeValue, weightGoal,
+           vegetarian, paleo, ketogenic, pescaterian `)
            .eq('id', user.id)
            .single()
    
@@ -68,6 +73,10 @@ const MealPlan = ({session}) => {
            setCoef(data.coef)
            setTdeeValue(data.tdeeValue)
            setWeightGoal(data.weightGoal)
+           setVegetarian(data.vegetarian)
+           setPaleo(data.paleo)
+           setKetogenic(data.ketogenic)
+           setPescaterian(data.pescaterian)
           
          }
           
@@ -189,6 +198,7 @@ const MealPlan = ({session}) => {
         setDinner()
         setOnlyLunch()
         setOnlyDinner()
+        setMealPlanNutrients()
       console.log(data.results)
       /* setPeriod("") */
   }
@@ -202,6 +212,7 @@ const MealPlan = ({session}) => {
         setDinner()
         setOnlyBreakfast()
         setOnlyDinner()
+        setMealPlanNutrients()
     console.log(data.results)
    /*  setPeriod("") */
 }
@@ -215,6 +226,7 @@ if(tempPeriod === "dinner"){
         setDinner()
         setOnlyBreakfast()
         setOnlyLunch()
+        setMealPlanNutrients()
   console.log(data.results)
   /* setPeriod("") */
 }
@@ -243,10 +255,16 @@ console.log(onlyBreakfast)
    </div>
    </div>
         <div className={updated ? "" : "nonDisplay" }>
-           <h1 className='title has-text-centered'>Daily meal plan for your individual goals</h1>
+           <h1 className='title has-text-centered'>Meal Plan</h1>
+           {weightGoal === "lose" ?(<p className='has-text-centered'>All recipes for your weight loss journey.</p>):("")}
+           {weightGoal === "gain" ?(<p className='has-text-centered'>All recipes for your weigh gain journey</p>):("")}
+           {weightGoal === "keep" ?(<p className='has-text-centered'>All recipes to fit your goals.</p>):("")}
+           {vegetarian || paleo || ketogenic || pescaterian ? (<div><p className='has-text-centered'>All recipes fit your 
+             {vegetarian?(" vegeterian "):("")}{ketogenic?(" ketogenic "):("")}{paleo?(" paleo "):("")}{pescaterian?(" pescaterian "):("")}
+             diet.</p></div>):("")}
            <div id='mealPlanSearchForm'>
             <div className='field'>
-          <label className="label" htmlFor="period">Select period</label>
+          <label className="label" htmlFor="period">Select meal plan</label>
           <select onChange={(e) => (setPeriod(e.target.value))} className="period" name="period"id="period" /* onChange={(e) => setExercise(e.target.value)} */>
              <option value="day">Day plan</option>
              <option value="breakfast">Breakfast</option>
@@ -259,16 +277,16 @@ console.log(onlyBreakfast)
           <button className='button is-primary signupBtn' style={{"maxWidth":"300px"}} onClick={handleClick}>Search</button>
           </div>
           
-           {/* {mealPlanNutrients ? (
+           {mealPlanNutrients ? (
              <div>
            <p className='label'>{`Your daily calorie intake to support your weight goal is ${weightGoalValue}kcal`}</p>
            <ul>
-             <p>This meal plan nutrition:</p>
+             <p>This meal plan nutrition includes:</p>
              <li>calories: {mealPlanNutrients ? (mealPlanNutrients.calories) : ("")}</li>
              <li>carbs: {mealPlanNutrients ? (mealPlanNutrients.carbohydrates) : ("")}</li>
              <li>fats: {mealPlanNutrients ? (mealPlanNutrients.fat) : ("")}</li>
              <li>proteins: {mealPlanNutrients ? (mealPlanNutrients.protein) : ("")}</li>
-           </ul> </div>):("")} */}
+           </ul> </div>):("")}
            <div className='mealPlanCards'>
               {/*  period === "breakfast" &&  */onlyBreakfast ? (<div><div className='accountForm mealPlanCardFlex'>
       <img style={{"borderRadius":"2rem"}} src={onlyBreakfast[0].image} alt={onlyBreakfast[0].title}/>
@@ -313,34 +331,42 @@ console.log(onlyBreakfast)
         :("")}
           
           
-           {/* period === "day" && */ breakfast ?  (
+           {/* period === "day" && */ breakfast ?  (<div>
            <Link to={"/recipes/" + breakfast.id}>
-              <div className='accountForm p-3 m-1'>  
+              <div className='accountForm p-3 m-1 mealPlanAccountImage'>  
                   <h1 className='has-text-centered fs-1'>Breakfast</h1>   
-                    {breakfast ? (<img src={breakfast.image} alt={breakfast.title}/>):("")}                           
+                    {breakfast ? (<img src={breakfast.image} alt={breakfast.title} />):("")}                           
                     <h2>{breakfast != null ? (breakfast.title) : ""}</h2>  
                 </div>
                 </Link>
-                
+                    {breakfast != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>) : ("")}  
+                </div>
                 ):("")}
                 {/* period === "day" && */ lunch ? (
+                  <div>
                 <Link to={"/recipes/" + lunch.id}>
-                <div className='accountForm p-3 m-1'> 
+                <div className='accountForm p-3 m-1 mealPlanAccountImage'> 
                 <h1 className='has-text-centered fs-1'>Lunch</h1>
                 {lunch ? (<img src={lunch.image} alt={lunch.title}/>):("")}
                 <h2>{lunch != null ? (lunch.title) : ""}</h2>  
               </div>
               </Link>
+                {lunch != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>) : ("")}  
+             </div>
               ):("")}
               {/* period === "day" &&  */dinner ? (
+                <div>
               <Link to={"/recipes/" + dinner.id}>
-                <div className='accountForm p-3 m-1'>  
+                <div className='accountForm p-3 m-1 mealPlanAccountImage'>  
                   <h1 className='has-text-centered fs-1'>Dinner</h1>         
-                  {dinner ? (<img src={dinner.image} alt={dinner.title}/>):("")}
+                  {dinner ? (<img src={dinner.image} alt={dinner.title} />):("")}
                 <h2>{dinner != null ? (dinner.title) : ""}</h2>  
+
               </div>
               </Link>
-              ):("")}
+                {dinner != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>) : ("")}  
+             </div>
+             ):("")}
 
               {/* {onlyBreakfast? (
                 

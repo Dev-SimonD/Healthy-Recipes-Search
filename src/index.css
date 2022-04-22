@@ -392,6 +392,7 @@ input[type="range"]::-moz-range-track {
 }
 #mealPlanAccountForm{
   padding:1rem;
+  min-height: 80vh;
 }
 .tryMeBtn{
   min-width: 200px;
@@ -405,7 +406,14 @@ input[type="range"]::-moz-range-track {
 }
 .mealPlanCards{
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+}
+.mealPlanAccountImage{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .mealPlanCards img{
   border-radius: 1rem;
@@ -591,6 +599,10 @@ justify-content: flex-start;
 .searchBar{
   width: 100%;
 }
+                                    /* Settings */
+#settingsMain{
+  min-height: 80vh;
+}
 
                                      /* Recipe */ 
 .recipeSummary{
@@ -737,6 +749,10 @@ text-align: center;
   margin-left: 0;
   padding: 3rem 1rem;
 }
+.cardTitle h1{
+ font-size: 1.5rem;
+  color: black;
+}
 /* .cards{
   padding: 1rem;
 display: flex;
@@ -767,10 +783,7 @@ justify-content: flex-start;
 position: absolute !important;
 right: 5%;
 }
-#cardTitle{
-  font-size: 0.8rem;
-  color: black;
-}
+
 /* #cardLikes{
   display: none;
 } */
@@ -839,12 +852,13 @@ right: 5%;
     font-size: 0.5rem;
   }
   .mobile-menu-item i{
-    width: 20px;
+    font-size: 1.5rem;
     color: #f0b503;
   }
   #accountTitle{
     text-align: center;
   }
+ 
   /* .fa-calendar:before{
     margin-bottom: 5px;
   } */

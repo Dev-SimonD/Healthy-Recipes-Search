@@ -212,11 +212,11 @@ function Recipe({session}) {
                 <button className='button is-primary is-light recipeButtons' onClick={instructionsHandler}>Instructions</button>
             </div>
             {isSummary && (
-          <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.summary}}/>
+          <p className='accountForm' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: details.summary}}/>
           ) }
           {isIngredients && (
-              <div className='recipeSummary'>
-            <ol className='recipeSummary'>
+              <div className='accountForm' style={{"padding":"2rem"}}>
+            <ol>
           {details.extendedIngredients.map((ingredient) => (
               <li key={ingredient.id}>{ingredient.original}</li>
 
@@ -225,7 +225,7 @@ function Recipe({session}) {
       </div>
           ) }
           {isInstructions && (
-           <p className='recipeSummary' dangerouslySetInnerHTML={{__html: details.instructions}}/>
+           <p className='accountForm' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: details.instructions}}/>
           ) }
           </div>
       </div>

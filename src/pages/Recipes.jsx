@@ -223,7 +223,7 @@ const Recipes = ({session}) => {
                         width: "80vw",
                        /*  type: "loop",
                         autoplay: true, */
-                        lazyLoad: true,
+                        lazyLoad: false,
                         pagination: "slider",
                          flickMaxPages: 1,
                         breakpoints: {
@@ -259,10 +259,17 @@ const Recipes = ({session}) => {
                                     <Link to={"/recipes/" + recipe.id}>
                                 <div className="cards smallRecipeCard">
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
-                                 <div className='cardContent m-a'>
-                                 <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
-                                 <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
-                                 </div>
+                                    <div className='favoritesCardContent'>
+                                      {/* <div className='cardContent m-a'> */}
+                                      <div className='favoritesHeader'>                                     
+                                         <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
+                                         <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
+                                         </div>
+
+                                      <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
+                                       <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
+           
+                                    </div>
                                </div>
                                 </Link>
                          </SplideSlide>
