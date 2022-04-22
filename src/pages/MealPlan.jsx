@@ -288,7 +288,10 @@ console.log(onlyBreakfast)
              <li>proteins: {mealPlanNutrients ? (mealPlanNutrients.protein) : ("")}</li>
            </ul> </div>):("")}
            <div className='mealPlanCards'>
-              {/*  period === "breakfast" &&  */onlyBreakfast ? (<div><div className='accountForm mealPlanCardFlex'>
+              {/*  period === "breakfast" &&  */onlyBreakfast ? (
+              <div>
+                
+                <div className='accountForm mealPlanCardFlex' style={{"marginTop":"0"}}>
       <img style={{"borderRadius":"2rem"}} src={onlyBreakfast[0].image} alt={onlyBreakfast[0].title}/>
         <div className='displayFlex'>
         <h1 className='title'>{onlyBreakfast[0].title}</h1>
@@ -297,11 +300,11 @@ console.log(onlyBreakfast)
         </div>
         </div>
         <div>
-        <p className='recipeSummary' dangerouslySetInnerHTML={{__html: onlyBreakfast[0].summary}}/> 
+        <p className='accountForm p-3 m-1 has-text-justified' style={{"marginTop":"0"}} dangerouslySetInnerHTML={{__html: onlyBreakfast[0].summary}}/> 
          </div>
          </div>)
         :("")}
-        { /* period === "lunch" &&  */onlyLunch ? (<div><div className='accountForm mealPlanCardFlex'>
+        { /* period === "lunch" &&  */onlyLunch ? (<div><div className='accountForm mealPlanCardFlex' style={{"marginTop":"0"}}>
       <img style={{"borderRadius":"2rem"}} src={onlyLunch[0].image} alt={onlyLunch[0].title}/>
        <div className='displayFlex'>
         <h1 className='title'>{onlyLunch[0].title}</h1>
@@ -310,13 +313,13 @@ console.log(onlyBreakfast)
         </div>
         </div>
         <div>
-        <p className='recipeSummary' dangerouslySetInnerHTML={{__html: onlyLunch[0].summary}}/>
+        <p className='accountForm p-3 m-1 has-text-justified' style={{"marginTop":"0"}} dangerouslySetInnerHTML={{__html: onlyLunch[0].summary}}/>
         
         </div>
         </div>
         )
         :("")}
-        {/*  period === "dinner" &&  */onlyDinner ? (<div><div className='accountForm mealPlanCardFlex'>
+        {/*  period === "dinner" &&  */onlyDinner ? (<div><div className='accountForm mealPlanCardFlex'style={{"marginTop":"0"}}>
       <img style={{"borderRadius":"2rem"}} src={onlyDinner[0].image} alt={onlyDinner[0].title}/>
        <div className='displayFlex'>
         <h1 className='title'>{onlyDinner[0].title}</h1>
@@ -325,46 +328,65 @@ console.log(onlyBreakfast)
         </div>
         </div>
         <div>
-        <p className='recipeSummary' dangerouslySetInnerHTML={{__html: onlyDinner[0].summary}}/>
+        <p className='accountForm p-3 m-1 has-text-justified'style={{"marginTop":"0"}} dangerouslySetInnerHTML={{__html: onlyDinner[0].summary}}/>
         </div>
         </div>)
         :("")}
           
           
-           {/* period === "day" && */ breakfast ?  (<div>
+           {/* period === "day" && */ breakfast ?  (
+           <div>
+             
            <Link to={"/recipes/" + breakfast.id}>
-              <div className='accountForm p-3 m-1 mealPlanAccountImage'>  
-                  <h1 className='has-text-centered fs-1'>Breakfast</h1>   
+              <div className='accountForm p-3 m-1 mealPlanAccountImage' >  
+                  <h1 className='fs-1 pb-4'>Breakfast</h1>   
+                    <h2 className='has-text-justified' style={{"fontSize":"1.2rem"}}>{breakfast != null ? (breakfast.title) : ""}</h2>  
                     {breakfast ? (<img src={breakfast.image} alt={breakfast.title} />):("")}                           
-                    <h2>{breakfast != null ? (breakfast.title) : ""}</h2>  
                 </div>
                 </Link>
-                    {breakfast != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>) : ("")}  
+                <div>
+                <button className='button is-primary is-light recipeButtons' /* onClick={summaryHandler} */>Summary</button>
+                <button className='button is-primary is-light recipeButtons' /* onClick={ingredientsHandler} */>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' /* onClick={instructionsHandler} */>Instructions</button>
+            </div>
+                    {breakfast != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>) : ("")}  
                 </div>
                 ):("")}
                 {/* period === "day" && */ lunch ? (
                   <div>
+                    
                 <Link to={"/recipes/" + lunch.id}>
                 <div className='accountForm p-3 m-1 mealPlanAccountImage'> 
-                <h1 className='has-text-centered fs-1'>Lunch</h1>
+                <h1 className='fs-1 pb-4'>Lunch</h1>
+                <h2 className='has-text-justified' style={{"fontSize":"1.2rem"}}>{lunch != null ? (lunch.title) : ""}</h2>  
                 {lunch ? (<img src={lunch.image} alt={lunch.title}/>):("")}
-                <h2>{lunch != null ? (lunch.title) : ""}</h2>  
               </div>
               </Link>
-                {lunch != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>) : ("")}  
+              <div>
+                <button className='button is-primary is-light recipeButtons' /* onClick={summaryHandler} */>Summary</button>
+                <button className='button is-primary is-light recipeButtons' /* onClick={ingredientsHandler} */>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' /* onClick={instructionsHandler} */>Instructions</button>
+            </div>
+                {lunch != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>) : ("")}  
              </div>
               ):("")}
               {/* period === "day" &&  */dinner ? (
                 <div>
+                  
               <Link to={"/recipes/" + dinner.id}>
                 <div className='accountForm p-3 m-1 mealPlanAccountImage'>  
-                  <h1 className='has-text-centered fs-1'>Dinner</h1>         
+                  <h1 className='fs-1 pb-4'>Dinner</h1>         
+                <h2 className='has-text-justified' style={{"fontSize":"1.2rem"}}>{dinner != null ? (dinner.title) : ""}</h2>  
                   {dinner ? (<img src={dinner.image} alt={dinner.title} />):("")}
-                <h2>{dinner != null ? (dinner.title) : ""}</h2>  
 
               </div>
               </Link>
-                {dinner != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>) : ("")}  
+              <div>
+                <button className='button is-primary is-light recipeButtons' /* onClick={summaryHandler} */>Summary</button>
+                <button className='button is-primary is-light recipeButtons' /* onClick={ingredientsHandler} */>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' /* onClick={instructionsHandler} */>Instructions</button>
+            </div>
+                {dinner != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>) : ("")}  
              </div>
              ):("")}
 
