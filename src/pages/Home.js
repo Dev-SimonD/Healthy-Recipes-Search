@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
 import { supabase } from '../components/supabaseClient'
 import Account from '../components/Account'
 import Auth from "../components/Auth"
-import SearchFood from './SearchFood.jsx'
 import Dashboard from './Dashboard.jsx'
 import Recipes from './Recipes.jsx'
 import MealPlan from './MealPlan.jsx'
 import Recipe from './Recipe.jsx'
 import Settings from './Settings.jsx'
-import Menu from "../components/Menu.js"
 
 
 import {
@@ -297,8 +294,6 @@ const Home = ({ session }) => {
           <Route path="/recipes" element={<Recipes key={session.user.id} session={session} />}>
           </Route>
           <Route path="/mealplan" element={<MealPlan key={session.user.id} session={session} />}>
-          </Route>
-          <Route path="/search" element={<SearchFood key={session.user.id} session={session} />}>
           </Route>
           <Route path="/recipes/:name" element={<Recipe />}>
           </Route>

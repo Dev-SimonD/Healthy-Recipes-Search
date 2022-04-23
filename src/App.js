@@ -3,10 +3,7 @@ import "../node_modules/bulma/css/bulma.css"
 import { useState, useEffect } from 'react'
 import { supabase } from './components/supabaseClient'
 import Auth from './components/Auth'
-import Account from './components/Account'
-import Header from './components/Header'
 import Footer from './components/Footer'
-import Menu from './components/Menu'
 import Home from './pages/Home'
 
 export default () => {
@@ -23,10 +20,8 @@ export default () => {
   return (
     <>
      
-      {!session ? <Auth /> : <div className='mainDiv'/*  className='fullwidthheight' */>
-       {/* <Header/> */}
-      {/*  <Menu /> */}
-       <Home key={session.user.id} session={session} />
+      {!session ? <Auth /> : <div className='mainDiv'>
+      <Home key={session.user.id} session={session} />
        <Footer />
        </div>}
     </>
