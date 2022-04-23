@@ -180,6 +180,7 @@ function Recipe({session}) {
             <h2 className='title' id='recipeTitle'>
                 {details.title}
             </h2>
+      
            {/*  <p>
           {favoritesArray ? favoritesArray.includes(parseInt(params.name)) ? ("included"):("not included"):("nothing here")}
           </p> */}
@@ -212,10 +213,10 @@ function Recipe({session}) {
                 <button className='button is-primary is-light recipeButtons' onClick={instructionsHandler}>Instructions</button>
             </div>
             {isSummary && (
-          <p className='accountForm' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: details.summary}}/>
+          <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: details.summary}}/>
           ) }
           {isIngredients && (
-              <div className='accountForm' style={{"padding":"2rem"}}>
+              <div className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}}>
             <ol>
           {details.extendedIngredients.map((ingredient) => (
               <li key={ingredient.id}>{ingredient.original}</li>
@@ -225,7 +226,7 @@ function Recipe({session}) {
       </div>
           ) }
           {isInstructions && (
-           <p className='accountForm' style={{"padding":"2rem"}} dangerouslySetInnerHTML={{__html: details.instructions}}/>
+           <p className='accountForm has-text-justified' style={{"padding":"0.5rem 1rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: details.instructions}}/>
           ) }
           </div>
       </div>
