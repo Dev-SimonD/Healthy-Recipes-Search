@@ -23,6 +23,7 @@ const Recipes = ({session}) => {
     const [favorites, setFavorites] = useState(null)
     const [favoritesRecipes, setFavoritesRecipes] = useState([])
     const [loading, setLoading] = useState(true)
+    const [searched, setSearched] = useState(false)
 
     useEffect(() => {
         getDetails()
@@ -75,6 +76,7 @@ const Recipes = ({session}) => {
         const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeNutrition=true&instructionsRequired=true&apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
         const data = await response.json()
         setSearchedRecipe(data.results)
+        setSearched(true)
         console.log(data.results);
     }
 
@@ -113,7 +115,10 @@ const Recipes = ({session}) => {
       console.log(favorites)
       setLoading(false)
             /* setFavoritesRecipes(data); */
+
      }
+
+
   return (
     <div className='container'>
                  {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
@@ -138,20 +143,29 @@ const Recipes = ({session}) => {
       </form>
              
            
-       <div className="Grid">
+       {/* <div className='accountForm'> */}
         {searchedRecipe.map((item) => {
             return(
                 <Link to={"/recipes/" + item.id}>
-                  <div className='cards' key={item.id}>
+                  {/* <div className='cards' key={item.id}>
                     <img src={item.image} alt="title" />
                     <h4>{item.title}</h4>
-                    </div>
+                    </div> */}
+                     <div className='accountForm p-3 m-1 mealPlanAccountImage  m-auto ' style={{"maxWidth":"680px"}}>  
+{/*                   <h1 className='fs-1 pb-4'>Dinner</h1>         
+ */}              <div className='accountForm displayFlex' style={{"width":"100%", "paddingBottom":"1rem"}}> 
+                   <h2 className='title has-text-justified' style={{"fontSize":"1.2rem"}}>{item != null ? (item.title) : ""}</h2>  
+                  {item ? (<img src={item.image} alt={item.title} style={{"borderRadius":"2rem", "padding":"0.5rem", "width":"100%", "maxWidth":"450px"}} />):("")}
+                  </div>
+                {item != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem 1rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: item.summary}}/>) : ("")}  
+              </div>
                     </Link>
 
             )
         })}
-    </div>
+    {/* </div> */}
 
+    {searched ? (""):(<div>
        <h1 className='label has-text-centered p-4'>Our Picks</h1> 
            
                  <div className='accountForm p-3'>
@@ -280,10 +294,14 @@ const Recipes = ({session}) => {
                     </Splide>
                          
                     </div>
+                     
                       ):("")}
+                      </div>)}
                     </div>)}
 
+                             
           </div>
+          
   )
 }
 
