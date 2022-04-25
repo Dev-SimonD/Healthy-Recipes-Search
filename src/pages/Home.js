@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../components/supabaseClient'
-import Account from '../components/Account'
+/* import Account from '../components/Account'
+ */
 import Auth from "../components/Auth"
 import Dashboard from './Dashboard.jsx'
 import Recipes from './Recipes.jsx'
 import MealPlan from './MealPlan.jsx'
 import Recipe from './Recipe.jsx'
+import Profile from './Profile.jsx'
 import Settings from './Settings.jsx'
 
 
@@ -211,7 +213,7 @@ const Home = ({ session }) => {
     <NavLink  className="navbar-item navbar-mobile nav-link-ltr" to="/"><div className='mobile-menu-item'><i className="fas fa-house-user"></i><p /* style={{"display":"none"}} */>Home</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/recipes"><div className='mobile-menu-item'><i className="fas fa-utensils"></i><p /* style={{"display":"none"}} */>Recipes</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/mealplan"><div className='mobile-menu-item'><i className="fas fa-calendar"></i><p /* style={{"display":"none"}} */>Meal Plan</p></div></NavLink>
-    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/account"><div className='mobile-menu-item'><i className="fas fa-user"></i><p /* style={{"display":"none"}} */>Profile</p></div></NavLink>
+    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/profile"><div className='mobile-menu-item'><i className="fas fa-user"></i><p /* style={{"display":"none"}} */>Profile</p></div></NavLink>
 {/*     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/search">F</NavLink>
  */}    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/settings"><div className='mobile-menu-item'><i className="fas fa-gear"></i><p /* style={{"display":"none"}} */>Settings</p></div></NavLink>
 
@@ -234,7 +236,7 @@ const Home = ({ session }) => {
     <NavLink  className="navbar-item navbar-desktop nav-link-ltr" to="/">Home</NavLink>
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/recipes">Recipes</NavLink>
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/mealplan">Meal Plan</NavLink>
-    <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/account">Account</NavLink>
+    <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/profile">Profile</NavLink>
 {/*     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/search">Food Search</NavLink>
  */}    <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/settings">Settings</NavLink>
     {/* <button className='button is-primary' onClick={handleDarkMode}>switch</button> */}
@@ -289,7 +291,7 @@ const Home = ({ session }) => {
         {/* <div className='cont'> */}
        {/*  <Menu/> */}
       <Routes>
-          <Route path="/account" element={!session ? <Auth/> : <Account key={session.user.id} session={session} />}>
+          <Route path="/profile" element={!session ? <Auth/> : <Profile key={session.user.id} session={session} />}>
           </Route>
           <Route path="/recipes" element={<Recipes key={session.user.id} session={session} />}>
           </Route>
