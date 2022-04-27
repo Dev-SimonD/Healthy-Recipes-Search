@@ -211,7 +211,7 @@ const Home = ({ session }) => {
     </a> */}
     <NavLink  className="navbar-item navbar-desktop navbar-mobile-logo" to="/"><h1 className="navbar-item logo">Healthy<span className='logo logoSpan'>Recipes</span></h1></NavLink>
     <NavLink  className="navbar-item navbar-mobile nav-link-ltr" to="/"><div className='mobile-menu-item'><i className="fas fa-house-user"></i><p /* style={{"display":"none"}} */>Home</p></div></NavLink>
-    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/recipes"><div className='mobile-menu-item'><i className="fas fa-utensils"></i><p /* style={{"display":"none"}} */>Recipes</p></div></NavLink>
+    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/recipes"><div className='mobile-menu-item'><i class="fa-solid fa-magnifying-glass"></i><p /* style={{"display":"none"}} */>Search</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/mealplan"><div className='mobile-menu-item'><i className="fas fa-calendar"></i><p /* style={{"display":"none"}} */>Meal Plan</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/profile"><div className='mobile-menu-item'><i className="fas fa-user"></i><p /* style={{"display":"none"}} */>Profile</p></div></NavLink>
 {/*     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/search">F</NavLink>

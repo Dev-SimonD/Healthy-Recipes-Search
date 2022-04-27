@@ -177,7 +177,7 @@ const Recipes = ({session}) => {
                         arrows: true,
                         width: "90vw",
                         type: "loop",
-                        autoplay: true,
+                       /*  autoplay: true, */
                         lazyLoad: true,
                         pagination: "slider",
                          flickMaxPages: 1,
