@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "food.png",
+      "src": "applogo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "food.png",
+      "src": "applogo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

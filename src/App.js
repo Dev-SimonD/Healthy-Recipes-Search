@@ -19,10 +19,9 @@ export default () => {
 
   return (
     <>
-     
       {!session ? <Auth /> : <div className='mainDiv'>
       <Home key={session.user.id} session={session} />
-       <Footer />
+      <Footer />
        </div>}
     </>
   )

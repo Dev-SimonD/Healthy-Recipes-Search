@@ -627,6 +627,9 @@ justify-content: flex-start;
 #settingsMain{
   min-height: 80vh;
 }
+.settingsButton{
+  display: none !important;
+}
 
                                      /* Recipe */ 
 .recipeSummary{
@@ -917,15 +920,24 @@ right: 5%;
   .fa-calendar:before{
     color: whitesmoke;
   } */
-  .cards img{
-    /* height: 250px;
+  /* .cards img{
+    height: 250px;
     object-fit: cover;
-    border-radius: 1rem 1rem 0 0; */
-  }
+    border-radius: 1rem 1rem 0 0;
+  } */
   #ourPicks img{
     height: 300px;
     object-fit: cover;
     border-radius: 1rem 1rem 0 0;
+  }
+  .settingsButtons{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   /*  text-align: center; */
+  }
+  .settingsButton{
+    display: block !important;
   }
 
 }
