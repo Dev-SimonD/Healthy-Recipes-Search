@@ -24,6 +24,7 @@ const Recipes = ({session}) => {
     const [favoritesRecipes, setFavoritesRecipes] = useState([])
     const [loading, setLoading] = useState(true)
     const [searched, setSearched] = useState(false)
+    const [rememberSearch, setRememberSearch] = useState("")
 
     useEffect(() => {
         getDetails()
@@ -67,6 +68,7 @@ const Recipes = ({session}) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log("this is submit value", search)
+        setRememberSearch(search)
         getSearchedRecipe(search)
         setSearch("")
     }
@@ -76,6 +78,7 @@ const Recipes = ({session}) => {
         const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeNutrition=true&instructionsRequired=true&apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
         const data = await response.json()
         setSearchedRecipe(data.results)
+        console.log("searched recipe is:",searchedRecipe)
         setSearched(true)
         console.log(data.results);
     }
@@ -128,43 +131,94 @@ const Recipes = ({session}) => {
       <div className="control">
         <input type="text"
                 //id='searchRecipe'
-             placeholder='Recipes'
+             placeholder='Search recipes...'
              className='input'
              onChange={((e) => {
                  setSearch(e.target.value)
+                 
              })}
              value={search}/>
           </div>
-          <div className="control">
+          {/* <div className="control">
             <button type="submit" className="button is-primary signupBtn">
               Search
             </button>
-          </div>
+          </div> */}
           <i className="fas fa-filter" style={{"height":"50px"}}></i>
       </form>
              
-           
-       {/* <div className='accountForm'> */}
-        {searchedRecipe.map((item) => {
+           {searched ? (<div className='title has-text-centered m-2'>Search results for: <b>{rememberSearch}</b></div>):("")}
+       <Splide options={{
+                      mediaQuery: 'max',
+                        perPage: 4,
+                        gap: "2rem",
+                        arrows: true,
+                        width: "80vw",
+                       /*  type: "loop",
+                        autoplay: true, */
+                        lazyLoad: false,
+                        pagination: "slider",
+                         flickMaxPages: 1,
+                        breakpoints: {
+                            1000: {
+                              direction: "ltr",
+                                perPage: 3,
+                                gap: "2rem",
+
+                            },
+                              640: {
+                                direction: "ltr",
+                                  perPage: 3,
+                                gap: "1rem",
+                               
+                                                         
+                                 },
+                                 600: {
+                                  destroy: true,
+                                  /* direction: "ttb",
+                                  height: "auto",
+                                  gap: "2rem", */
+                                   },
+                                   
+                              
+                        }
+                      
+                        
+                    }}>
+        {searchedRecipe.map((recipe) => {
             return(
-                <Link to={"/recipes/" + item.id}>
-                  {/* <div className='cards' key={item.id}>
-                    <img src={item.image} alt="title" />
-                    <h4>{item.title}</h4>
-                    </div> */}
-                     <div className='accountForm p-3 m-1 mealPlanAccountImage  m-auto ' style={{"maxWidth":"680px"}}>  
-{/*                   <h1 className='fs-1 pb-4'>Dinner</h1>         
- */}              <div className='accountForm displayFlex' style={{"width":"100%", "paddingBottom":"1rem"}}> 
+              <SplideSlide key={recipe.id}>
+              <Link to={"/recipes/" + recipe.id}>
+              <div className="cards smallRecipeCard">
+               <img className='splideImg' style={{"width":"100%"}}data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
+                  <div className='favoritesCardContent'>
+                    {/* <div className='cardContent m-a'> */}
+                    <div className='favoritesHeader'>                                     
+                       <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
+                       <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
+                       </div>
+
+                    <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
+                     <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
+
+                  </div>
+             </div>
+              </Link>
+              </SplideSlide>
+                /* <Link to={"/recipes/" + item.id}>
+                  <div className='accountForm p-3 m-1 mealPlanAccountImage  m-auto ' style={{"maxWidth":"680px"}}>  
+                  <div className='accountForm displayFlex' style={{"width":"100%", "paddingBottom":"1rem"}}> 
                    <h2 className='title has-text-justified' style={{"fontSize":"1.2rem"}}>{item != null ? (item.title) : ""}</h2>  
                   {item ? (<img src={item.image} alt={item.title} style={{"borderRadius":"2rem", "padding":"0.5rem", "width":"100%", "maxWidth":"450px"}} />):("")}
                   </div>
                 {item != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem 1rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: item.summary}}/>) : ("")}  
               </div>
-                    </Link>
+                    </Link> */
 
             )
         })}
-    {/* </div> */}
+         </Splide>
+    
 
     {searched ? (""):(<div>
        <h1 className='label has-text-justified p-2' style={{"fontSize":"1.5rem"}}>Our Latest Recipes</h1> 
@@ -195,6 +249,7 @@ const Recipes = ({session}) => {
                                   perPage: 2,
                                   fixedWidth: "60vw",
                                 gap: "1rem",
+                                padding: "1rem"
                                
                                                          
                                  },

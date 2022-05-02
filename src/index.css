@@ -936,6 +936,9 @@ right: 5%;
     align-items: center;
    /*  text-align: center; */
   }
+  .field.has-addons{
+    flex-direction: column;
+  }
   .settingsButton{
     display: block !important;
   }
