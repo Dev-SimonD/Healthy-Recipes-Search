@@ -170,8 +170,23 @@ const MealPlan = ({session}) => {
     let tempPeriod = period;
 
     if(tempPeriod === "day"){
-
-    const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&targetCalories=${tempTdeeValue}&apiKey=${process.env.REACT_APP_API_KEY}`)
+      let dietVeg = "";
+      let dietPal = "";
+      let dietKet = "";
+      let dietPes = "";
+      if (vegetarian){
+        dietVeg = "diet=vegetarian&"
+      }
+      if (paleo){
+        dietPal = "diet=paleo&"
+      }
+      if (ketogenic){
+        dietKet = "diet=ketogenic&"
+      }
+      if (pescaterian){
+        dietPes = "diet=pescaterian&"
+      }
+    const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?timeFrame=day&${dietVeg}${dietPal}${dietPes}${dietKet}targetCalories=${tempTdeeValue}&apiKey=${process.env.REACT_APP_API_KEY}`)
     const spoonData = await response.json()
     setMealPlanNutrients(spoonData.nutrients)
     console.log(spoonData.nutrients)
@@ -190,7 +205,23 @@ const MealPlan = ({session}) => {
     }
     if(tempPeriod === "breakfast"){
       console.log("get Breakfast")
-      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&instructionsRequired=true&sort=random&type=breakfast&minCalories=500&maxCalories=600&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
+      let dietVeg = "";
+      let dietPal = "";
+      let dietKet = "";
+      let dietPes = "";
+      if (vegetarian){
+        dietVeg = "diet=vegetarian&"
+      }
+      if (paleo){
+        dietPal = "diet=paleo&"
+      }
+      if (ketogenic){
+        dietKet = "diet=ketogenic&"
+      }
+      if (pescaterian){
+        dietPes = "diet=pescaterian&"
+      }
+      const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&${dietVeg}${dietPal}${dietPes}${dietKet}instructionsRequired=true&sort=random&type=breakfast&minCalories=500&maxCalories=600&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
       const data = await response.json()
       setOnlyBreakfast(data.results)
       setBreakfast()
@@ -204,7 +235,23 @@ const MealPlan = ({session}) => {
   }
   if(tempPeriod === "lunch"){
     console.log("get Lunch")
-    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&instructionsRequired=true&sort=random&type=lunch&minCalories=700&maxCalories=800&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
+    let dietVeg = "";
+      let dietPal = "";
+      let dietKet = "";
+      let dietPes = "";
+      if (vegetarian){
+        dietVeg = "diet=vegetarian&"
+      }
+      if (paleo){
+        dietPal = "diet=paleo&"
+      }
+      if (ketogenic){
+        dietKet = "diet=ketogenic&"
+      }
+      if (pescaterian){
+        dietPes = "diet=pescaterian&"
+      }
+    const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&${dietVeg}${dietPal}${dietPes}${dietKet}instructionsRequired=true&sort=random&type=lunch&minCalories=700&maxCalories=800&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
     const data = await response.json()
     setOnlyLunch(data.results)
     setBreakfast()
@@ -218,7 +265,23 @@ const MealPlan = ({session}) => {
 }
 if(tempPeriod === "dinner"){
   console.log("get Dinner")
-  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&instructionsRequired=true&sort=random&type=dinner&minCalories=600&maxCalories=800&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
+  let dietVeg = "";
+      let dietPal = "";
+      let dietKet = "";
+      let dietPes = "";
+      if (vegetarian){
+        dietVeg = "diet=vegetarian&"
+      }
+      if (paleo){
+        dietPal = "diet=paleo&"
+      }
+      if (ketogenic){
+        dietKet = "diet=ketogenic&"
+      }
+      if (pescaterian){
+        dietPes = "diet=pescaterian&"
+      }
+  const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&${dietVeg}${dietPal}${dietPes}${dietKet}instructionsRequired=true&sort=random&type=dinner&minCalories=600&maxCalories=800&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
   const data = await response.json()
   setOnlyDinner(data.results)
   setBreakfast()
@@ -278,7 +341,7 @@ console.log(onlyBreakfast)
           </div>
           
            {mealPlanNutrients ? (
-             <div>
+             <div style={{"margin":"1rem"}}>
            <p className='label'>{`Your daily calorie intake to support your weight goal is ${weightGoalValue}kcal`}</p>
            <ul>
              <p>This meal plan nutrition includes:</p>

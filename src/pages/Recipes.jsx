@@ -140,6 +140,7 @@ const Recipes = ({session}) => {
               Search
             </button>
           </div>
+          <i className="fas fa-filter" style={{"height":"50px"}}></i>
       </form>
              
            
@@ -166,29 +167,33 @@ const Recipes = ({session}) => {
     {/* </div> */}
 
     {searched ? (""):(<div>
-       <h1 className='label has-text-centered p-4'>Our Picks</h1> 
+       <h1 className='label has-text-justified p-2' style={{"fontSize":"1.5rem"}}>Our Latest Recipes</h1> 
            
-                 <div className='accountForm p-3'>
+                 <div /* className='accountForm p-3' */>
                   <Splide options={{
                       mediaQuery: 'max',
                       /* autoWidth: true, */
                         perPage: 4,
                         gap: "2rem",
-                        arrows: true,
-                        width: "90vw",
+                        arrows: false,
+                        /* width: "90vw", */
                         type: "loop",
+                        easingFunc: true,
                        /*  autoplay: true, */
                         lazyLoad: true,
-                        pagination: "slider",
+                        pagination: false,
+                       /*  pagination: "slider", */
                          flickMaxPages: 1,
                         breakpoints: {
                             1000: {
                                 perPage: 3,
                                 gap: "2rem",
+                                fixedWidth: "",
 
                             },
                               640: {
                                   perPage: 2,
+                                  fixedWidth: "60vw",
                                 gap: "1rem",
                                
                                                          
@@ -206,10 +211,10 @@ const Recipes = ({session}) => {
                         return(
                             <SplideSlide key={recipe.id}>
                                     <Link to={"/recipes/" + recipe.id}>
-                                <div className="cards">
+                                <div className="cards" id='ourPicks'>
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
                                  <div className='cardContent'>
-                                 <p id="cardTitle"><i className="fas fa-angle-right"></i> {recipe.title}</p>
+                                 <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>30)?(`${recipe.title.substring(0,30)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
                                  <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
                                  </div>
                                </div>
@@ -226,7 +231,7 @@ const Recipes = ({session}) => {
                         {/* Favorites */}
                         
                     
-                    <h1 className='label has-text-centered p-4'>Your Favorites</h1> 
+                    <h1 className='label has-text-justified p-2' style={{"fontSize":"1.5rem"}}>Your Favorites</h1> 
                     {favoritesArray ? (
                           <div className='accountForm p-3'>
                             <Splide options={{

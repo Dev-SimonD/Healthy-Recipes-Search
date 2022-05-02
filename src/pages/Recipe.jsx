@@ -219,7 +219,7 @@ function Recipe({session}) {
               <div className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}}>
             <ol>
           {details.extendedIngredients.map((ingredient) => (
-              <li key={ingredient.id}>{ingredient.original}</li>
+              <li key={ingredient.id} style={{"margin":"0 1rem"}}>{ingredient.original}</li>
 
           ))}
       </ol>

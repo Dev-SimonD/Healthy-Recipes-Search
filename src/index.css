@@ -14,8 +14,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fcf8ff;
-  overflow: hidden;
+/*   background-color: #fcf8ff;
+ */ background-color: whitesmoke; 
+    overflow: hidden;
 
  /*  background: hsla(211, 66%, 87%, 1);
 
@@ -255,6 +256,22 @@ justify-content: flex-start;
   padding: 1rem;
   
 }
+.cards{
+  background-color: white;
+  border-radius: 1rem;
+/*   box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
+ */  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+    margin-bottom: 1rem;
+}
+#cardTitle{
+  margin: 5px;
+}
+#cardLikes{
+  margin: 5px;
+}
+.splideImg {
+  border-radius: 1rem 1rem 0 0 !important;
+}
  .auth{
    background-image: url("./images/cooking.jpg");
    background-size: cover;
@@ -354,7 +371,12 @@ input[type="range"]::-moz-range-track {
 }
 .cardContent{
   display: flex;
-  flex-direction: column;
+    flex-direction: column;
+    background-color: white;
+    height: 110px;
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 0.0625em 0.125em rgb(10 10 10 / 5%);
+    justify-content: space-between;
 
 }
   /* Menu */
@@ -628,7 +650,7 @@ justify-content: flex-start;
   max-width: 100%;
   margin: auto;
   padding: 1rem;
-  border-radius: 2rem;
+  border-radius: 2rem 2rem 0 0;
 }
 .recipeIcons{
   display: flex;
@@ -875,7 +897,10 @@ right: 5%;
    }  /* .active .mobile-menu-item p{
     display: "block";
   } */
- 
+ .field.has-addons{
+   padding-top: 3rem;
+   
+ }
 
   /* .fa-gear:before {
     color: whitesmoke;
@@ -892,5 +917,15 @@ right: 5%;
   .fa-calendar:before{
     color: whitesmoke;
   } */
+  .cards img{
+    /* height: 250px;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0; */
+  }
+  #ourPicks img{
+    height: 300px;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
+  }
 
 }
