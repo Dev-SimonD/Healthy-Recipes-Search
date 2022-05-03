@@ -152,7 +152,7 @@ const Recipes = ({session}) => {
                       mediaQuery: 'max',
                         perPage: 4,
                         gap: "2rem",
-                        arrows: true,
+                        arrows: false,
                         width: "80vw",
                        /*  type: "loop",
                         autoplay: true, */
@@ -239,6 +239,12 @@ const Recipes = ({session}) => {
                        /*  pagination: "slider", */
                          flickMaxPages: 1,
                         breakpoints: {
+                          1600: {
+                            perPage: 4,
+                            gap: "2rem",
+                            fixedWidth: "",
+
+                        },
                             1000: {
                                 perPage: 3,
                                 gap: "2rem",
@@ -270,7 +276,11 @@ const Recipes = ({session}) => {
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
                                  <div className='cardContent'>
                                  <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>30)?(`${recipe.title.substring(0,30)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
-                                 <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
+                                 {/* <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p> */}
+                                 <div className='flexIcons'>
+                                 <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
+                                 <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
+                                 </div>
                                  </div>
                                </div>
                                 </Link>
@@ -331,10 +341,9 @@ const Recipes = ({session}) => {
                         return(
                             <SplideSlide key={recipe.id}>
                                     <Link to={"/recipes/" + recipe.id}>
-                                <div className="cards smallRecipeCard">
+                                {/* <div className="cards smallRecipeCard">
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
                                     <div className='favoritesCardContent'>
-                                      {/* <div className='cardContent m-a'> */}
                                       <div className='favoritesHeader'>                                     
                                          <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
                                          <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
@@ -344,7 +353,25 @@ const Recipes = ({session}) => {
                                        <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
            
                                     </div>
+                               </div> */}
+
+                               <div className="cards" id='ourPicks'>
+                                 <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
+                                 {/* <div className='cardContent'> */}
+                                 <div className='favoritesCardContent'>
+                                 <div className='cardContentfavorites'> 
+                                 <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>20)?(` ${recipe.title.substring(0,20)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
+
+                                 {/* <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p> */}
+                                </div>
+                                <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
+                                <div className='flexIcons'>
+                                 <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
+                                 <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
+                                 </div>
+                                 </div>
                                </div>
+
                                 </Link>
                          </SplideSlide>
                             

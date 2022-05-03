@@ -21,6 +21,18 @@ const MealPlan = ({session}) => {
     const [onlyBreakfast, setOnlyBreakfast] = useState(null)
     const [onlyLunch, setOnlyLunch] = useState(null)
     const [onlyDinner, setOnlyDinner] = useState(null)
+    /* const [isSummary, setIsSummary] = useState(true)
+    const [isIngredients, setIsIngredients] = useState(false)
+    const [isInstructions, setIsInstructions] = useState(false) */
+    const [isSummaryBreakfast, setIsBreakfastSummary] = useState(true)
+    const [isIngredientsBreakfast, setIsBreakfastIngredients] = useState(false)
+    const [isInstructionsBreakfast, setIsBreakfastInstructions] = useState(false)
+    const [isSummaryLunch, setIsLunchSummary] = useState(true)
+    const [isIngredientsLunch, setIsLunchIngredients] = useState(false)
+    const [isInstructionsLunch, setIsLunchInstructions] = useState(false)
+    const [isSummaryDinner, setIsDinnerSummary] = useState(true)
+    const [isIngredientsDinner, setIsDinnerIngredients] = useState(false)
+    const [isInstructionsDinner, setIsDinnerInstructions] = useState(false)
 
 
     const mealURL = `https://api.spoonacular.com/mealplanner/generate?timeFrame=day&apiKey=${process.env.REACT_APP_API_KEY}`;
@@ -140,6 +152,60 @@ const MealPlan = ({session}) => {
    
   })
 
+  const summaryHandlerBreakfast = ((e) => {
+    e.preventDefault()
+    setIsBreakfastSummary(true)
+    setIsBreakfastIngredients(false)
+    setIsBreakfastInstructions(false)
+})
+const ingredientsHandlerBreakfast = ((e) => {
+    e.preventDefault()
+    setIsBreakfastSummary(false)
+    setIsBreakfastIngredients(true)
+    setIsBreakfastInstructions(false)
+})
+const instructionsHandlerBreakfast = ((e) => {
+    e.preventDefault()
+    setIsBreakfastSummary(false)
+    setIsBreakfastIngredients(false)
+    setIsBreakfastInstructions(true)
+})
+const summaryHandlerLunch = ((e) => {
+  e.preventDefault()
+  setIsLunchSummary(true)
+  setIsLunchIngredients(false)
+  setIsLunchInstructions(false)
+})
+const ingredientsHandlerLunch = ((e) => {
+  e.preventDefault()
+  setIsLunchSummary(false)
+  setIsLunchIngredients(true)
+  setIsLunchInstructions(false)
+})
+const instructionsHandlerLunch = ((e) => {
+  e.preventDefault()
+  setIsLunchSummary(false)
+  setIsLunchIngredients(false)
+  setIsLunchInstructions(true)
+})
+const summaryHandlerDinner = ((e) => {
+  e.preventDefault()
+  setIsDinnerSummary(true)
+  setIsDinnerIngredients(false)
+  setIsDinnerInstructions(false)
+})
+const ingredientsHandlerDinner = ((e) => {
+  e.preventDefault()
+  setIsDinnerSummary(false)
+  setIsDinnerIngredients(true)
+  setIsDinnerInstructions(false)
+})
+const instructionsHandlerDinner = ((e) => {
+  e.preventDefault()
+  setIsDinnerSummary(false)
+  setIsDinnerIngredients(false)
+  setIsDinnerInstructions(true)
+})
   /* const handlePeriod = ((e) => {
     e.preventDefault
     console.log("the value of period is",e.target.value," the weight Goal is", weightGoal)
@@ -400,56 +466,104 @@ console.log(onlyBreakfast)
            {/* period === "day" && */ breakfast ?  (
            <div>
              
-           <Link to={"/recipes/" + breakfast.id}>
               <div className='accountForm p-3 m-1 mealPlanAccountImage' >  
-                  <h1 className='fs-1 pb-4'>Breakfast</h1>   
-                    <h2 className='has-text-justified' style={{"fontSize":"1.2rem"}}>{breakfast != null ? (breakfast.title) : ""}</h2>  
+                  <h1 className='fs-1 pb-4'>Breakfast:</h1>   
+                    <h2 className='has-text-justified' style={{"fontSize":"1.5rem"}}>{breakfast != null ? (breakfast.title) : ""}</h2>  
+           <Link to={"/recipes/" + breakfast.id}>
                     {breakfast ? (<img src={breakfast.image} alt={breakfast.title} />):("")}                           
-                </div>
                 </Link>
+                </div>
                 <div>
-                <button className='button is-primary is-light recipeButtons' /* onClick={summaryHandler} */>Summary</button>
-                <button className='button is-primary is-light recipeButtons' /* onClick={ingredientsHandler} */>Ingredients</button>
-                <button className='button is-primary is-light recipeButtons' /* onClick={instructionsHandler} */>Instructions</button>
+                <button className='button is-primary is-light recipeButtons' onClick={summaryHandlerBreakfast}>Summary</button>
+                <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandlerBreakfast}>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' onClick={instructionsHandlerBreakfast}>Instructions</button>
             </div>
-                    {breakfast != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>) : ("")}  
+                   {/*  {breakfast != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>) : ("")}   */}
+                   {isSummaryBreakfast && (
+          <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>
+          ) }
+          {isIngredientsBreakfast && (
+              <div className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}}>
+            <ol>
+          {breakfast.extendedIngredients.map((ingredient) => (
+              <li key={ingredient.id} style={{"margin":"0 1rem"}}>{ingredient.original}</li>
+
+          ))}
+      </ol>
+      </div>
+          ) }
+          {isInstructionsBreakfast && (
+           <p className='accountForm has-text-justified' style={{"padding":"0.5rem 1rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: breakfast.instructions}}/>
+          ) }
                 </div>
                 ):("")}
                 {/* period === "day" && */ lunch ? (
                   <div>
                     
-                <Link to={"/recipes/" + lunch.id}>
                 <div className='accountForm p-3 m-1 mealPlanAccountImage'> 
-                <h1 className='fs-1 pb-4'>Lunch</h1>
-                <h2 className='has-text-justified' style={{"fontSize":"1.2rem"}}>{lunch != null ? (lunch.title) : ""}</h2>  
+                <h1 className='fs-1 pb-4'>Lunch:</h1>
+                <h2 className='has-text-justified' style={{"fontSize":"1.5rem"}}>{lunch != null ? (lunch.title) : ""}</h2>  
+                <Link to={"/recipes/" + lunch.id}>
                 {lunch ? (<img src={lunch.image} alt={lunch.title}/>):("")}
-              </div>
               </Link>
+              </div>
               <div>
-                <button className='button is-primary is-light recipeButtons' /* onClick={summaryHandler} */>Summary</button>
-                <button className='button is-primary is-light recipeButtons' /* onClick={ingredientsHandler} */>Ingredients</button>
-                <button className='button is-primary is-light recipeButtons' /* onClick={instructionsHandler} */>Instructions</button>
+                <button className='button is-primary is-light recipeButtons' onClick={summaryHandlerLunch}>Summary</button>
+                <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandlerLunch}>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' onClick={instructionsHandlerLunch}>Instructions</button>
             </div>
-                {lunch != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>) : ("")}  
+                {/* {lunch != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>) : ("")} */}
+                {isSummaryLunch && (
+          <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>
+          ) }
+          {isIngredientsLunch && (
+              <div className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}}>
+            <ol>
+          {lunch.extendedIngredients.map((ingredient) => (
+              <li key={ingredient.id} style={{"margin":"0 1rem"}}>{ingredient.original}</li>
+
+          ))}
+      </ol>
+      </div>
+          ) }
+          {isInstructionsLunch && (
+           <p className='accountForm has-text-justified' style={{"padding":"0.5rem 1rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: lunch.instructions}}/>
+          ) }  
              </div>
               ):("")}
               {/* period === "day" &&  */dinner ? (
                 <div>
                   
-              <Link to={"/recipes/" + dinner.id}>
                 <div className='accountForm p-3 m-1 mealPlanAccountImage'>  
-                  <h1 className='fs-1 pb-4'>Dinner</h1>         
-                <h2 className='has-text-justified' style={{"fontSize":"1.2rem"}}>{dinner != null ? (dinner.title) : ""}</h2>  
+                  <h1 className='fs-1 pb-4'>Dinner:</h1>         
+                <h2 className='has-text-justified' style={{"fontSize":"1.5rem"}}>{dinner != null ? (dinner.title) : ""}</h2>  
+              <Link to={"/recipes/" + dinner.id}>
                   {dinner ? (<img src={dinner.image} alt={dinner.title} />):("")}
 
-              </div>
               </Link>
+              </div>
               <div>
-                <button className='button is-primary is-light recipeButtons' /* onClick={summaryHandler} */>Summary</button>
-                <button className='button is-primary is-light recipeButtons' /* onClick={ingredientsHandler} */>Ingredients</button>
-                <button className='button is-primary is-light recipeButtons' /* onClick={instructionsHandler} */>Instructions</button>
+                <button className='button is-primary is-light recipeButtons' onClick={summaryHandlerDinner}>Summary</button>
+                <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandlerDinner}>Ingredients</button>
+                <button className='button is-primary is-light recipeButtons' onClick={instructionsHandlerDinner}>Instructions</button>
             </div>
-                {dinner != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>) : ("")}  
+                {/* {dinner != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>) : ("")} */}
+                {isSummaryDinner && (
+          <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>
+          ) }
+          {isIngredientsDinner && (
+              <div className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}}>
+            <ol>
+          {dinner.extendedIngredients.map((ingredient) => (
+              <li key={ingredient.id} style={{"margin":"0 1rem"}}>{ingredient.original}</li>
+
+          ))}
+      </ol>
+      </div>
+          ) }
+          {isInstructionsDinner && (
+           <p className='accountForm has-text-justified' style={{"padding":"0.5rem 1rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: dinner.instructions}}/>
+          ) }  
              </div>
              ):("")}
 

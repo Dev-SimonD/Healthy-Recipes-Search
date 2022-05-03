@@ -272,6 +272,12 @@ justify-content: flex-start;
 .splideImg {
   border-radius: 1rem 1rem 0 0 !important;
 }
+.flexIcons{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  padding: 1rem;
+}
  .auth{
    background-image: url("./images/cooking.jpg");
    background-size: cover;
@@ -379,6 +385,15 @@ input[type="range"]::-moz-range-track {
     justify-content: space-between;
 
 }
+.cardContentfavorites{
+  display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 0 0 1rem 1rem;
+    box-shadow: 0 0.0625em 0.125em rgb(10 10 10 / 5%);
+    justify-content: space-between;
+  height: 50px;
+}
   /* Menu */
 /* .menu{
   display: flex;
@@ -437,7 +452,7 @@ input[type="range"]::-moz-range-track {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
 }
 .mealPlanCards img{
   border-radius: 1rem;
@@ -884,6 +899,10 @@ right: 5%;
     color: #f0b503;
   }
   #accountTitle{
+    text-align: center;
+  }
+  #cardTitle{
+    font-size: 1.5rem;
     text-align: center;
   }
  
