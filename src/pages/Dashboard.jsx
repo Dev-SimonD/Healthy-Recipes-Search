@@ -23,6 +23,7 @@ const Dashboard = ({session}) => {
     const [bmiValue, setBmiValue] = useState(0)
     const [bmrValue, setBmrValue] = useState(0)
     const [lbmValue, setLbmValue] = useState(0)
+    const [weightGoal, setWeightGoal] = useState("")
 /*     const [tdeeValue, setTdeeValue] = useState(0)
  */
     useEffect(() => {
@@ -55,7 +56,7 @@ const Dashboard = ({session}) => {
     
           let { data, error, status } = await supabase
             .from('profiles')
-            .select(`username, weight, height, age, gender, sex,updated, bmiValue, exercise, bmrValue, lbmValue`)
+            .select(`username, weight, height, age, gender, sex,updated, bmiValue, exercise, bmrValue, lbmValue, weightGoal`)
             .eq('id', user.id)
             .single()
     
@@ -77,6 +78,7 @@ const Dashboard = ({session}) => {
            // setTdeeValue(data.tdeeValue)
             setLbmValue(data.lbmValue)
             setUpdated(data.updated)
+            setWeightGoal(data.weightGoal)
           }
         } catch (error) {
           alert(error.message)
@@ -144,7 +146,17 @@ const Dashboard = ({session}) => {
     else{
       TDEE=0;
     }
-
+    let IdealCalorieValue;
+    if(weightGoal === "keep")
+    {
+      IdealCalorieValue = TDEE;
+    }
+    else if(weightGoal === "lose"){
+      IdealCalorieValue = TDEE - 500
+    }
+    else{
+      IdealCalorieValue = TDEE + 500
+    }
     
 
 
@@ -168,15 +180,16 @@ const Dashboard = ({session}) => {
            {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
              
              <div>
-               {!updated ? (""): (
                  <div>
                    <div id='homePageImage' className='display-flex-center'>
                      <h1 className='has-text-centered title' id="homePageTitle">Healthy Recipes</h1>
                      <h1 className='has-text-centered title' id="homePageDescription">Find the recipe for <span style={{"color": "gold"}}> YOU</span></h1>
                    </div>
+               {!updated ? (""): (
                    <div className='container'>
+                     
             <div className='accountForm' id='statistics'>
-            <h1 className='title' style={{"textAlign": "center"}}>Statistics</h1>
+            <h1 className='title' style={{"textAlign": "center"}}>{`Hello ${username}, Your Stats:`}</h1>
           <div className="statisticsGauge">
             <div><p>{`Your BMI value is ${bmiValue}`}</p></div>
         <div className='bmiChart'><GaugeChart 
@@ -208,67 +221,51 @@ const Dashboard = ({session}) => {
            <div className="statisticsCircle"><p className='label'>{`${TDEE}kcal`}</p></div>
            </div>
            </div>
-                </div>
+           <div className="statisticsGauge">
+            <p className='has-text-centered'>Your weight goal is to:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${weightGoal} weight`}</p></div>
+           </div>
+           </div>
+           <div className="statisticsGauge">
+            <p className='has-text-centered'>Your ideal daily calorie intake is:</p>
+        <div className='bmiChart'>
+           <div className="statisticsCircle"><p className='label'>{`${IdealCalorieValue}kcal`}</p></div>
+           </div>
+           </div>
                 </div>
                 </div>
                     )}
+                </div>
             
-          {/*  <h2>Your Body Mass Index is {loading ? ("loading...") : (`${bmiValue}`)}</h2><br/>
-           <p>The body mass index (BMI) is a measure that uses your height and weight to work out if your weight is healthy.
-               The BMI calculation divides an adult's weight in kilograms by their height in metres squared.
-                For example, A BMI of 25 means 25kg/m2.
-</p><br/>
-           <h2>Your Lean Body Mass is {loading ? ("loading..."): (`${lbmValue}kg`)}</h2><br/>
-           <p>Lean body mass (LBM) is a part of body composition
-                that is defined as the difference between total body weight and body fat weight.
-                 This means that it counts the mass of all organs except body fat,
-                including bones, muscles, blood, skin, and everything else.
-                 This App uses Boers Formula for calculating the Lean body mass.</p><br/>
-           <h2>Your Basal Metabolic Rate is {loading ? ("loading...") : (`${bmrValue}kcal`)}</h2><br/>
-           <p>BMR is just the number of calories your body burns at rest and
-                does not account for the calories you need to walk, talk, exercise, etc. </p><br/><br/>
-           <h2>Your Total Daily Energy Expenditure (TDEE) is {loading ? ("loading..."): (`${TDEE}kcal`) }</h2><br/>
-           <p> TDEE is a number of calories which you should cunsume to maintain your body weight
-               considering your body measurements and level of daily activities.</p>   */}
+              {updated ? (""):(  
                <div className='accountForm homeCards' id='homePageNotUpdatedWelcome'>
                <h1 className='title has-text-centered'>Welcome to healthy recipes</h1>
-               <p className='has-text-justified'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
-                  Fuga natus asperiores facilis quisquam? 
-                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
-                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
-                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
+               <p className='has-text-justified'>Healthy recipes will help you to search recipes for your specific needs. To find the right recipes, please 
+               fill in the profile page which will give us the idea about how many calories per day you should consume. 
+                 </p>
                </div>
-
-
-              {/*  <div id='homeRecipes'> */}
+               )}
                <div className='accountForm homeCards' id='homePageNotUpdatedRecipes'>
                  <div>
                <h1 className='title has-text-centered'>Recipes</h1>
-               <p className='has-text-justified'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
-                  Fuga natus asperiores facilis quisquam? 
-                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
-                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
-                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>  
+               <p className='has-text-justified'>If you just want to search any recipes, you can do that without filling out your profile page. 
+               There are over 80.000 recipes in the database. You can use the filter function to help you find what you're looking for.  
+                 Have you found somthing special? Add it to your favourites list!</p>  
                   </div>
                   <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
                     <img id="recipesLogo" src={RecipesLogo} alt="RecipesLogo"/>
                 </div>
                </div>
-               
-               {/*  </div> */}
-
-
-                {/* <div id='homeStatistics'> */}
+           
                  <div className='accountForm homeCards' id='homePageNotUpdatedStatistics'>
                    
                   
              <div>
                <h1 className='title has-text-centered'>Statistics</h1>
-               <p className='has-text-justified' id='statisticsPara'>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
-                  Fuga natus asperiores facilis quisquam? 
-                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
-                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
-                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
+               <p className='has-text-justified' id='statisticsPara'>If you decide to try the Meal Planning feature, you will be 
+               prompted with the statistics about your Body mass index, Basal metabolic rate, Lean body mass, total daily energy expenditure,
+                and the ideal calorie intake for your weight goals.</p>
                   </div>
 
                   <div className="accountForm" style={{"minWidth": "40%", "margin":"1rem", "padding":"1rem"}}>
@@ -310,11 +307,10 @@ const Dashboard = ({session}) => {
 
                <div className='accountForm homeCards' id='homePageNotUpdatedMealplan'>
                <h1 className='title has-text-centered'>Meal Plan</h1>
-               <p className='has-text-justified' >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sint illo voluptate ratione quo!
-                  Fuga natus asperiores facilis quisquam? 
-                 Perferendis, nemo. Quae recusandae pariatur ipsam veniam doloremque magni
-                  eaque corrupti repellendus possimus vero at nobis beatae quidem a nemo eveniet, cum consectetur?
-                  Autem facere expedita libero aliquid totam quaerat atque quidem!</p>
+               <p className='has-text-justified' >Meal Plan is the main feature of Healthy Recipes. One click will bring you the 
+               daily meal plan to support your weight goal. It will also automatically include all your dietery needs. Only looking for 
+               a breakfast? Lunch? Dinner? Just select what you'd prefer and enjoy your meal.
+                 </p>
                </div>
               
               

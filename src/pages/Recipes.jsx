@@ -128,7 +128,7 @@ const Recipes = ({session}) => {
                     <div>
        
    <form className="field has-addons searchBar" onSubmit={handleSubmit}>
-      <div className="control">
+      <div className="control" style={{"width":"600px"}}>
         <input type="text"
                 //id='searchRecipe'
              placeholder='Search recipes...'
@@ -137,7 +137,8 @@ const Recipes = ({session}) => {
                  setSearch(e.target.value)
                  
              })}
-             value={search}/>
+             value={search}
+             style={{"width":"100%"}}/>
           </div>
           {/* <div className="control">
             <button type="submit" className="button is-primary signupBtn">
@@ -295,9 +296,9 @@ const Recipes = ({session}) => {
                     </div>
                         {/* Favorites */}
                         
-                    
+                        
                     <h1 className='label has-text-justified p-2' style={{"fontSize":"1.5rem"}}>Your Favorites</h1> 
-                    {favoritesArray ? (
+                    {favoritesArray !== null ? (
                           <div className='accountForm p-3'>
                             <Splide options={{
                       mediaQuery: 'max',
@@ -305,8 +306,7 @@ const Recipes = ({session}) => {
                         gap: "2rem",
                         arrows: true,
                         width: "80vw",
-                       /*  type: "loop",
-                        autoplay: true, */
+                       
                         lazyLoad: false,
                         pagination: "slider",
                          flickMaxPages: 1,
@@ -326,9 +326,7 @@ const Recipes = ({session}) => {
                                  },
                                  600: {
                                   destroy: true,
-                                  /* direction: "ttb",
-                                  height: "auto",
-                                  gap: "2rem", */
+                                  
                                    },
                                    
                               
@@ -341,28 +339,14 @@ const Recipes = ({session}) => {
                         return(
                             <SplideSlide key={recipe.id}>
                                     <Link to={"/recipes/" + recipe.id}>
-                                {/* <div className="cards smallRecipeCard">
+                                        <div className="cards" id='ourPicks'>
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
-                                    <div className='favoritesCardContent'>
-                                      <div className='favoritesHeader'>                                     
-                                         <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
-                                         <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
-                                         </div>
-
-                                      <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
-                                       <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
-           
-                                    </div>
-                               </div> */}
-
-                               <div className="cards" id='ourPicks'>
-                                 <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
-                                 {/* <div className='cardContent'> */}
+                                 
                                  <div className='favoritesCardContent'>
                                  <div className='cardContentfavorites'> 
                                  <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>20)?(` ${recipe.title.substring(0,20)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
 
-                                 {/* <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p> */}
+                                 
                                 </div>
                                 <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
                                 <div className='flexIcons'>

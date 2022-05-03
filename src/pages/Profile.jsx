@@ -139,6 +139,7 @@ const Profile = ({ session }) => {
         setTdeeValue(data.tdeeValue)
         setWeightHistory(data.weightHistory)
         setWeightGoal(data.weightGoal)
+        
        
 
       
@@ -325,6 +326,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         coef,
         tdeeValue: tdeeFixed,
         weightGoal,
+        
        /*  weightHistory: weightArray, */
         
         /* tdeeValue,
