@@ -30,14 +30,11 @@ const Settings = () => {
       <div className='accountForm' id='mealPlanAccountForm' >
         <h1 className='title has-text-centered'>Settings</h1>
         <div className='settingsButtons'>
-        <div>
-        <p>Metric vs Imperial</p>
-        <button>Metric</button>
-        <p>Toggle dark mode</p>
-       
-        <button>Theme</button>
-        <p>Change password</p>
-        <button>Password</button>
+        <div className='pb-5' id="settingsContentButton">
+        <p>Theme</p>
+        <button type="button" className="button settingsButton">Light</button>
+        <p>Reset password</p>
+        <button type="button" className="button settingsButton">Reset</button>
         </div>
         <button type="button" className="button settingsButton" onClick={() => supabase.auth.signOut()}>
         Sign Out

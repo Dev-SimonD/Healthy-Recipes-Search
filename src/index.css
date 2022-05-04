@@ -432,6 +432,12 @@ input[type="range"]::-moz-range-track {
     justify-content: space-between;
   height: 50px;
 }
+#settingsContentButton{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
   /* Menu */
 /* .menu{
   display: flex;

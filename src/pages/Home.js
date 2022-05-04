@@ -237,8 +237,7 @@ const Home = ({ session }) => {
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/recipes">Recipes</NavLink>
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/mealplan">Meal Plan</NavLink>
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/profile">Profile</NavLink>
-{/*     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/search">Food Search</NavLink>
- */}    <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/settings">Settings</NavLink>
+    {/* <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/settings">Settings</NavLink> */}
     {/* <button className='button is-primary' onClick={handleDarkMode}>switch</button> */}
     </div>
 
