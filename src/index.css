@@ -280,6 +280,20 @@ justify-content: flex-start;
   padding: 1rem;
   
 }
+#searchRecipeBar{
+  display: flex;
+  flex-direction: column;
+}
+#filter{
+  height: 50px;
+    width: 50px;
+    margin: 0.8rem;
+    cursor: pointer;
+}
+.filterBox{
+  display: flex;
+  flex-direction: column;
+}
 .cards{
   background-color: white;
   border-radius: 1rem;
@@ -985,5 +999,6 @@ right: 5%;
   .settingsButton{
     display: block !important;
   }
+ 
 
 }

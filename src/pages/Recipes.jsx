@@ -25,6 +25,12 @@ const Recipes = ({session}) => {
     const [loading, setLoading] = useState(true)
     const [searched, setSearched] = useState(false)
     const [rememberSearch, setRememberSearch] = useState("")
+    const [filterOpen, setFilterOpen] = useState(false)
+    const [vegetarian, setVegetarian] = useState(false);
+    const [vegan, setVegan] = useState(false);
+    /* const [paleo, setPaleo] = useState(false);
+    const [ketogenic, setKetogenic] = useState(false); */
+    const [pescaterian, setPescaterian] = useState(false);
 
     useEffect(() => {
         getDetails()
@@ -74,8 +80,27 @@ const Recipes = ({session}) => {
     }
 
     const getSearchedRecipe = async (query) => {
-
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeNutrition=true&instructionsRequired=true&apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
+      let dietVeg = "";
+      let dietVegan = "";
+      /* let dietPal = "";
+      let dietKet = ""; */
+      let dietPes = "";
+      if (vegetarian){
+        dietVeg = "diet=vegetarian&"
+      }
+      if (vegan){
+        dietVegan = "diet=vegan&"
+      }
+      /* if (paleo){
+        dietPal = "diet=paleo&"
+      }
+      if (ketogenic){
+        dietKet = "diet=ketogenic&"
+      } */
+      if (pescaterian){
+        dietPes = "diet=pescaterian&"
+      }
+        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeNutrition=true&instructionsRequired=true&${dietVeg}${dietPes}${dietVegan}apiKey=${process.env.REACT_APP_API_KEY}&query=${query}&number=2`)
         const data = await response.json()
         setSearchedRecipe(data.results)
         console.log("searched recipe is:",searchedRecipe)
@@ -121,13 +146,34 @@ const Recipes = ({session}) => {
 
      }
 
+     const handleFilter = ((e) => {
+       setFilterOpen(!filterOpen)
+     })
+     const handleVegetarian = () => {
+      setVegetarian(!vegetarian);
+    };
+    const handleVegan = () => {
+      setVegan(!vegan);
+    };
+    
+    /* const handlePaleo = () => {
+      setPaleo(!paleo);
+    };
+    const handleKetogenic = () => {
+      setKetogenic(!ketogenic);
+    }; */
+    
+    const handlePescaterian = () => {
+      setPescaterian(!pescaterian);
+    };
 
   return (
     <div className='container'>
                  {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
                     <div>
        
-   <form className="field has-addons searchBar" onSubmit={handleSubmit}>
+   <form className="field has-addons searchBar" id="searchRecipeBar" onSubmit={handleSubmit}>
+     <div style={{"display":"flex", "flexDirection":"row"}}>
       <div className="control" style={{"width":"600px"}}>
         <input type="text"
                 //id='searchRecipe'
@@ -145,7 +191,46 @@ const Recipes = ({session}) => {
               Search
             </button>
           </div> */}
-          <i className="fas fa-filter" style={{"height":"50px"}}></i>
+          <i className="fas fa-filter" id="filter" /* onClick={handleFilter} */ onClick={handleFilter}></i>
+          </div>
+         <div className='accountForm filterBox' style={!filterOpen ? ({"display":"none"}):({"display":"flex"})} >
+            <h1>Filtered by diet:</h1>
+            <div style={{"display":"flex"}}>
+            <div style={{"display":"flex", "flexDirection":"column"}}>
+              Vegetarian<input type="checkbox"
+                          label=" Vegetarian"
+                          value={vegetarian}
+                          onChange={handleVegetarian}/>
+              Vegan<input type="checkbox"
+                          label="Vegan"
+                          value={vegan}
+                          onChange={handleVegan}/>
+             {/* Ketogenic<input type="checkbox"
+                            label="Ketogenic"
+                            value={ketogenic}
+                            onChange={handleKetogenic}/> */}
+            Pescaterian<input type="checkbox"
+                            label=" Pescaterian"
+                            value={pescaterian}
+                            onChange={handlePescaterian}/>
+            </div>
+            {/* <div style={{"display":"flex", "flexDirection":"column"}}>
+            Max Calories<input
+              id="exercise"
+              className='exerciseRange'
+              min="300"
+              max="800"
+              required
+              name='maxCalories'
+              type="range"
+              value={''}
+              onChange={(e) => {
+                 console.log(e.target.value)
+              }}
+            />
+            </div> */}
+            </div>
+          </div>
       </form>
              
            {searched ? (<div className='title has-text-centered m-2'>Search results for: <b>{rememberSearch}</b></div>):("")}
@@ -276,7 +361,7 @@ const Recipes = ({session}) => {
                                 <div className="cards" id='ourPicks'>
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
                                  <div className='cardContent'>
-                                 <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>30)?(`${recipe.title.substring(0,30)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
+                                 <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>20)?(`${recipe.title.substring(0,20)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
                                  {/* <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p> */}
                                  <div className='flexIcons'>
                                  <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
