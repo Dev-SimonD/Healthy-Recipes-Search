@@ -287,10 +287,10 @@ const instructionsHandlerDinner = ((e) => {
       if (pescaterian){
         dietPes = "diet=pescaterian&"
       }
-      let minBreakfast = ((tempTdeeValue/100)*30).toFixed();
+      let minBreakfast = ((tempTdeeValue/100)*22).toFixed();
       let maxBreakfast = ((tempTdeeValue/100)*35).toFixed();
-      console.log("min bre:", minBreakfast)
-      console.log("max bre:", maxBreakfast)
+      /* console.log("min bre:", minBreakfast)
+      console.log("max bre:", maxBreakfast) */
       const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&${dietVeg}${dietPal}${dietPes}${dietKet}instructionsRequired=true&sort=random&type=breakfast&minCalories=${minBreakfast}&maxCalories=${maxBreakfast}&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
       const data = await response.json()
       setOnlyBreakfast(data.results)
