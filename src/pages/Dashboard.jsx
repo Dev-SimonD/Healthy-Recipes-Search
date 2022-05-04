@@ -233,6 +233,25 @@ const Dashboard = ({session}) => {
            <div className="statisticsCircle"><p className='label'>{`${IdealCalorieValue}kcal`}</p></div>
            </div>
            </div>
+           <div id='accordeon'>
+               <div className='accordeonItemA'>
+                <h1>BMI</h1>
+                <p>Body Mass Index is a measure that uses your height and weight to work out if your weight is healthy:
+                  </p>
+              </div>
+              <div className='accordeonItemB'>
+                <h1>BMR</h1>
+                <p>Basal Metabolic Rate Is the amount of calories your body burns performing basic life-sustaining funcitons</p>
+              </div>
+              <div className='accordeonItemA'>
+                <h1>LBM</h1>
+                <p>Lean Body Mass is your lean body weight, without your the body fat</p>
+              </div>
+              <div className='accordeonItemB'>
+                <h1>TDEE</h1>
+                <p>Total Daily Energy Expenditure is the amounto of calories your body burns per day, including exercising</p>
+              </div>
+           </div>
                 </div>
                 </div>
                     )}

@@ -5,8 +5,8 @@ const Footer = () => {
     <footer className="footer">
       <div className="content has-text-centered container">
         <p>
-          <strong>Footer</strong>
-          <a href="">My link</a>
+          <strong>Healthy</strong>
+          <a href="">{` Recipes`}</a>
         </p>
       </div>
     </footer>

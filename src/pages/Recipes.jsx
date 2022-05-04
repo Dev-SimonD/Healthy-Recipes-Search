@@ -194,8 +194,8 @@ const Recipes = ({session}) => {
           <i className="fas fa-filter" id="filter" /* onClick={handleFilter} */ onClick={handleFilter}></i>
           </div>
          <div className='accountForm filterBox' style={!filterOpen ? ({"display":"none"}):({"display":"flex"})} >
-            <h1>Filtered by diet:</h1>
-            <div style={{"display":"flex"}}>
+            <h1><b>Filtered by diet:</b></h1>
+            {/* <div style={{"display":"flex"}}> */}
             <div style={{"display":"flex", "flexDirection":"column"}}>
               Vegetarian<input type="checkbox"
                           label=" Vegetarian"
@@ -205,31 +205,12 @@ const Recipes = ({session}) => {
                           label="Vegan"
                           value={vegan}
                           onChange={handleVegan}/>
-             {/* Ketogenic<input type="checkbox"
-                            label="Ketogenic"
-                            value={ketogenic}
-                            onChange={handleKetogenic}/> */}
             Pescaterian<input type="checkbox"
                             label=" Pescaterian"
                             value={pescaterian}
                             onChange={handlePescaterian}/>
             </div>
-            {/* <div style={{"display":"flex", "flexDirection":"column"}}>
-            Max Calories<input
-              id="exercise"
-              className='exerciseRange'
-              min="300"
-              max="800"
-              required
-              name='maxCalories'
-              type="range"
-              value={''}
-              onChange={(e) => {
-                 console.log(e.target.value)
-              }}
-            />
-            </div> */}
-            </div>
+            {/* </div> */}
           </div>
       </form>
              
