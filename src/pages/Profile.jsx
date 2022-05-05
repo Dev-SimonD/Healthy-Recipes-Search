@@ -34,6 +34,7 @@ const Profile = ({ session }) => {
   const [coef, setCoef] = useState(0);
   const [weightArray, setWeightArray] = useState([]);
   const [weightHistory, setWeightHistory] = useState([]);
+  const [favoritesArray, setFavoritesArray] = useState([]);
   const [weightGoal, setWeightGoal] = useState("keep");
 /*   const [theTDEE, setTDEE] = useState(0);
  */
@@ -106,7 +107,7 @@ const Profile = ({ session }) => {
         .from('profiles')
         .select(`username, weight, height, age, gender, sex, bmiValue, updated,
          exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
-         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory, weightGoal`)
+         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory, weightGoal, favoritesArray`)
         .eq('id', user.id)
         .single()
 
@@ -139,6 +140,7 @@ const Profile = ({ session }) => {
         setTdeeValue(data.tdeeValue)
         setWeightHistory(data.weightHistory)
         setWeightGoal(data.weightGoal)
+        setFavoritesArray(data.favoritesArray)
         
        
 
@@ -326,6 +328,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         coef,
         tdeeValue: tdeeFixed,
         weightGoal,
+        favoritesArray,
         
        /*  weightHistory: weightArray, */
         
