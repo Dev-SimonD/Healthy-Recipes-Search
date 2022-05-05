@@ -24,8 +24,7 @@ const Dashboard = ({session}) => {
     const [bmrValue, setBmrValue] = useState(0)
     const [lbmValue, setLbmValue] = useState(0)
     const [weightGoal, setWeightGoal] = useState("")
-/*     const [tdeeValue, setTdeeValue] = useState(0)
- */
+
     useEffect(() => {
         getProfile()
     }, [session])
@@ -75,7 +74,6 @@ const Dashboard = ({session}) => {
             setBmiValue(data.bmiValue)
             setExercise(data.exercise)
             setBmrValue(data.bmrValue)
-           // setTdeeValue(data.tdeeValue)
             setLbmValue(data.lbmValue)
             setUpdated(data.updated)
             setWeightGoal(data.weightGoal)
@@ -87,33 +85,6 @@ const Dashboard = ({session}) => {
         }
       }
 
-     /*  let bmiStatus;
-      const bmiStats = ["underweight", "healthy weight", "overweight", "obese", "severly obese"]
-      if(bmiValue < 18.5){
-        bmiStatus = bmiStats[0]
-      }
-      else if(bmiValue < 24.9 && bmiValue > 18.5){
-        bmiStatus = bmiStats[1]
-      }
-      else if(bmiValue < 29.9 && bmiValue > 25){
-        bmiStatus = bmiStats[2]
-      }
-      else if(bmiValue < 34.9 && bmiValue > 30){
-        bmiStatus = bmiStats[3]
-      }
-      else{
-        bmiStatus = bmiStats[4]
-      } */
-     /*  let LBM;
-      let BMR;
-      let TDEE;
-
-      if(sex === "man"){
-          LBM = (((0.407 * weight) + (0.267 * height)) -19.2).toFixed(2)
-      }
-      else{
-        LBM = (((0.252 * weight) + (0.473 * height)) -48.3).toFixed(2)
-      } */
       let TDEE;
       if(exercise){
       let exerciseCoef;
@@ -138,8 +109,6 @@ const Dashboard = ({session}) => {
           exerciseCoef = 1.9;
         }     
 
-       /*  console.log(exerciseCoef)
-      BMR = (500 + (22 * LBM)).toFixed(); */
      TDEE = (exerciseCoef * bmrValue).toFixed();
      console.log("bmi value is", bmiValue)
     }
@@ -160,24 +129,12 @@ const Dashboard = ({session}) => {
     
 
 
-     /* setTdeeValue(TDEE) */
+     
      
       
   return (
 <div >
-       {/* <h1>Dashboard</h1>
-      <h2>Your BMI:</h2>
-      <div className='bmiChart'><GaugeChart 
-        id="gauge-chart5"
-         nrOfLevels={100}
-         arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
-         colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
-         percent={bmiValue/50}
-         formatTextValue={ bmiValue => bmiStatus }
-         textColor={"#000000"}
-         arcPadding={0.02} />
-           </div>  */}
-           {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
+          {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
              
              <div>
                  <div>
@@ -320,7 +277,6 @@ const Dashboard = ({session}) => {
            </div>
            </div>
              </div>
-               {/* </div> */}
                 </div>
 
 

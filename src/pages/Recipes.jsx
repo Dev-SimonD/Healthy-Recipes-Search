@@ -5,7 +5,6 @@ import {Splide, SplideSlide} from "@splidejs/react-splide"
 import "@splidejs/splide/dist/css/splide.min.css"
 import loadingGif from "../images/loadingGif.gif"
 import { toBeInTheDOM } from '@testing-library/jest-dom/dist/matchers';
-//import { supabase } from './supabaseClient'
 
 
 
@@ -13,9 +12,7 @@ import { toBeInTheDOM } from '@testing-library/jest-dom/dist/matchers';
 const Recipes = ({session}) => {
 
     const randomRecipeURL = `https://api.spoonacular.com/recipes/random?apiKey=${process.env.REACT_APP_API_KEY}&number=6&tags=vegetarian`;
-    /* const favoritesRecipeURL = `https://api.spoonacular.com/recipes/complexSearch?id=${favorite_id}?apiKey=${process.env.REACT_APP_API_KEY}`; */
-/*     const randomRecipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${process.env.REACT_APP_API_KEY}&number=6&instructionsRequired=true&sort=random`;
- */
+    
     const [randomRecipe, setRandomRecipe] = useState([])
     const [searchedRecipe, setSearchedRecipe] = useState([])
     const [search, setSearch] = useState("")
@@ -28,8 +25,6 @@ const Recipes = ({session}) => {
     const [filterOpen, setFilterOpen] = useState(false)
     const [vegetarian, setVegetarian] = useState(false);
     const [vegan, setVegan] = useState(false);
-    /* const [paleo, setPaleo] = useState(false);
-    const [ketogenic, setKetogenic] = useState(false); */
     const [pescaterian, setPescaterian] = useState(false);
 
     useEffect(() => {
@@ -59,15 +54,13 @@ const Recipes = ({session}) => {
     
           if (data) {
             console.log(data)
-           /*  setFavorites(data.favorites) */
             setFavoritesArray(data.favoritesArray)
             getFavorites()
           }
         } catch (error) {
           alert(error.message)
         } finally {
-/*           getFavorites()  
- */         /*  setLoading(false) */
+
         }
       }
 
@@ -82,8 +75,6 @@ const Recipes = ({session}) => {
     const getSearchedRecipe = async (query) => {
       let dietVeg = "";
       let dietVegan = "";
-      /* let dietPal = "";
-      let dietKet = ""; */
       let dietPes = "";
       if (vegetarian){
         dietVeg = "diet=vegetarian&"
@@ -91,12 +82,7 @@ const Recipes = ({session}) => {
       if (vegan){
         dietVegan = "diet=vegan&"
       }
-      /* if (paleo){
-        dietPal = "diet=paleo&"
-      }
-      if (ketogenic){
-        dietKet = "diet=ketogenic&"
-      } */
+      
       if (pescaterian){
         dietPes = "diet=pescaterian&"
       }
@@ -110,7 +96,6 @@ const Recipes = ({session}) => {
 
     const getRecipe = async () => {
       
-     /*  setLoading(true) */
         const check = localStorage.getItem("random");
 
         if(check){
@@ -120,13 +105,9 @@ const Recipes = ({session}) => {
             const response = await fetch(randomRecipeURL)
             const data = await response.json()
             localStorage.setItem("random", JSON.stringify(data.recipes));
-           // console.log(data)
             console.log("SHOWME",data.recipes)
-            //setRandomRecipe(data.recipes)
             setRandomRecipe(data.recipes);
-           /*  setLoading(false) */
-           // console.log(data.recipes[0]);  
-          // console.log(randomRecipe)
+           
         }
         
     }
@@ -136,13 +117,11 @@ const Recipes = ({session}) => {
       
       let favArray = favoritesArray;
       let favoritesString = favArray.join()
-      /* console.log(favArray.join()) */
       const response = await fetch(`https://api.spoonacular.com/recipes/informationBulk?includeNutrition=true&ids=${favoritesString}&apiKey=${process.env.REACT_APP_API_KEY}`)
       const favorites = await response.json()
       setFavoritesRecipes(favorites)
       console.log(favorites)
       setLoading(false)
-            /* setFavoritesRecipes(data); */
 
      }
 
@@ -155,13 +134,6 @@ const Recipes = ({session}) => {
     const handleVegan = () => {
       setVegan(!vegan);
     };
-    
-    /* const handlePaleo = () => {
-      setPaleo(!paleo);
-    };
-    const handleKetogenic = () => {
-      setKetogenic(!ketogenic);
-    }; */
     
     const handlePescaterian = () => {
       setPescaterian(!pescaterian);
@@ -186,16 +158,12 @@ const Recipes = ({session}) => {
              value={search}
              style={{"width":"100%"}}/>
           </div>
-          {/* <div className="control">
-            <button type="submit" className="button is-primary signupBtn">
-              Search
-            </button>
-          </div> */}
+          
           <i className="fas fa-filter" id="filter" /* onClick={handleFilter} */ onClick={handleFilter}></i>
           </div>
          <div className='accountForm filterBox' style={!filterOpen ? ({"display":"none"}):({"display":"flex"})} >
             <h1><b>Filtered by diet:</b></h1>
-            {/* <div style={{"display":"flex"}}> */}
+            
             <div style={{"display":"flex", "flexDirection":"column"}}>
               Vegetarian<input type="checkbox"
                           label=" Vegetarian"
@@ -210,7 +178,7 @@ const Recipes = ({session}) => {
                             value={pescaterian}
                             onChange={handlePescaterian}/>
             </div>
-            {/* </div> */}
+            
           </div>
       </form>
              
@@ -242,9 +210,7 @@ const Recipes = ({session}) => {
                                  },
                                  600: {
                                   destroy: true,
-                                  /* direction: "ttb",
-                                  height: "auto",
-                                  gap: "2rem", */
+                                  
                                    },
                                    
                               
@@ -259,7 +225,6 @@ const Recipes = ({session}) => {
               <div className="cards smallRecipeCard">
                <img className='splideImg' style={{"width":"100%"}}data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
                   <div className='favoritesCardContent'>
-                    {/* <div className='cardContent m-a'> */}
                     <div className='favoritesHeader'>                                     
                        <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
                        <p className="cardTitle has-text-centered pb-5">calories: {recipe.nutrition.nutrients[0].amount}{recipe.nutrition.nutrients[0].unit}</p>
@@ -272,17 +237,7 @@ const Recipes = ({session}) => {
              </div>
               </Link>
               </SplideSlide>
-                /* <Link to={"/recipes/" + item.id}>
-                  <div className='accountForm p-3 m-1 mealPlanAccountImage  m-auto ' style={{"maxWidth":"680px"}}>  
-                  <div className='accountForm displayFlex' style={{"width":"100%", "paddingBottom":"1rem"}}> 
-                   <h2 className='title has-text-justified' style={{"fontSize":"1.2rem"}}>{item != null ? (item.title) : ""}</h2>  
-                  {item ? (<img src={item.image} alt={item.title} style={{"borderRadius":"2rem", "padding":"0.5rem", "width":"100%", "maxWidth":"450px"}} />):("")}
-                  </div>
-                {item != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem 1rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: item.summary}}/>) : ("")}  
-              </div>
-                    </Link> */
-
-            )
+                   )
         })}
          </Splide>
     
@@ -293,17 +248,13 @@ const Recipes = ({session}) => {
                  <div /* className='accountForm p-3' */>
                   <Splide options={{
                       mediaQuery: 'max',
-                      /* autoWidth: true, */
                         perPage: 4,
                         gap: "2rem",
                         arrows: false,
-                        /* width: "90vw", */
                         type: "loop",
                         easingFunc: true,
-                       /*  autoplay: true, */
                         lazyLoad: true,
                         pagination: false,
-                       /*  pagination: "slider", */
                          flickMaxPages: 1,
                         breakpoints: {
                           1600: {
@@ -343,7 +294,6 @@ const Recipes = ({session}) => {
                                  <img className='splideImg' data-splide-lazy={recipe.image} src={recipe.image} alt={recipe.title}/>
                                  <div className='cardContent'>
                                  <p id="cardTitle"><i className="fas fa-angle-right"></i>{ (recipe.title.length>20)?(`${recipe.title.substring(0,20)}...`):(`${recipe.title.substring(0,20)}          `)}</p>
-                                 {/* <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p> */}
                                  <div className='flexIcons'>
                                  <i className="fas fa-heart" style={{"color":"red", "display":"flex"}}>{` ${recipe.aggregateLikes}`}</i>
                                  <i className="fas fa-clock" style={{"color":"green", "display":"flex"}}>{` ${recipe.readyInMinutes} m`}</i>
@@ -360,7 +310,6 @@ const Recipes = ({session}) => {
                     
                     </Splide>
                     </div>
-                        {/* Favorites */}
                         
                         
                     <h1 className='label has-text-justified p-2' style={{"fontSize":"1.5rem"}}>Your Favorites</h1> 

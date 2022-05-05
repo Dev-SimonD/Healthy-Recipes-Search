@@ -5,8 +5,7 @@
   
 }
 body {
-  /* min-width: 100vw;
-  min-height: 100vh; */
+  
   width: 100vw;
   min-height: 100vh;
   font-family: 'montserrat',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -14,54 +13,13 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-/*   background-color: #fcf8ff;
- */ background-color: whitesmoke; 
+ background-color: whitesmoke; 
     overflow: hidden;
 
- /*  background: hsla(211, 66%, 87%, 1);
+ }
 
-  background: linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
-  
-  background: -moz-linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
-  
-  background: -webkit-linear-gradient(90deg, hsla(211, 66%, 87%, 1) 0%, hsla(348, 67%, 88%, 1) 50%, hsla(272, 26%, 72%, 1) 100%);
-  
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#C9DEF4", endColorstr="#F5CCD4", GradientType=1 );
- */ /*   background-color: #fff8ec;
- */}
-/* #root{
-  height: 100%;
-  width: 100%;  
-}
-.fullwidthheight{
-  width: 100%;
-  height: 100%;
-} */
-/* .greyTheme{
-  background-color: grey;
-  width: 100vw;
-  min-height: 100vh;
-  color: white;
-  font-family: 'montserrat',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
 
-} */
-/* .whiteTheme{
-  background-color: white;
-  width: 100vw;
-  min-height: 100vh;
-  font-family: 'montserrat',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
 
-} */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -83,15 +41,7 @@ code {
   font-weight: bold;
   
 }
-/* #getStartedBtn{
-  width: 50%;
-  border-radius: 2rem;
-}
-#getStartedBtn:hover{
-  background-color: white !important;
-  color: #f0b503 !important;
-  
-} */
+
 .angleIcons{
   display: flex;
 }
@@ -242,16 +192,12 @@ justify-content: flex-start;
 .navbar-mobile{
   display: none !important;
 }
-/* .navbar-dark{
-  background-color: black !important;
-  color: white !important;
-} */
+
 .mainDiv{
   width: auto;
   height: 100%;
 }
 .bmiChart{
-  /* width: 100%; */
   max-width: 250px;
 }
 
@@ -297,8 +243,7 @@ justify-content: flex-start;
 .cards{
   background-color: white;
   border-radius: 1rem;
-/*   box-shadow: inset 0 0.0625em 0.125em rgba(10, 10, 10, 0.05);
- */  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
+  box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 2%);
     margin-bottom: 1rem;
 }
 #cardTitle{
@@ -438,20 +383,7 @@ input[type="range"]::-moz-range-track {
   justify-content: center;
   align-items: center;
 }
-  /* Menu */
-/* .menu{
-  display: flex;
-}
-.menu nav{
-  width: 100%;
-}
-.menu nav ul{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
 
-} */
 
                                            /* Meal Plan */
 .mealPlanMain{
@@ -617,37 +549,7 @@ input[type="range"]::-moz-range-track {
   justify-content: center;   */
   align-items: center !important;
 }
-/* .navbar-item:hover {
-  opacity: 1 !important;
-}
 
-.navbar-item::before {
-  transition: 300ms !important;
-  height: 5px !important;
-  content: "" !important;
-  position: absolute !important;
-  background-color: #ffbf00 !important;
-}
-
-.nav-link-ltr::before {
-  width: 0%;
-  bottom: 15px;
-  background-color: none !important;
-}
-
-.nav-link-ltr:hover::before {
-  width: 80%;
-  margin: auto;
-  background-color: none !important;
-}
-
-a.navbar-link.is-active{
-  color: #f0b503 !important;
- }
- a.navbar-item:hover{
-  background-color: none !important;
-  color: #ffbf00 !important;
-} */
 a.navbar-link.is-active{
   color: #f0b503 !important;
  }
@@ -655,17 +557,13 @@ a.navbar-link.is-active{
   margin-bottom: -0.5rem;
   justify-content: center;
 }
-/* a.navbar-item:focus, a.navbar-item:focus-within, a.navbar-item:hover, a.navbar-item.is-active, .navbar-link:focus, .navbar-link:focus-within, .navbar-link:hover, .navbar-link.is-active{
-  color: #ffbf00 !important;
-  background-color: white !important;
-} */
+
 
 .logo{
   font-family: "segoe script";
 }
 .logoSpan{
-  /* background-color: #f96300;
- */
+ 
  background-color: #ffbf00 !important;
   border-radius: 0.5rem;
   color: white;
@@ -729,13 +627,9 @@ justify-content: flex-start;
 .recipeButtons{
   margin: 0 0.1rem !important;
   padding:0  0.1rem !important;
-  /* background-color: #ffbf00 !important;
-  color: white !important; */
+
 }
-/* .recipeButtons:hover{
-  background-color: #f0b503 !important;
-  color: white !important;
-} */
+
 .likes p{
   font-size: 1rem;
 }
@@ -839,30 +733,7 @@ text-align: center;
  font-size: 1.5rem;
   color: black;
 }
-/* .cards{
-  padding: 1rem;
-display: flex;
-align-items: start;
-box-shadow: 0 .5em 1em -.125em rgba(10,10,10,.1),0 0 0 1px rgba(10,10,10,.02);
-margin: 1rem auto;
-border-radius: 2rem;
-background-color: white;
-width: 90%;
-justify-content: flex-start;
-}
-.cards img{
- width: 70px;
- height: 70px;
-  border-radius: 50%;
-}
-.cardsContent{
-  display: flex;
-  flex-direction: column;
-}
-.cards p{
-  margin-left: 1rem;
-  color: black;
-} */
+
 
 .navbar-burger{
   margin-left: 0 !important;
@@ -870,9 +741,7 @@ position: absolute !important;
 right: 5%;
 }
 
-/* #cardLikes{
-  display: none;
-} */
+
 .recipeImage{
   max-width: 100%;
   margin: auto;
@@ -950,44 +819,21 @@ right: 5%;
     text-align: center;
   }
  
-  /* .fa-calendar:before{
-    margin-bottom: 5px;
-  } */
+
   .active .mobile-menu-item{
    color: #f16868 !important;
    margin-bottom: 8px;
   }
   .active i{
     color: #f16868 !important;
-    /* margin-bottom: 8px; */
-   }  /* .active .mobile-menu-item p{
-    display: "block";
-  } */
+    
+   }  
  .field.has-addons{
    padding-top: 3rem;
    
  }
 
-  /* .fa-gear:before {
-    color: whitesmoke;
-  }
-  .fa-user:before{
-    color: whitesmoke;
-  }
-  .fa-utensils:before{
-    color: whitesmoke;
-  }
-  .fa-house-user:before{
-    color: whitesmoke;
-  }
-  .fa-calendar:before{
-    color: whitesmoke;
-  } */
-  /* .cards img{
-    height: 250px;
-    object-fit: cover;
-    border-radius: 1rem 1rem 0 0;
-  } */
+ 
   #ourPicks img{
     height: 300px;
     object-fit: cover;

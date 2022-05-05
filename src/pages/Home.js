@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../components/supabaseClient'
-/* import Account from '../components/Account'
- */
 import Auth from "../components/Auth"
 import Dashboard from './Dashboard.jsx'
 import Recipes from './Recipes.jsx'
@@ -34,188 +32,18 @@ const Home = ({ session }) => {
     console.log(darkMode)
   })
 
-  //const [account, setAccount] = useState(false);
-/*   const [tutorial, setTutorial] = useState(false)
-  const [loading, setLoading] = useState(true)
-
-
-
-  useEffect(() => {
-    getTutorialInfo()
-  }, [])
-
-  const getTutorialInfo = async () => {
-    try {
-      setLoading(true)
-      const user = supabase.auth.user()
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`tutorial`)
-        .eq('id', user.id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setTutorial(data.tutorial)
-        console.log("data.tutorial", data.tutorial)
-      }
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  console.log("first tutorial boolean", tutorial)
-
-    const handleSkip = async (e) => {
-      e.preventDefault()
-      setTutorial(true)
-
-      try {
-       // setLoading(true)
-        const user = supabase.auth.user()
-        
-        const updates = {
-          id: user.id,
-          tutorial,
-          updated_at: new Date(),
-        }
-  
-        let { error } = await supabase.from('profiles').upsert(updates, {
-          returning: 'minimal', // Don't return the value after inserting
-        })
-  
-        if (error) {
-          throw error
-        }
-      } catch (error) {
-        alert(error.message)
-      } finally {
-        //setTutorial(true)
-      }
-      Swal.fire({
-          title: 'Success!',
-          text: 'Enjoy the app',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        })
-    } */
-    
-
-  /* useEffect(() => {
-    getProfile()
-  }, [session])
- */
-  /* const getProfile = async () => {
-    try {
-      setLoading(true)
-      const user = supabase.auth.user()
-
-      let { data, error, status } = await supabase
-        .from('profiles')
-        .select(`username, website, avatar_url, weight, height, age`)
-        .eq('id', user.id)
-        .single()
-
-      if (error && status !== 406) {
-        throw error
-      }
-
-      if (data) {
-        setUsername(data.username)
-        setWebsite(data.website)
-        setAvatarUrl(data.avatar_url)
-        setWeight(data.weight)
-        setHeight(data.height)
-        setAge(data.age)
-      }
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const updateProfile = async (e) => {
-    e.preventDefault()
-
-    try {
-      setLoading(true)
-      const user = supabase.auth.user()
-
-      const updates = {
-        id: user.id,
-        username,
-        website,
-        avatar_url,
-        weight,
-        height,
-        age,
-        updated_at: new Date(),
-      }
-
-      let { error } = await supabase.from('profiles').upsert(updates, {
-        returning: 'minimal', // Don't return the value after inserting
-      })
-
-      if (error) {
-        throw error
-      }
-    } catch (error) {
-      alert(error.message)
-    } finally {
-      setLoading(false)
-    }
-    Swal.fire({
-        title: 'Success!',
-        text: 'Profile succesfully updated',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      })
-  } */
   console.log(burgerMenuActive)
   return (
      <Router>
-      {/* <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/recipes">Recipes</Link>
-            </li>
-            <li>
-              <Link to="/mealplan">Meal plan</Link>
-            </li>
-            <li>
-              <Link to="/account">Account</Link>
-            </li>
-            <li>
-              <Link to="/search">Search Food Nutrition</Link>
-            </li>
-          </ul>
-        </nav>
-        
-        </div> */}
-
+      
 <nav className="navbar" role="navigation" aria-label="main navigation">
   <div className="navbar-brand">
-    {/* <a className="navbar-item" href="https://bulma.io">
-      <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28"/>
-    </a> */}
     <NavLink  className="navbar-item navbar-desktop navbar-mobile-logo" to="/"><h1 className="navbar-item logo">Healthy<span className='logo logoSpan'>Recipes</span></h1></NavLink>
     <NavLink  className="navbar-item navbar-mobile nav-link-ltr" to="/"><div className='mobile-menu-item'><i className="fas fa-house-user"></i><p /* style={{"display":"none"}} */>Home</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/recipes"><div className='mobile-menu-item'><i class="fa-solid fa-magnifying-glass"></i><p /* style={{"display":"none"}} */>Search</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/mealplan"><div className='mobile-menu-item'><i className="fas fa-calendar"></i><p /* style={{"display":"none"}} */>Meal Plan</p></div></NavLink>
     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/profile"><div className='mobile-menu-item'><i className="fas fa-user"></i><p /* style={{"display":"none"}} */>Profile</p></div></NavLink>
-{/*     <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/search">F</NavLink>
- */}    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/settings"><div className='mobile-menu-item'><i className="fas fa-gear"></i><p /* style={{"display":"none"}} */>Settings</p></div></NavLink>
+    <NavLink className="navbar-item navbar-mobile nav-link-ltr" to="/settings"><div className='mobile-menu-item'><i className="fas fa-gear"></i><p /* style={{"display":"none"}} */>Settings</p></div></NavLink>
 
     <a id="burgerIcon" role="button" onClick={(e) => {
       e.preventDefault()
@@ -237,58 +65,20 @@ const Home = ({ session }) => {
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/recipes">Recipes</NavLink>
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/mealplan">Meal Plan</NavLink>
     <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/profile">Profile</NavLink>
-    {/* <NavLink className="navbar-item navbar-desktop nav-link-ltr" to="/settings">Settings</NavLink> */}
-    {/* <button className='button is-primary' onClick={handleDarkMode}>switch</button> */}
     </div>
 
-    
-
-   {/*  <div class={profileMenuActive ? ("dropdown is-active"): ("dropdown")}>
-  <div class="dropdown-trigger">
-    <button class="button" onClick={handleProfileClick} aria-haspopup="true" aria-controls="dropdown-menu">
-      <span>Profile</span>
-    </button>
-  </div>
-  <div class="dropdown-menu" id="dropdown-menu" role="menu">
-    <div class="dropdown-content">
-      <a href="#" class="dropdown-item">
-        Your Profile
-      </a>
-      <a class="dropdown-item">
-        Settings
-      </a>
-      <a href="#" class="dropdown-item">
-        Some menu stuff
-      </a>
-      <hr class="dropdown-divider"/>
-      <a href="#" class="dropdown-item">
-        Sign out
-      </a>
-    </div>
-  </div>
-</div> */}
-
-    <div className="navbar-end">
+      <div className="navbar-end">
       <div className="navbar-item">
         <div className="buttons logoutbtn">
-          {/* <a className="button is-primary">
-            <strong>Sign up</strong>
-          </a> */}
-          <button type="button" className="button mr-3" onClick={() => supabase.auth.signOut()}>
+         <button type="button" className="button mr-3" onClick={() => supabase.auth.signOut()}>
         Sign Out
-      </button>{/* <button className='button is-light'>
-      Logout<i className="fas fa-sign-out-alt" style={{"cursor":"pointer", "padding": "1rem"}} onClick={() => supabase.auth.signOut()}></i>
-      </button> */}
+      </button>
 
-{/*       
- */}        </div>
+        </div>
       </div>
     </div>
   </div>
 </nav>
-
-        {/* <div className='cont'> */}
-       {/*  <Menu/> */}
       <Routes>
           <Route path="/profile" element={!session ? <Auth/> : <Profile key={session.user.id} session={session} />}>
           </Route>
@@ -303,7 +93,7 @@ const Home = ({ session }) => {
           <Route path="/" element={<Dashboard key={session.user.id} session={session}/>}>
           </Route>
         </Routes>  
-        {/* </div> */}    
+          
     </Router>
   )
 }

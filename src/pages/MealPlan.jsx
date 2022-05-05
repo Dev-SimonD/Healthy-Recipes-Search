@@ -21,9 +21,6 @@ const MealPlan = ({session}) => {
     const [onlyBreakfast, setOnlyBreakfast] = useState(null)
     const [onlyLunch, setOnlyLunch] = useState(null)
     const [onlyDinner, setOnlyDinner] = useState(null)
-    /* const [isSummary, setIsSummary] = useState(true)
-    const [isIngredients, setIsIngredients] = useState(false)
-    const [isInstructions, setIsInstructions] = useState(false) */
     const [isSummaryBreakfast, setIsBreakfastSummary] = useState(true)
     const [isIngredientsBreakfast, setIsBreakfastIngredients] = useState(false)
     const [isInstructionsBreakfast, setIsBreakfastInstructions] = useState(false)
@@ -36,7 +33,6 @@ const MealPlan = ({session}) => {
 
 
     const mealURL = `https://api.spoonacular.com/mealplanner/generate?timeFrame=day&apiKey=${process.env.REACT_APP_API_KEY}`;
-   // const mealplanDetailURL = `https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${process.env.REACT_APP_API_KEY}`;
 
    const [loading, setLoading] = useState(true)   
    const [updated, setUpdated] = useState(null)
@@ -106,38 +102,7 @@ const MealPlan = ({session}) => {
             
       }
 
-     /*  console.log("breakfast", breakfast)
-      console.log("launch", launch)
-      console.log("dinner", dinner) */
-
-    /* useEffect(() => {
-        getMeal()
-    }, []); */
-
-    /* const getMeal = async () => {
-       const response = await fetch(`https://api.spoonacular.com/mealplanner/${spoonUsername}/day/2022-06-01?hash=${spoonHash}&apiKey=${process.env.REACT_APP_API_KEY}`)
-       const data = await response.json()
-       console.log(data);
-       setBreakfast(data.meals[0])
-       setLaunch(data.meals[1])
-       setDinner(data.meals[2])
-       console.log(data.meals[0])
- } */
- //console.log(meal)
-/* 
- const getMealplanDetails = async (id) => {
-    const response = await fetch(`https://api.spoonacular.com/recipes/${id}/information?includeNutrition=false&apiKey=${process.env.REACT_APP_API_KEY}`)
-    const data = await response.json()
-    setMealplanstate(data)
-
-} */
-
- /*  const changeHandler = ((e) => {
-    e.preventDefault()
-    console.log(e.target.value)
-    setPeriod(e.target.value)
     
-  }) */
 
   const clickHandler = ((e) => {
     e.preventDefault()
@@ -206,14 +171,10 @@ const instructionsHandlerDinner = ((e) => {
   setIsDinnerIngredients(false)
   setIsDinnerInstructions(true)
 })
-  /* const handlePeriod = ((e) => {
-    e.preventDefault
-    console.log("the value of period is",e.target.value," the weight Goal is", weightGoal)
-  }) */
+  
   
   const getMealPlanNow = async () => {
-/*     console.log("tdee value before apicall",tdeeValue)
- */
+
    
 
       let tempTdeeValue = tdeeValue;
@@ -289,8 +250,7 @@ const instructionsHandlerDinner = ((e) => {
       }
       let minBreakfast = ((tempTdeeValue/100)*22).toFixed();
       let maxBreakfast = ((tempTdeeValue/100)*35).toFixed();
-      /* console.log("min bre:", minBreakfast)
-      console.log("max bre:", maxBreakfast) */
+      
       const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&addRecipeNutrition=true&${dietVeg}${dietPal}${dietPes}${dietKet}instructionsRequired=true&sort=random&type=breakfast&minCalories=${minBreakfast}&maxCalories=${maxBreakfast}&apiKey=${process.env.REACT_APP_API_KEY}&&number=1`)
       const data = await response.json()
       setOnlyBreakfast(data.results)
@@ -376,13 +336,7 @@ console.log(onlyBreakfast)
       {loading ? (<div style={{"display":"flex", "justifyContent":"center", "alignItems":"center"}}><img src={loadingGif} alt="loading"/></div>):(
         <div>
     <div className={!updated ? "" : "nonDisplay" }>
-    {/* <div className="modal2" id="modal2">
-     <h2>Meal Plan feature require user info</h2>
-     <div className="content2">For accessing meal plan feature, please fill out your profile information. After that you will be able to access the meal plan.</div>
-     <div className="actions2">
-       <NavLink className="linkName" to="/account">OK</NavLink>
-     </div>
-   </div> */}
+    
    <div className='accountForm' id='mealPlanNotUpdated'>
      <h3 className='title has-text-centered'>Meal Plan</h3>
      <p className='has-text-justified pb-5'>To access meal planning feature, please fill out your account information first</p>
@@ -486,7 +440,6 @@ console.log(onlyBreakfast)
                 <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandlerBreakfast}>Ingredients</button>
                 <button className='button is-primary is-light recipeButtons' onClick={instructionsHandlerBreakfast}>Instructions</button>
             </div>
-                   {/*  {breakfast != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>) : ("")}   */}
                    {isSummaryBreakfast && (
           <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: breakfast.summary}}/>
           ) }
@@ -520,7 +473,6 @@ console.log(onlyBreakfast)
                 <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandlerLunch}>Ingredients</button>
                 <button className='button is-primary is-light recipeButtons' onClick={instructionsHandlerLunch}>Instructions</button>
             </div>
-                {/* {lunch != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>) : ("")} */}
                 {isSummaryLunch && (
           <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: lunch.summary}}/>
           ) }
@@ -555,7 +507,6 @@ console.log(onlyBreakfast)
                 <button className='button is-primary is-light recipeButtons' onClick={ingredientsHandlerDinner}>Ingredients</button>
                 <button className='button is-primary is-light recipeButtons' onClick={instructionsHandlerDinner}>Instructions</button>
             </div>
-                {/* {dinner != null ? (<p className='accountForm has-text-justified' style={{"padding":"2rem", "marginTop":"0", "marginBottom":"2rem"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>) : ("")} */}
                 {isSummaryDinner && (
           <p className='accountForm has-text-justified' style={{"padding":"0.5rem", "marginTop":"0"}} dangerouslySetInnerHTML={{__html: dinner.summary}}/>
           ) }
@@ -574,62 +525,10 @@ console.log(onlyBreakfast)
           ) }  
              </div>
              ):("")}
-
-              {/* {onlyBreakfast? (
-                
-                
-                  onlyBreakfast.map((recipe) => {
-                               <Link to={"/recipes/" + recipe.id}>
-                                <div className="cards smallRecipeCard">
-                                 <img className='splideImg' src={recipe.image} alt={recipe.title}/>
-                                 <div className='cardContent m-a'>
-                                 <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
-                                 <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
-                                 </div>
-                               </div>
-                                </Link>})                             
-                    ):("")}
-              {onlyLunch? (
-                onlyLunch.map((recipe) => {
-                  <Link to={"/recipes/" + recipe.id}>
-                   <div className="cards smallRecipeCard">
-                    <img className='splideImg' src={recipe.image} alt={recipe.title}/>
-                    <div className='cardContent m-a'>
-                    <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
-                    <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
-                    </div>
-                  </div>
-                   </Link>}) 
-              ):("")}
-              {onlyDinner? (
-                onlyDinner.map((recipe) => {
-                  <Link to={"/recipes/" + recipe.id}>
-                   <div className="cards smallRecipeCard">
-                    <img className='splideImg' src={recipe.image} alt={recipe.title}/>
-                    <div className='cardContent m-a'>
-                    <h1 className="cardTitle has-text-centered pb-5"><i className="fas fa-angle-right"></i> {recipe.title}</h1>
-                    <p id="cardLikes"><i className="fas fa-heart" style={{"color":"red"}}></i> {recipe.aggregateLikes}</p>
-                    </div>
-                  </div>
-                   </Link>}) 
-              ):("")} */}
               </div>
-    {/* </div>
-    ) : ("")} */}
-
-
-
-
-
     </div>
     </div>
     )}
-
-   {/*  {onlyBreakfast ? (<div className='accountForm'>
-      <img style={{"borderRadius":"2rem"}} src={onlyBreakfast[0].image} alt={onlyBreakfast[0].title}/>
-        <h1>{onlyBreakfast[0].title}</h1>
-        <p>{onlyBreakfast[0].nutrition.nutrients[0].amount}{onlyBreakfast[0].nutrition.nutrients[0].unit}</p></div>)
-        :("")} */}
     </div>
     </div>
   )

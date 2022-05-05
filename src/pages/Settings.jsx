@@ -4,27 +4,7 @@ import { supabase } from '../components/supabaseClient'
 
 const Settings = () => {
 
-  /* const [darkTheme, setDarkTheme] = useState(false)
-
-  useEffect(() => {
-    document.body.className = localStorage.getItem("colorTheme")
-    document.querySelector(".navbar-brand").className = localStorage.getItem("colorTheme")
-  }, [darkTheme])
-
-  const handleThemeClick = ((e) =>{
-    e.preventDefault()
-    setDarkTheme(!darkTheme)
-    
-
-  })
-  if(darkTheme){
-
-    window.localStorage.setItem("colorTheme", "greyTheme");
-  }
-  else{
-    window.localStorage.setItem("colorTheme", "whiteTheme");
-  } */
-
+  
   return (
     <div>
       <div className='accountForm' id='mealPlanAccountForm' >

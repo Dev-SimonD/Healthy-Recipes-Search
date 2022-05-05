@@ -44,7 +44,6 @@ export default function Auth() {
         confirmButtonText: 'OK'
       })
     } catch (error) {
-     /*  alert(error.error_description || error.message) */
      Swal.fire({
         title: 'Error!',
         text:  error.message,
@@ -77,9 +76,7 @@ export default function Auth() {
         const { error } = await supabase.auth.signIn({ email, password })
     
       if (error) throw error
-      //alert('Login in...')
     } catch (error) {
-     /*  alert(error.error_description || error.message) */
      Swal.fire({
         title: 'Error!',
         text:  [error.message, " please try again"],
@@ -92,38 +89,11 @@ export default function Auth() {
       setLoading(false)
     }
   }
- // function CheckPassword(inputtxt) 
-
-/* if(password.value.match(paswd)) 
-{ 
-console.log('Correct, try another...')
-return true;
-}
-else
-{ 
-console.log('Wrong...!')
-return false;
-} */
-
-  //console.log(style)
-
-  return (
+return (
     <div>
 <div className='auth'>
   </div>
-{/* <section className="hero is-primary is-medium">
-    <div className="hero-head">
-      <nav className="navbar">
-        <div className="container">
-          <div className="navbar-brand">
-              <h1 className="title" id="home">Healthy Recipes</h1>
-          </div>
-        </div>
-      </nav>
-    </div>
-  </section> */}
-   
-    <section className="container" id='loginPage'>
+   <section className="container" id='loginPage'>
     <div className="loginTextContent">
     <h1 className='loginMainTitle'><span id="healthy">Healthy</span> <span id='recipes'>Recipes</span></h1>
     <p className='loginDescription'>
@@ -131,8 +101,7 @@ return false;
     <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
     <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
     {` The Ideal recipes for your Fitness goal`}</p>
-{/*     <button className='button is-primary signupBtn' id='getStartedBtn'>Get Started</button>
- */}    </div>
+    </div>
                 <div id='loadingForm'> 
                 <div className="signupFormCentered">
                   <h1 className='loginTitle' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
@@ -248,12 +217,7 @@ return false;
                         </button>
                                  </div>
                                  </div>
-                                {/*  <button onClick={() => {
-                            setStyle(!style)}} 
-                             className="button mt-3 signupFormCentered"
-                             aria-live='polite'>
-                             {!style ? "Don't have an Account? Sign up Here" : "Already have an Account? Sign In here"}
-                        </button>  */}
+                               
                         </section>
                         
                         </div>
