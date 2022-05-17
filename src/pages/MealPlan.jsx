@@ -339,9 +339,9 @@ console.log(onlyBreakfast)
     
    <div className='accountForm' id='mealPlanNotUpdated'>
      <h3 className='title has-text-centered'>Meal Plan</h3>
-     <p className='has-text-justified pb-5'>To access meal planning feature, please fill out your account information first</p>
+     <p className='has-text-justified pb-5'>To access meal planning feature, please fill out your profile information first</p>
      
-       <div><NavLink className="button is-primary signupBtn" to="/account">Account</NavLink></div>
+       <div><NavLink className="button is-primary signupBtn" to="/profile">Profile</NavLink></div>
      
    </div>
    </div>

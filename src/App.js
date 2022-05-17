@@ -9,6 +9,8 @@ import Home from './pages/Home'
 export default () => {
   const [session, setSession] = useState(null)
 
+ 
+
   useEffect(() => {
     setSession(supabase.auth.session())
 

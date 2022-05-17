@@ -37,12 +37,12 @@ export default function Auth() {
         const { error } = await supabase.auth.signUp({ email, password })
     
       if (error) throw error
-      Swal.fire({
+      /* Swal.fire({
         title: 'Success!',
         text:  "Check your email for confirmation link.",
         icon: 'success',
         confirmButtonText: 'OK'
-      })
+      }) */
     } catch (error) {
      Swal.fire({
         title: 'Error!',

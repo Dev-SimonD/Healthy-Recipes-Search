@@ -193,12 +193,12 @@ const Dashboard = ({session}) => {
            <div id='accordeon'>
                <div className='accordeonItemA'>
                 <h1>BMI</h1>
-                <p>Body Mass Index is a measure that uses your height and weight to work out if your weight is healthy:
+                <p>Body Mass Index is a measure that uses your height and weight to work out if your weight is healthy
                   </p>
               </div>
               <div className='accordeonItemB'>
                 <h1>BMR</h1>
-                <p>Basal Metabolic Rate Is the amount of calories your body burns performing basic life-sustaining funcitons</p>
+                <p>Basal Metabolic Rate is the amount of calories your body burns performing basic life-sustaining funcitons</p>
               </div>
               <div className='accordeonItemA'>
                 <h1>LBM</h1>
@@ -217,17 +217,16 @@ const Dashboard = ({session}) => {
               {updated ? (""):(  
                <div className='accountForm homeCards' id='homePageNotUpdatedWelcome'>
                <h1 className='title has-text-centered'>Welcome to healthy recipes</h1>
-               <p className='has-text-justified'>Healthy recipes will help you to search recipes for your specific needs. To find the right recipes, please 
-               fill in the profile page which will give us the idea about how many calories per day you should consume. 
-                 </p>
+               <p className='has-text-justified'>Healthy recipes will help you to search for recipes for your specific needs. To find the suitable recipes, please 
+               fill in the profile page, which will give us an idea about how many calories per day you should consume. </p>
                </div>
                )}
                <div className='accountForm homeCards' id='homePageNotUpdatedRecipes'>
                  <div>
                <h1 className='title has-text-centered'>Recipes</h1>
-               <p className='has-text-justified'>If you just want to search any recipes, you can do that without filling out your profile page. 
+               <p className='has-text-justified'>If you want to search for any recipes, you can do that without filling out your profile page. 
                There are over 80.000 recipes in the database. You can use the filter function to help you find what you're looking for.  
-                 Have you found somthing special? Add it to your favourites list!</p>  
+                 Have you found something special? Add it to your favourites list!</p>  
                   </div>
                   <div style={{"display":"flex","justifyContent":"center","alignItems":"center"}}>
                     <img id="recipesLogo" src={RecipesLogo} alt="RecipesLogo"/>
@@ -282,9 +281,9 @@ const Dashboard = ({session}) => {
 
                <div className='accountForm homeCards' id='homePageNotUpdatedMealplan'>
                <h1 className='title has-text-centered'>Meal Plan</h1>
-               <p className='has-text-justified' >Meal Plan is the main feature of Healthy Recipes. One click will bring you the 
-               daily meal plan to support your weight goal. It will also automatically include all your dietery needs. Only looking for 
-               a breakfast? Lunch? Dinner? Just select what you'd prefer and enjoy your meal.
+               <p className='has-text-justified' >A meal plan is the main feature of Healthy Recipes. One-click will bring you the 
+               daily meal plan to support your weight goal. It will also automatically include all your dietary needs. Only looking for 
+               breakfast? Lunch? Dinner? Just select what you'd prefer and enjoy your meal.
                  </p>
                </div>
               
