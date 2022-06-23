@@ -1,7 +1,15 @@
-# Project for searching healthy recipes based on your calorie intake
+# Healthy recipes project
 
-# use npm install for installing the dependencies and get API key from spoonacular.com
+## use npm install for installing the dependencies and get API key from spoonacular.com
 
-# Demo:
+### Demo:
+
+* Set profile:
+
+
+* Search for meal plan:
+
+
+
 
 
