@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { supabase } from './supabaseClient'
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
-
+import cooking from "../images/cooking.jpg"
 
 
 export default function Auth() {
@@ -11,10 +11,14 @@ export default function Auth() {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [style, setStyle] = useState(false)
 
- 
+  const pwregex=  /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{7,15}$/;
+
+
 
   const handleSignup = async (e) => {
     e.preventDefault()
+    if(password.match(pwregex)){
+
     if(password!==passwordConfirm){
         
         Swal.fire({
@@ -33,12 +37,33 @@ export default function Auth() {
         const { error } = await supabase.auth.signUp({ email, password })
     
       if (error) throw error
-      alert('Check your email for the login link!')
+      /* Swal.fire({
+        title: 'Success!',
+        text:  "Check your email for confirmation link.",
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }) */
     } catch (error) {
-      alert(error.error_description || error.message)
+     Swal.fire({
+        title: 'Error!',
+        text:  error.message,
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
     } finally {
       setLoading(false)
     }
+  } 
+  }
+  else{
+    Swal.fire({
+      title: 'Error!',
+      text:  "Password must include min. 8 characters, one Uppercase letter, number and special character",
+      icon: 'error',
+      confirmButtonText: 'OK'
+    })
+    setPassword("")
+    setPasswordConfirm("")
   }}
 
   const handleLogin = async (e) => {
@@ -51,25 +76,39 @@ export default function Auth() {
         const { error } = await supabase.auth.signIn({ email, password })
     
       if (error) throw error
-      //alert('Login in...')
     } catch (error) {
-      alert(error.error_description || error.message)
+     Swal.fire({
+        title: 'Error!',
+        text:  [error.message, " please try again"],
+        icon: 'error',
+        confirmButtonText: 'OK'
+      })
+      setEmail("")
+      setPassword("")
     } finally {
       setLoading(false)
     }
   }
-  console.log(style)
-
-  return (
-<div>
-    <section className="section container">
-         {loading ? (
-          ''
-        ) : (
+return (
+    <div>
+<div className='auth'>
+  </div>
+   <section className="container" id='loginPage'>
+    <div className="loginTextContent">
+    <h1 className='loginMainTitle'><span id="healthy">Healthy</span> <span id='recipes'>Recipes</span></h1>
+    <p className='loginDescription'>
+    <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
+    <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
+    <i className="fas fa-angle-right" style={{"color":"yellow"}}></i>
+    {` The Ideal recipes for your Fitness goal`}</p>
+    </div>
+                <div id='loadingForm'> 
                 <div className="signupFormCentered">
+                  <h1 className='loginTitle' style={ style ? { display:''} : {display : 'none'} }>Sign up</h1>
+                  <h1 className='loginTitle' style={ !style ? { display:''} : {display : 'none'} }>Sign in</h1>
                 <form onSubmit={handleSignup}  style={ style ? { display:''} : {display : 'none'} }>
                   <div className="field">
-                   <label className="label" htmlFor="email">email</label>
+                   <label className="loginLabel" htmlFor="email">email</label>
                       <div className="control has-icons-left">
                                     <input
                                     id='email'
@@ -87,7 +126,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="password">password</label>
+                                <label className="loginLabel" htmlFor="password">password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='password'
@@ -96,7 +135,8 @@ export default function Auth() {
                                     required
                                     placeholder="password"
                                     value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    onChange={(e) => setPassword(e.target.value)
+                                   }
                                     />
                                     <span className="icon is-small is-left">
                                     <i className="fas fa-key"></i>
@@ -105,7 +145,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="passwordConfirm">password</label>
+                                <label className="loginLabel" htmlFor="passwordConfirm">confirm password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='passwordConfirm'
@@ -126,11 +166,11 @@ export default function Auth() {
                                         </button>
                                  </form>
                                  </div>
-                             )}
+                             
                 <div className='signupFormCentered'>
                 <form onSubmit={handleLogin} style={ !style ? { display:''} : {display : 'none'} }>
                   <div className="field">
-                   <label className="label" htmlFor="email">email</label>
+                   <label className="loginLabel" htmlFor="email">email</label>
                       <div className="control has-icons-left">
                                     <input
                                     id='email'
@@ -148,7 +188,7 @@ export default function Auth() {
                                 </div>
 
                                 <div className="field">
-                                <label className="label" htmlFor="password">password</label>
+                                <label className="loginLabel" htmlFor="password">password</label>
                                 <div className="control has-icons-left">
                                     <input
                                     id='password'
@@ -176,12 +216,8 @@ export default function Auth() {
                              {!style ? "Don't have an Account? Sign up Here" : "Already have an Account? Sign In here"}
                         </button>
                                  </div>
-                                {/*  <button onClick={() => {
-                            setStyle(!style)}} 
-                             className="button mt-3 signupFormCentered"
-                             aria-live='polite'>
-                             {!style ? "Don't have an Account? Sign up Here" : "Already have an Account? Sign In here"}
-                        </button>  */}
+                                 </div>
+                               
                         </section>
                         
                         </div>

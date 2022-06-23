@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react'
 import Swal from '../../node_modules/sweetalert2/dist/sweetalert2.js'
-import { supabase } from './supabaseClient'
+import { supabase } from '../components/supabaseClient'
 import GaugeChart from 'react-gauge-chart'
 import loadingGif from "../images/loadingGif.gif"
-import fitness from "../images/fitness.jpg"
 
 
 
 
-const Account = ({ session }) => {
+
+const Profile = ({ session }) => {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState(null)
   const [height, setHeight] = useState(null)
@@ -34,10 +34,9 @@ const Account = ({ session }) => {
   const [coef, setCoef] = useState(0);
   const [weightArray, setWeightArray] = useState([]);
   const [weightHistory, setWeightHistory] = useState([]);
+  const [favoritesArray, setFavoritesArray] = useState([]);
   const [weightGoal, setWeightGoal] = useState("keep");
-/*   const [theTDEE, setTDEE] = useState(0);
- */
-  //const [bmiStatus, setBmiStatus] = useState("")
+
 
   useEffect(() => {
     getProfile()
@@ -61,41 +60,7 @@ const Account = ({ session }) => {
     bmiStatus = bmiStats[4]
   }
 
- /*  0-18.5 0.27 925
-  18.5 - 24.9 7.79 325
-  25 - 29.9 10  250
-  30 - 34.9 10  250
-  35 - 50   3.33  750 */
- /*  useEffect(() => {
-    getBmi()
-    getProfile()
-  }, []) */
-
-  /* const getBmi = async () => {
-   
-      try {
-        setLoading(true)
-        const user = supabase.auth.user()
-  
-        let { data, error, status } = await supabase
-          .from('profiles')
-          .select(`username, weight, height, age, gender, sex`)
-          .eq('id', user.id)
-          .single()
-  
-        if (error && status !== 406) {
-          throw error
-        }
-        bmiFunc(data.weight, data.height)
-       
-  }catch (error) {
-   // alert(error.message)
-  } finally {
-    setLoading(false)
-  }
-} */
-
-  
+ 
 
   const getProfile = async () => {
     try {
@@ -106,7 +71,7 @@ const Account = ({ session }) => {
         .from('profiles')
         .select(`username, weight, height, age, gender, sex, bmiValue, updated,
          exercise, exerciseType, bmrValue, lbmValue, spoonUsername, spoonPassword, spoonHash,
-         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory, weightGoal`)
+         vegetarian, paleo, ketogenic, pescaterian, coef, tdeeValue, weightHistory, weightGoal, favoritesArray`)
         .eq('id', user.id)
         .single()
 
@@ -139,6 +104,8 @@ const Account = ({ session }) => {
         setTdeeValue(data.tdeeValue)
         setWeightHistory(data.weightHistory)
         setWeightGoal(data.weightGoal)
+        setFavoritesArray(data.favoritesArray)
+        
        
 
       
@@ -150,15 +117,7 @@ const Account = ({ session }) => {
     }
   }
 
-  /* function bmiFunc (weight, height)  {
-    
-      let value = weight/((height/100) ** 2);
-      let fixedValue = value.toFixed(2);
-      console.log(fixedValue);
-      setBmiValue(fixedValue)
-      return value
-    
-  } */
+  
   const handleManButton = (e) =>{  
     setSex(e.target.value)
 }
@@ -219,11 +178,7 @@ const handleRange = ((e) => {
     e.preventDefault()
 
     
-   /*  let tempWeightArray = weightArray;
-    tempWeightArray = []
-    tempWeightArray.push(...tempWeightArray, parseInt(weight));
-    setWeightArray(tempWeightArray);
-    console.log(weightArray) */
+   
   let LBM;
   let BMR;
 
@@ -237,37 +192,6 @@ const handleRange = ((e) => {
   BMR = (500 + (22 * LBM)).toFixed();
   setBmrValue(BMR)
 
- 
-
-     
-/*   let TDEE = 0;
-  let exerciseCoef;
-  if(exercise === 1)
-    {
-      exerciseCoef = 1.2;
-    }
-  if(exercise === 2)
-    {
-      exerciseCoef = 1.375;
-    }  
-    if(exercise === 3)
-    {
-      exerciseCoef = 1.55;
-    }
-    if(exercise === 4)
-    {
-      exerciseCoef = 1.725;
-    } 
-    if(exercise === 5)
-    {
-      exerciseCoef = 1.9;
-    }     
-
-    
- TDEE = (exerciseCoef * BMR).toFixed();
- console.log("tdee before is", TDEE)
- setTdeeValue(TDEE)
- console.log("after is",tdeeValue) */
  
 
 const requestOptions = {
@@ -325,10 +249,9 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         coef,
         tdeeValue: tdeeFixed,
         weightGoal,
-       /*  weightHistory: weightArray, */
+        favoritesArray,
         
-        /* tdeeValue,
-        coef, */
+       
         updated_at: new Date(),
       }
        // console.log(bmiValue)
@@ -354,34 +277,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
         icon: 'success',
         confirmButtonText: 'OK'
       })
-
-        
-     /*  console.log(coef)
-  let tdee;
-  tdee = (coef * bmrValue).toFixed();
-  setTdeeValue(tdee);
-  console.log("tdee value is", tdee) */
-     // bmiFunc(weight,height)
-/*      getMealPlan()
- */  }
-
-    
-   
-    
-
-
- /*  const getMealPlan = async () => {
-        const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ "username": username })
-    };
-    fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_API_KEY}`, requestOptions)
-        .then(response => response.json())
-        .then(data => setSpoonData(data));
-  } */
-  //console.log(spoonData)
-
+  }
 
   return (
 
@@ -406,33 +302,6 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
             />
           </div>
           </div>
-         {/*  <div className="field">
-                   <label className="label" htmlFor="gender">gender</label>
-                      <div className="control"> */}
-            {/* <input
-               className="input"
-              id="gender"
-              name='gender'
-              type="text"
-              value={gender || ''}
-              onChange={(e) => setGender(e.target.value)}
-            /> */}
-             {/* <select name="gender" id="gender" onChange={(e) => setGender(e.target.value)}>
-                        <option value={gender}>{gender}</option>
-                        <option value={gender == "man" ? "man" : "woman"}>{gender == "man" ? "woman" : "man"}</option>
-                       
-                      </select>
-          </div>
-          </div> */}
-          {/*  <div style={{"display": "flex" , "flexDirection": "column"}}> */}
-          {/* <select name="gender" id="gender" onChange={(e) => setGender(e.target.value)}>
-          <option value={gender} disabled>{gender}</option>
-  <option value={true}>man</option>
-  <option value={false}>woman</option>
-</select> */}
-
-{/* {sex == "man" ? <p>your sex is man </p>:<p> your sex is woman </p>}
- */}
  <label className="label" htmlFor="gender">Gender</label>
  <div className="radioButtons">
    <label className='radiobtn'>
@@ -471,11 +340,6 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
                 setExercise(e.target.value)
                  
               
-                  
-              /*  TDEE = (exerciseCoef * BMR).toFixed();
-               console.log("tdee before is", TDEE)
-               setTdeeValue(TDEE)
-               console.log("after is",tdeeValue) */
                 console.log(e.target.value)
               }}
              
@@ -485,15 +349,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
 
           <p style={{"textAlign": "center"}}>{exerciseType}</p>
 
-{/* <label className="label" htmlFor="exercise">Exercise Level</label>
-          <select className="exercise" name="exercise"id="exercise" onChange={(e) => setExercise(e.target.value)}>
-                        <option disabled>{`${exercise}x day`}</option>
-                        <option value="1">1x day</option>
-                        <option value="2">2x day</option>
-                        <option value="3">3x day</option>
-                        <option value="4">4x day</option>
-                        <option value="5">5x day</option>                       
-                      </select> */}
+
             <div className="field">
                    <label className="label">Diets</label>
                       <div className="control"></div>
@@ -603,17 +459,7 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
             </button>
           </div>
         </form>
-        {/* <div><p className='label'>{`Your BMI value is ${bmiValue}`}</p></div>
-        <div className='bmiChart'><GaugeChart 
-        id="gauge-chart5"
-         nrOfLevels={100}
-         arcsLength={[0.915, 0.315, 0.25, 0.25, 0.75]}
-         colors={[ '#33caff', '#33fe3a', '#fdfb08', '#fb8502', '#fe3135']}
-         percent={bmiValue/50}
-         formatTextValue={ bmiValue => bmiStatus }
-         textColor={"#000000"}
-         arcPadding={0.02} />
-           </div> */}
+        
           
             <div className='accountForm' id='statistics'>
             <h1 className='title' style={{"textAlign": "center"}}>Statistics</h1>
@@ -677,4 +523,4 @@ fetch(`https://api.spoonacular.com/users/connect?apiKey=${process.env.REACT_APP_
   )
 }
 
-export default Account
+export default Profile
