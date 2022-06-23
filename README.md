@@ -6,7 +6,7 @@
 
 * Set profile:
 
-![] (https://github.com/Dev-SimonD/react-supabase-login/blob/master/2022-06-23-11-26-12.gif)
+![](https://github.com/Dev-SimonD/react-supabase-login/blob/master/2022-06-23-11-26-12.gif)
 
 * Search for meal plan:
 
