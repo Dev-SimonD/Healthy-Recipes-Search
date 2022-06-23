@@ -1,7 +1,7 @@
-# Added gender to the account settings.
+# Project for searching healthy recipes based on your calorie intake
 
-### for fixing route problem run 
-[]npm run build
-[]cd build
-[]cp index.html 200.html
-[]surge
+# use npm install for installing the dependencies and get API key from spoonacular.com
+
+# Demo:
+
+

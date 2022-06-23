@@ -118,14 +118,18 @@ const Dashboard = ({session}) => {
     let IdealCalorieValue;
     if(weightGoal === "keep")
     {
-      IdealCalorieValue = TDEE;
+    IdealCalorieValue = TDEE;
     }
-    else if(weightGoal === "lose"){
-      IdealCalorieValue = TDEE - 500
+    if(weightGoal === "gain"){
+      IdealCalorieValue = +TDEE+500
     }
-    else{
-      IdealCalorieValue = TDEE + 500
+    if(weightGoal === "lose"){
+      IdealCalorieValue = parseInt(TDEE - 500)
     }
+   
+    
+    console.log("IdealCalorieValue:", IdealCalorieValue)
+    console.log("TDEE:", TDEE)
     
 
 
