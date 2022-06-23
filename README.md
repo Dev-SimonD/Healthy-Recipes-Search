@@ -4,7 +4,7 @@
 
 ### Demo:
 
-* Set profile:
+* Set profile and the app will calculate your ideal calorie intake based on the set weight goal:
 
 ![](https://github.com/Dev-SimonD/react-supabase-login/blob/master/2022-06-23-11-26-12.gif)
 
