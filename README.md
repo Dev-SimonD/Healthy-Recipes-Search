@@ -8,13 +8,13 @@
 
 ![](https://github.com/Dev-SimonD/react-supabase-login/blob/master/2022-06-23-11-26-12.gif)
 
-* Search for meal plan:
+* Search for the meal plan:
 
 ![](https://github.com/Dev-SimonD/react-supabase-login/blob/master/2022-06-23-11-31-34.gif)
 
 * Mobile Version:
 
-![]()
+![](https://github.com/Dev-SimonD/react-supabase-login/blob/master/2022-06-23-11-53-15.gif)
 
 
 
